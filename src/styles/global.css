@@ -4,28 +4,34 @@
 @import '@fontsource/lora/400.css';
 @import '@fontsource/pacifico/400.css';
 @import '@fontsource/great-vibes/400.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── Design tokens — warm, celebratory, light-first ── */
 :root {
-  --color-bg:         #ffffff;
-  --color-surface:    #f8fafc;
-  --color-border:     #e2e8f0;
-  --color-text:       #0f172a;
-  --color-text-muted: #64748b;
-  --color-accent:     #ec4899;
-  --color-accent-2:   #f97316;
+  --color-bg:         #fffbf7;
+  --color-surface:    #fff7f0;
+  --color-surface-2:  #ffeee0;
+  --color-border:     #fdd9c2;
+  --color-text:       #1a0a00;
+  --color-text-muted: #8a5c3c;
+  --color-accent:     #e8420a;
+  --color-accent-2:   #ec4899;
+  --color-glow:       rgba(232,66,10,0.10);
 }
 
 .dark {
-  --color-bg:         #0d0a14;
-  --color-surface:    #1a1025;
-  --color-border:     #2d1f3d;
-  --color-text:       #f1f5f9;
-  --color-text-muted: #94a3b8;
-  --color-accent:     #f472b6;
-  --color-accent-2:   #fb923c;
+  --color-bg:         #140a00;
+  --color-surface:    #1f1008;
+  --color-surface-2:  #2a1a0e;
+  --color-border:     #3d2415;
+  --color-text:       #fff3ea;
+  --color-text-muted: #c4936e;
+  --color-accent:     #fb923c;
+  --color-accent-2:   #f472b6;
+  --color-glow:       rgba(251,146,60,0.12);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,10 +45,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ── Warm gradient text ── */
+.gradient-text-warm {
+  background: linear-gradient(135deg, #e8420a 0%, #ec4899 50%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* ── Scroll reveal ── */
 [data-scroll] {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(28px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 [data-scroll].scroll-visible { opacity: 1; transform: none; }
@@ -51,39 +65,56 @@ body {
   [data-scroll] { opacity: 1; transform: none; transition: none; }
 }
 
-/* ── Card preview ── */
-.card-preview {
-  font-family: 'Dancing Script', cursive;
+/* ── Confetti background dots ── */
+.confetti-bg {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(236,72,153,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(249,115,22,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(232,66,10,0.04) 0%, transparent 40%);
 }
-.card-preview.font-playfair { font-family: 'Playfair Display', serif; }
-.card-preview.font-lora     { font-family: 'Lora', serif; }
-.card-preview.font-great-vibes { font-family: 'Great Vibes', cursive; }
-.card-preview.font-pacifico    { font-family: 'Pacifico', cursive; }
-.card-preview.font-inter       { font-family: 'Inter Variable', sans-serif; }
+
+/* ── Occasion card hover ── */
+.occasion-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+.occasion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(232,66,10,0.10);
+  border-color: rgba(232,66,10,0.35) !important;
+}
 
 /* ── Ad slot ── */
 .ad-slot {
   background: var(--color-surface);
   border: 1px dashed var(--color-border);
-  border-radius: 12px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-text-muted);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   min-height: 90px;
+}
+
+/* ── Template button ── */
+.tpl-btn-active {
+  background: linear-gradient(135deg, #e8420a, #ec4899) !important;
+  color: white !important;
+  box-shadow: 0 4px 16px rgba(232,66,10,0.3);
 }
 
 /* ── Cursor glow ── */
 #cursor-glow {
   pointer-events: none;
   position: fixed;
-  width: 320px; height: 320px;
+  width: 360px; height: 360px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%);
-  transform: translate(-50%, -50%) scale(0);
+  background: radial-gradient(circle, rgba(232,66,10,0.07) 0%, transparent 65%);
+  transform: translate(-50%, -50%);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.5s ease;
   z-index: 0;
 }
 
@@ -92,18 +123,28 @@ body {
   position: absolute;
   border-radius: 50%;
   width: 4px; height: 4px;
-  background: rgba(236, 72, 153, 0.25);
+  background: rgba(232, 66, 10, 0.2);
   transform: scale(0);
-  animation: ripple 0.6s ease-out forwards;
+  animation: ripple 0.65s ease-out forwards;
   pointer-events: none;
 }
-@keyframes ripple { to { transform: scale(80); opacity: 0; } }
+@keyframes ripple { to { transform: scale(90); opacity: 0; } }
 
-/* ── Occasion card hover ── */
-.occasion-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* ── Festive badge ── */
+.badge-warm {
+  background: linear-gradient(135deg, rgba(232,66,10,0.1), rgba(236,72,153,0.1));
+  border: 1px solid rgba(232,66,10,0.2);
+  color: #e8420a;
 }
-.occasion-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+.dark .badge-warm {
+  background: linear-gradient(135deg, rgba(251,146,60,0.1), rgba(244,114,182,0.1));
+  border-color: rgba(251,146,60,0.2);
+  color: #fb923c;
+}
+
+/* ── Card editor preview ── */
+.card-preview-wrap {
+  box-shadow: 0 24px 80px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08);
+  border-radius: 20px;
+  overflow: hidden;
 }
