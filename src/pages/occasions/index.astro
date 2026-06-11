@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { OCCASIONS } from '../../lib/occasions';
+---
+
+<Layout
+  title="All Occasions — Free Invitation & Card Maker | CardCraftly"
+  description="Browse all occasions — birthday, wedding, baby shower, graduation, Eid, Diwali, Halloween and more. Free invitation maker with instant PNG download."
+  canonical="https://www.cardcraftly.com/occasions/"
+>
+  <Header />
+
+  <main id="main-content" class="mx-auto max-w-6xl px-4 sm:px-6 py-12">
+
+    <div class="text-center mb-10" data-scroll="fade">
+      <h1 class="text-3xl sm:text-4xl font-black mb-3">All Occasions</h1>
+      <p class="text-[var(--color-text-muted)] max-w-xl mx-auto">
+        Choose your occasion, customize your invitation, download free. Every design, every occasion — no sign-up needed.
+      </p>
+    </div>
+
+    <!-- Ad slot -->
+    <div class="ad-slot mb-10 h-24" aria-hidden="true">Advertisement</div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" data-scroll>
+      {OCCASIONS.map(occ => (
+        <a
+          href={`/make/${occ.slug}/`}
+          class="occasion-card group flex items-start gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 hover:border-pink-300 dark:hover:border-pink-700 transition-all"
+        >
+          <div class="text-5xl shrink-0">{occ.emoji}</div>
+          <div>
+            <h2 class="font-bold text-lg mb-1 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">{occ.name}</h2>
+            <p class="text-sm text-[var(--color-text-muted)] mb-2">{occ.description}</p>
+            <span class="text-xs font-semibold text-pink-500">{occ.templates.length} free templates →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </main>
+
+  <Footer />
+</Layout>

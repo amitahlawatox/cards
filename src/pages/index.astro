@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { OCCASIONS } from '../lib/occasions';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CardCraftly — Free Invitation & Greeting Card Maker",
+  "url": "https://www.cardcraftly.com",
+  "description": "Free online invitation and greeting card maker. 12+ occasions. Customize and download PNG instantly.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+---
+
+<Layout
+  title="Free Invitation Maker & Greeting Card Creator | CardCraftly"
+  description="Create beautiful free invitations and greeting cards online. Birthday, wedding, baby shower, graduation & more. Customize text, download PNG instantly. No sign-up needed."
+  canonical="https://www.cardcraftly.com/"
+  schema={schema}
+>
+  <Header />
+
+  <main id="main-content">
+
+    <!-- Hero -->
+    <section class="relative overflow-hidden py-16 sm:py-24">
+      <div class="pointer-events-none absolute inset-0 -z-10">
+        <div class="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-pink-500/8 blur-3xl"></div>
+        <div class="absolute top-20 -left-20 w-80 h-80 rounded-full bg-orange-500/8 blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-64 h-64 rounded-full bg-rose-500/6 blur-3xl"></div>
+      </div>
+
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 text-center" data-scroll="fade">
+        <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-pink-200/60 bg-pink-50/60 px-4 py-1.5 text-sm font-semibold text-pink-700 dark:border-pink-800/60 dark:bg-pink-900/30 dark:text-pink-300">
+          🎉 100% Free · No Watermark · No Sign-Up
+        </div>
+        <h1 class="text-4xl font-black tracking-tight sm:text-6xl bg-gradient-to-br from-pink-600 via-rose-500 to-orange-500 bg-clip-text text-transparent mb-5">
+          Free Invitation &<br/>Greeting Card Maker
+        </h1>
+        <p class="mx-auto max-w-xl text-lg text-[var(--color-text-muted)] mb-8">
+          Create stunning invitations and cards for any occasion in seconds. Customize, preview live, download PNG free.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/occasions/" class="rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-orange-500 px-8 py-4 text-base font-black text-white hover:opacity-90 transition-all shadow-lg shadow-pink-500/25">
+            🎉 Browse All Occasions
+          </a>
+          <a href="/make/birthday/" class="rounded-2xl border-2 border-pink-200 dark:border-pink-800 px-8 py-4 text-base font-bold text-pink-600 dark:text-pink-400 hover:border-pink-400 hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-all">
+            🎂 Birthday Invitations
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Occasions grid -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-8" data-scroll>
+      <h2 class="text-2xl font-black text-center mb-2">Choose Your Occasion</h2>
+      <p class="text-center text-[var(--color-text-muted)] mb-8">Click any occasion to start creating your free invitation</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        {OCCASIONS.map(occ => (
+          <a
+            href={`/make/${occ.slug}/`}
+            class="occasion-card group rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 text-center hover:border-pink-300 dark:hover:border-pink-700 transition-all"
+          >
+            <div class="mb-3 text-4xl">{occ.emoji}</div>
+            <h3 class="font-bold text-sm mb-1 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">{occ.name}</h3>
+            <p class="text-xs text-[var(--color-text-muted)]">{occ.templates.length} templates</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Ad slot -->
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 my-8">
+      <div class="ad-slot h-24" aria-hidden="true">Advertisement</div>
+    </div>
+
+    <!-- Features -->
+    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-12" data-scroll>
+      <h2 class="text-2xl font-black text-center mb-10">Why CardCraftly?</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {[
+          { icon: '⚡', title: 'Live Preview', desc: 'See exactly how your card looks as you type. Every change updates instantly.' },
+          { icon: '🎨', title: 'Beautiful Templates', desc: 'Professional designs for every occasion — floral, bold, minimal, elegant.' },
+          { icon: '📥', title: 'Free PNG Download', desc: 'High-resolution, no watermark, no subscription. Just click download.' },
+          { icon: '🔒', title: 'No Account Needed', desc: 'Open CardCraftly, make your card, download it. That simple.' },
+          { icon: '📱', title: 'Mobile-Friendly', desc: 'Make invitations on your phone as easily as on a desktop.' },
+          { icon: '🌍', title: '12+ Occasions', desc: 'Birthday, wedding, baby shower, Eid, Diwali, Halloween and more.' },
+        ].map(f => (
+          <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+            <div class="mb-3 text-3xl">{f.icon}</div>
+            <h3 class="font-bold mb-1">{f.title}</h3>
+            <p class="text-sm text-[var(--color-text-muted)]">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Popular occasions CTA strip -->
+    <section class="bg-gradient-to-r from-pink-500 via-rose-500 to-orange-500 py-12 my-12" data-scroll="fade">
+      <div class="mx-auto max-w-4xl px-4 text-center text-white">
+        <h2 class="text-2xl font-black mb-3">Start Creating in 10 Seconds</h2>
+        <p class="mb-6 opacity-90">No templates to install. No software to download. 100% in your browser.</p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          {OCCASIONS.slice(0,6).map(o => (
+            <a href={`/make/${o.slug}/`} class="rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm px-4 py-2 text-sm font-bold transition-all">
+              {o.emoji} {o.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="mx-auto max-w-3xl px-4 sm:px-6 py-12" data-scroll>
+      <h2 class="text-2xl font-black text-center mb-8">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        {[
+          { q: 'Is CardCraftly completely free?', a: 'Yes. Every template, every download, every occasion — 100% free. No subscription, no watermark, no credit card.' },
+          { q: 'Can I print the invitation I create?', a: 'Yes — the PNG download is high-resolution (3× retina quality) and suitable for both digital sharing and home printing.' },
+          { q: 'How do I customize the text?', a: 'Just type in the heading, message, and footer fields. The preview updates live so you can see exactly what your card will look like.' },
+          { q: 'What occasions does CardCraftly support?', a: 'Birthday, wedding, baby shower, graduation, Christmas, retirement, Valentine\'s, Halloween, quinceañera, Eid, Diwali, housewarming — and more being added regularly.' },
+          { q: 'Do I need to create an account?', a: 'No. CardCraftly works with zero sign-up, zero cookies for tracking, and zero personal data collected.' },
+        ].map(faq => (
+          <details class="group rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+            <summary class="flex cursor-pointer items-center justify-between font-semibold list-none">
+              {faq.q}
+              <svg class="shrink-0 transition-transform group-open:rotate-180" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <p class="mt-3 text-sm text-[var(--color-text-muted)] leading-relaxed">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Bottom ad -->
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 mb-10">
+      <div class="ad-slot h-24" aria-hidden="true">Advertisement</div>
+    </div>
+
+  </main>
+
+  <Footer />
+</Layout>

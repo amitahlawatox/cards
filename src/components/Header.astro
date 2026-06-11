@@ -1,0 +1,58 @@
+---
+const pathname = Astro.url.pathname;
+---
+<header class="sticky top-0 z-40 w-full border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+
+    <a href="/" class="group flex items-center gap-2.5" aria-label="CardCraftly home">
+      <svg width="34" height="34" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+        class="flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_10px_rgba(236,72,153,0.6)]">
+        <defs>
+          <radialGradient id="cbg" cx="30%" cy="25%" r="80%">
+            <stop offset="0%"   stop-color="#fb7185"/>
+            <stop offset="50%"  stop-color="#ec4899"/>
+            <stop offset="100%" stop-color="#be185d"/>
+          </radialGradient>
+          <linearGradient id="ctint" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#f97316" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#f97316" stop-opacity="0.5"/>
+          </linearGradient>
+          <linearGradient id="cshine" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stop-color="#fff" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <clipPath id="crc"><rect width="32" height="32" rx="7.5"/></clipPath>
+        </defs>
+        <g clip-path="url(#crc)">
+          <rect width="32" height="32" fill="url(#cbg)"/>
+          <rect width="32" height="32" fill="url(#ctint)"/>
+          <rect width="32" height="32" fill="url(#cshine)"/>
+          <!-- Card icon -->
+          <rect x="7" y="9" width="18" height="14" rx="2" fill="none" stroke="white" stroke-width="2"/>
+          <line x1="7" y1="13.5" x2="25" y2="13.5" stroke="white" stroke-width="1.8"/>
+          <rect x="10" y="17" width="5" height="1.5" rx="0.75" fill="white"/>
+          <rect x="10" y="20" width="8" height="1.5" rx="0.75" fill="white"/>
+        </g>
+      </svg>
+      <span class="text-xl font-black tracking-tight bg-gradient-to-r from-pink-600 via-rose-500 to-orange-500 bg-clip-text text-transparent">
+        CardCraftly
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Main navigation">
+      <a href="/" class={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors hover:text-pink-600 ${pathname === '/' ? 'text-pink-600' : 'text-[var(--color-text-muted)]'}`}>Home</a>
+      <a href="/occasions/" class={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors hover:text-pink-600 ${pathname.startsWith('/occasions') ? 'text-pink-600' : 'text-[var(--color-text-muted)]'}`}>All Occasions</a>
+      <a href="/make/birthday/" class={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors hover:text-pink-600 ${pathname.startsWith('/make') ? 'text-pink-600' : 'text-[var(--color-text-muted)]'}`}>Make a Card</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button onclick="window.__toggleTheme()" class="rounded-xl p-2.5 text-[var(--color-text-muted)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text)] transition-all" aria-label="Toggle dark mode">
+        <svg class="dark:hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="hidden dark:block" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <a href="/occasions/" class="hidden sm:flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-sm font-bold text-white hover:opacity-90 transition-all">
+        🎉 Make Free Card
+      </a>
+    </div>
+  </div>
+</header>
