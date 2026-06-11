@@ -4,208 +4,336 @@ export interface Occasion {
   emoji: string;
   slug: string;
   description: string;
-  color: string;        // tailwind gradient from-color
-  color2: string;       // tailwind gradient to-color
+  color: string;
+  color2: string;
   tags: string[];
-  searches: number;     // approx monthly searches
+  searches: number;
   templates: CardTemplate[];
 }
 
 export interface CardTemplate {
   id: string;
   name: string;
-  bg: string;           // CSS background
+  bg: string;
   textColor: string;
   accentColor: string;
+  pattern?: string;   // CSS background-image for decorative layer
   defaultHeading: string;
   defaultBody: string;
   defaultFooter: string;
+  defaultDate?: string;
+  defaultTime?: string;
+  defaultVenue?: string;
 }
 
+// ── Shared decorative pattern helpers ──────────────────────────────
+const DOT_PATTERN  = "radial-gradient(circle,rgba(255,255,255,0.18) 1px,transparent 1px)";
+const STAR_PATTERN = "radial-gradient(circle,rgba(255,255,255,0.22) 1.5px,transparent 1.5px)";
+const STRIPE_H     = "repeating-linear-gradient(0deg,transparent,transparent 18px,rgba(255,255,255,0.06) 18px,rgba(255,255,255,0.06) 19px)";
+const STRIPE_D     = "repeating-linear-gradient(45deg,transparent,transparent 14px,rgba(255,255,255,0.06) 14px,rgba(255,255,255,0.06) 15px)";
+const CROSS        = "radial-gradient(circle,rgba(255,255,255,0.14) 1px,transparent 1px),radial-gradient(circle,rgba(255,255,255,0.14) 1px,transparent 1px)";
+
 export const OCCASIONS: Occasion[] = [
+  // ── BIRTHDAY ────────────────────────────────────────────────────
   {
     id: 'birthday',
     name: 'Birthday',
     emoji: '🎂',
     slug: 'birthday',
     description: 'Beautiful birthday invitations and cards for every age and style.',
-    color: 'from-pink-500',
-    color2: 'to-rose-400',
+    color: 'from-pink-500', color2: 'to-rose-400',
     tags: ['birthday party', 'kids birthday', 'adult birthday', 'milestone birthday'],
     searches: 1200000,
     templates: [
-      { id: 'birthday-floral', name: 'Floral', bg: 'linear-gradient(135deg,#fce7f3,#fdf2f8)', textColor: '#831843', accentColor: '#ec4899', defaultHeading: "You're Invited!", defaultBody: "Please join us to celebrate\n[Name]'s Birthday", defaultFooter: "Date · Time · Location" },
-      { id: 'birthday-bold', name: 'Bold & Fun', bg: 'linear-gradient(135deg,#fef9c3,#fef08a)', textColor: '#713f12', accentColor: '#f59e0b', defaultHeading: "Let's Party!", defaultBody: "[Name] is turning [Age]!\nCome celebrate with us", defaultFooter: "Date · Time · Location" },
-      { id: 'birthday-elegant', name: 'Elegant', bg: 'linear-gradient(135deg,#f5f3ff,#ede9fe)', textColor: '#4c1d95', accentColor: '#7c3aed', defaultHeading: "You Are Cordially Invited", defaultBody: "To celebrate the birthday of\n[Name]", defaultFooter: "RSVP by [Date]" },
-      { id: 'birthday-minimal', name: 'Minimal', bg: '#ffffff', textColor: '#0f172a', accentColor: '#6366f1', defaultHeading: "Happy Birthday", defaultBody: "[Name] · [Age] Years", defaultFooter: "Join us on [Date]" },
+      { id: 'birthday-floral',   name: 'Floral Pink',  bg: 'linear-gradient(160deg,#fce7f3,#fdf2f8,#f3e8ff)', pattern: DOT_PATTERN, textColor: '#831843', accentColor: '#ec4899', defaultHeading: "You're Invited!", defaultBody: "Please join us to celebrate", defaultFooter: "RSVP · [Your Name]", defaultDate: "Saturday, [Month] [Day], [Year]", defaultTime: "3:00 PM", defaultVenue: "[Venue Name], [City]" },
+      { id: 'birthday-bold',     name: 'Bold & Fun',   bg: 'linear-gradient(135deg,#fef9c3,#fef08a,#fde68a)', pattern: STRIPE_D, textColor: '#713f12', accentColor: '#f59e0b', defaultHeading: "Let's Party!", defaultBody: "[Name] is turning [Age]!\nCome celebrate with us", defaultFooter: "RSVP to [Contact]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'birthday-elegant',  name: 'Elegant',      bg: 'linear-gradient(135deg,#f5f3ff,#ede9fe,#ddd6fe)', pattern: DOT_PATTERN, textColor: '#4c1d95', accentColor: '#7c3aed', defaultHeading: "You Are Cordially Invited", defaultBody: "To celebrate the birthday of\n[Name]", defaultFooter: "RSVP by [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'birthday-minimal',  name: 'Minimal',      bg: '#ffffff', textColor: '#0f172a', accentColor: '#6366f1', defaultHeading: "Happy Birthday", defaultBody: "[Name] · [Age] Years", defaultFooter: "Join us on [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'birthday-tropical', name: 'Tropical',     bg: 'linear-gradient(135deg,#d1fae5,#a7f3d0,#6ee7b7)', pattern: STRIPE_H, textColor: '#064e3b', accentColor: '#059669', defaultHeading: "Aloha! 🌺", defaultBody: "Come celebrate [Name]'s\nbirthday in style!", defaultFooter: "Beach vibes · [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Beach / Location]" },
+      { id: 'birthday-night',    name: 'Night Out',    bg: 'linear-gradient(135deg,#0f172a,#1e1b4b,#312e81)', pattern: STAR_PATTERN, textColor: '#e0e7ff', accentColor: '#818cf8', defaultHeading: "Birthday Night Out 🥂", defaultBody: "Join [Name] for a night to remember", defaultFooter: "Dress to impress", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'birthday-retro',    name: 'Retro',        bg: 'linear-gradient(135deg,#fef3c7,#fde68a)', pattern: STRIPE_D, textColor: '#92400e', accentColor: '#b45309', defaultHeading: "Groovy Birthday! 🕺", defaultBody: "[Name] turns [Age]!\nLet's celebrate like it's the 70s", defaultFooter: "[Date] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'birthday-princess', name: 'Princess',     bg: 'linear-gradient(135deg,#fdf2f8,#fce7f3,#fbcfe8)', pattern: DOT_PATTERN, textColor: '#9d174d', accentColor: '#ec4899', defaultHeading: "A Royal Birthday! 👑", defaultBody: "Princess [Name]\nis turning [Age]!", defaultFooter: "Date · Time · Venue", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
     ],
   },
+
+  // ── WEDDING ─────────────────────────────────────────────────────
   {
     id: 'wedding',
     name: 'Wedding',
     emoji: '💍',
     slug: 'wedding',
     description: 'Elegant wedding invitations that set the tone for your perfect day.',
-    color: 'from-rose-400',
-    color2: 'to-pink-300',
+    color: 'from-rose-400', color2: 'to-pink-300',
     tags: ['wedding invitation', 'wedding card', 'marriage invitation', 'bridal'],
     searches: 600000,
     templates: [
-      { id: 'wedding-classic', name: 'Classic', bg: 'linear-gradient(135deg,#fdf6e3,#fef9f0)', textColor: '#44403c', accentColor: '#b45309', defaultHeading: "Together With Their Families", defaultBody: "[Partner 1] & [Partner 2]\nRequest the pleasure of your company", defaultFooter: "Date · Venue · Time" },
-      { id: 'wedding-modern', name: 'Modern', bg: 'linear-gradient(135deg,#f8fafc,#f1f5f9)', textColor: '#0f172a', accentColor: '#ec4899', defaultHeading: "We're Getting Married", defaultBody: "[Partner 1] & [Partner 2]", defaultFooter: "[Date] · [Venue]" },
-      { id: 'wedding-floral', name: 'Floral', bg: 'linear-gradient(135deg,#fce7f3,#fdf2f8)', textColor: '#831843', accentColor: '#f43f5e', defaultHeading: "Save The Date", defaultBody: "[Partner 1]\n&\n[Partner 2]", defaultFooter: "[Date] · [City]" },
+      { id: 'wedding-classic',  name: 'Classic Gold',  bg: 'linear-gradient(160deg,#fdf6e3,#fef9f0,#fffbeb)', pattern: DOT_PATTERN, textColor: '#44403c', accentColor: '#b45309', defaultHeading: "Together With Their Families", defaultBody: "[Partner 1] & [Partner 2]\nRequest the pleasure of your company", defaultFooter: "Black tie optional · RSVP by [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue], [City]" },
+      { id: 'wedding-modern',   name: 'Modern',        bg: 'linear-gradient(135deg,#f8fafc,#f1f5f9)', textColor: '#0f172a', accentColor: '#ec4899', defaultHeading: "We're Getting Married", defaultBody: "[Partner 1] & [Partner 2]", defaultFooter: "[Date] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'wedding-floral',   name: 'Floral Rose',   bg: 'linear-gradient(135deg,#fce7f3,#fdf2f8)', pattern: DOT_PATTERN, textColor: '#831843', accentColor: '#f43f5e', defaultHeading: "Save The Date", defaultBody: "[Partner 1]\n&\n[Partner 2]", defaultFooter: "[Date] · [City]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'wedding-dark',     name: 'Dark & Moody',  bg: 'linear-gradient(135deg,#1c1917,#292524)', pattern: STRIPE_D, textColor: '#fef2f2', accentColor: '#fca5a5', defaultHeading: "Forever Begins Today", defaultBody: "[Partner 1] & [Partner 2]\nwould love you to celebrate with them", defaultFooter: "[Date] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'wedding-botanical', name: 'Botanical',    bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7,#bbf7d0)', pattern: STRIPE_H, textColor: '#14532d', accentColor: '#16a34a', defaultHeading: "Join Us As We Wed", defaultBody: "[Partner 1] & [Partner 2]", defaultFooter: "[Date] · [Garden Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'wedding-minimalist', name: 'Minimalist',  bg: '#f9fafb', textColor: '#111827', accentColor: '#374151', defaultHeading: "[Partner 1] & [Partner 2]", defaultBody: "Invite you to celebrate their\nwedding day", defaultFooter: "[Date] · [Time] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
     ],
   },
+
+  // ── BABY SHOWER ─────────────────────────────────────────────────
   {
     id: 'baby-shower',
     name: 'Baby Shower',
     emoji: '👶',
     slug: 'baby-shower',
     description: 'Sweet and adorable baby shower invitations for your little one.',
-    color: 'from-sky-400',
-    color2: 'to-blue-300',
+    color: 'from-sky-400', color2: 'to-blue-300',
     tags: ['baby shower', 'gender reveal', 'baby sprinkle', 'newborn'],
     searches: 400000,
     templates: [
-      { id: 'baby-sweet', name: 'Sweet', bg: 'linear-gradient(135deg,#e0f2fe,#bae6fd)', textColor: '#0c4a6e', accentColor: '#0284c7', defaultHeading: "Baby Shower", defaultBody: "Please join us to celebrate\nthe upcoming arrival of\n[Baby Name]", defaultFooter: "Date · Time · Location" },
-      { id: 'baby-neutral', name: 'Neutral', bg: 'linear-gradient(135deg,#fef3c7,#fde68a)', textColor: '#78350f', accentColor: '#d97706', defaultHeading: "A Baby Is On The Way!", defaultBody: "Join us in celebrating\n[Parent Names]", defaultFooter: "RSVP by [Date]" },
-      { id: 'baby-girl', name: 'Girl', bg: 'linear-gradient(135deg,#fce7f3,#fbcfe8)', textColor: '#831843', accentColor: '#ec4899', defaultHeading: "It's A Girl!", defaultBody: "Baby Shower for\n[Mom's Name]", defaultFooter: "Date · Time · Location" },
-      { id: 'baby-boy', name: 'Boy', bg: 'linear-gradient(135deg,#dbeafe,#bfdbfe)', textColor: '#1e3a8a', accentColor: '#3b82f6', defaultHeading: "It's A Boy!", defaultBody: "Baby Shower for\n[Mom's Name]", defaultFooter: "Date · Time · Location" },
+      { id: 'baby-sweet',    name: 'Sweet Blue',    bg: 'linear-gradient(135deg,#e0f2fe,#bae6fd,#7dd3fc)', pattern: STRIPE_H, textColor: '#0c4a6e', accentColor: '#0284c7', defaultHeading: "Baby Shower", defaultBody: "Please join us to celebrate\nthe upcoming arrival of\n[Baby Name]", defaultFooter: "Hosted by [Name]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'baby-neutral',  name: 'Neutral Honey', bg: 'linear-gradient(135deg,#fef3c7,#fde68a)', pattern: DOT_PATTERN, textColor: '#78350f', accentColor: '#d97706', defaultHeading: "A Baby Is On The Way!", defaultBody: "Join us in celebrating\n[Parent Names]", defaultFooter: "RSVP by [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'baby-girl',     name: 'It\'s A Girl',  bg: 'linear-gradient(135deg,#fce7f3,#fbcfe8)', pattern: DOT_PATTERN, textColor: '#831843', accentColor: '#ec4899', defaultHeading: "It's A Girl! 🎀", defaultBody: "Baby Shower for\n[Mom's Name]", defaultFooter: "Date · Time · Location", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'baby-boy',      name: 'It\'s A Boy',   bg: 'linear-gradient(135deg,#dbeafe,#bfdbfe)', pattern: DOT_PATTERN, textColor: '#1e3a8a', accentColor: '#3b82f6', defaultHeading: "It's A Boy! 🐘", defaultBody: "Baby Shower for\n[Mom's Name]", defaultFooter: "Date · Time · Location", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'baby-woodland', name: 'Woodland',      bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7,#d1fae5)', pattern: STRIPE_D, textColor: '#14532d', accentColor: '#16a34a', defaultHeading: "Little One On The Way 🌿", defaultBody: "A woodland baby shower\nfor [Parent Names]", defaultFooter: "RSVP by [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'baby-modern',   name: 'Modern Blush',  bg: 'linear-gradient(135deg,#fff1f2,#fce7f3)', textColor: '#881337', accentColor: '#e11d48', defaultHeading: "Baby Shower 🌸", defaultBody: "Celebrating [Mom's Name]\nand her little one", defaultFooter: "[Date] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
     ],
   },
+
+  // ── GRADUATION ──────────────────────────────────────────────────
   {
     id: 'graduation',
     name: 'Graduation',
     emoji: '🎓',
     slug: 'graduation',
     description: 'Celebrate academic achievements with stunning graduation invitations.',
-    color: 'from-indigo-500',
-    color2: 'to-blue-400',
+    color: 'from-indigo-500', color2: 'to-blue-400',
     tags: ['graduation party', 'grad invite', 'class of 2025', 'high school graduation'],
     searches: 280000,
     templates: [
-      { id: 'grad-gold', name: 'Gold & Navy', bg: 'linear-gradient(135deg,#1e3a8a,#1e40af)', textColor: '#fbbf24', accentColor: '#f59e0b', defaultHeading: "Class of 2025", defaultBody: "Please join us as we celebrate\n[Name]'s Graduation", defaultFooter: "Date · Time · Location" },
-      { id: 'grad-modern', name: 'Modern', bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)', textColor: '#14532d', accentColor: '#16a34a', defaultHeading: "I Did It!", defaultBody: "[Name] has graduated from\n[School Name]", defaultFooter: "Celebration on [Date]" },
+      { id: 'grad-gold',    name: 'Gold & Navy',   bg: 'linear-gradient(135deg,#1e3a8a,#1e40af)', pattern: STAR_PATTERN, textColor: '#fbbf24', accentColor: '#f59e0b', defaultHeading: "Class of 2025 🎓", defaultBody: "Please join us as we celebrate\n[Name]'s Graduation", defaultFooter: "Hosted by [Family Name]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'grad-modern',  name: 'Fresh Green',   bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)', textColor: '#14532d', accentColor: '#16a34a', defaultHeading: "I Did It! 🎉", defaultBody: "[Name] has graduated from\n[School Name]", defaultFooter: "Celebration on [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'grad-maroon',  name: 'Classic Maroon', bg: 'linear-gradient(135deg,#7f1d1d,#991b1b)', pattern: DOT_PATTERN, textColor: '#fef2f2', accentColor: '#fca5a5', defaultHeading: "Commencement 2025", defaultBody: "[Name]\nhas completed [Degree]\nfrom [University]", defaultFooter: "Reception to follow", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'grad-minimal', name: 'Minimalist',    bg: '#ffffff', textColor: '#111827', accentColor: '#374151', defaultHeading: "[Name]", defaultBody: "Class of 2025\n[School / University]", defaultFooter: "Graduation Party · [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'grad-vibrant', name: 'Vibrant',       bg: 'linear-gradient(135deg,#fdf4ff,#fae8ff,#f3e8ff)', pattern: DOT_PATTERN, textColor: '#581c87', accentColor: '#9333ea', defaultHeading: "Grad Party! 🥂", defaultBody: "[Name] is graduating\nand celebrating big!", defaultFooter: "[Date] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
     ],
   },
+
+  // ── CHRISTMAS ───────────────────────────────────────────────────
   {
     id: 'christmas',
     name: 'Christmas',
     emoji: '🎄',
     slug: 'christmas',
     description: 'Festive Christmas party invitations and holiday greeting cards.',
-    color: 'from-red-600',
-    color2: 'to-green-600',
+    color: 'from-red-600', color2: 'to-green-600',
     tags: ['christmas party', 'holiday party', 'christmas invitation', 'xmas card'],
     searches: 350000,
     templates: [
-      { id: 'xmas-classic', name: 'Classic', bg: 'linear-gradient(135deg,#14532d,#166534)', textColor: '#fef9c3', accentColor: '#dc2626', defaultHeading: "You're Invited!", defaultBody: "Join us for a\nChristmas Party", defaultFooter: "Date · Time · Location" },
-      { id: 'xmas-cozy', name: 'Cozy', bg: 'linear-gradient(135deg,#fef2f2,#fee2e2)', textColor: '#7f1d1d', accentColor: '#dc2626', defaultHeading: "Merry & Bright", defaultBody: "Celebrate the season with us!", defaultFooter: "Date · Time · Venue" },
+      { id: 'xmas-classic',  name: 'Classic',       bg: 'linear-gradient(135deg,#14532d,#166534)', pattern: STAR_PATTERN, textColor: '#fef9c3', accentColor: '#dc2626', defaultHeading: "You're Invited! 🎄", defaultBody: "Join us for a\nChristmas Party", defaultFooter: "Festive attire welcome", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'xmas-cozy',     name: 'Cozy Red',      bg: 'linear-gradient(135deg,#fef2f2,#fee2e2)', pattern: DOT_PATTERN, textColor: '#7f1d1d', accentColor: '#dc2626', defaultHeading: "Merry & Bright ✨", defaultBody: "Celebrate the season with us!", defaultFooter: "Date · Time · Venue", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'xmas-winter',   name: 'Winter Blue',   bg: 'linear-gradient(135deg,#eff6ff,#dbeafe,#bfdbfe)', pattern: STRIPE_H, textColor: '#1e3a8a', accentColor: '#3b82f6', defaultHeading: "Holiday Gathering ❄️", defaultBody: "Warm hearts, cold nights\nJoin us for the holidays!", defaultFooter: "[Date] · [Time] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'xmas-gold',     name: 'Gold & Black',  bg: 'linear-gradient(135deg,#0c0a09,#1c1917)', pattern: STAR_PATTERN, textColor: '#fbbf24', accentColor: '#f59e0b', defaultHeading: "Christmas Soirée 🥂", defaultBody: "You are cordially invited\nto celebrate the season", defaultFooter: "Cocktail attire · RSVP", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
     ],
   },
+
+  // ── ANNIVERSARY ─────────────────────────────────────────────────
+  {
+    id: 'anniversary',
+    name: 'Anniversary',
+    emoji: '💑',
+    slug: 'anniversary',
+    description: 'Celebrate years of love with a beautiful anniversary party invitation.',
+    color: 'from-rose-500', color2: 'to-red-400',
+    tags: ['anniversary party', 'anniversary invitation', 'wedding anniversary', '25th anniversary', '50th anniversary'],
+    searches: 180000,
+    templates: [
+      { id: 'anni-gold',     name: 'Golden',        bg: 'linear-gradient(160deg,#fffbeb,#fef3c7,#fde68a)', pattern: DOT_PATTERN, textColor: '#78350f', accentColor: '#b45309', defaultHeading: "25 Years of Love 💛", defaultBody: "Please join us in celebrating\n[Partner 1] & [Partner 2]'s\nSilver Wedding Anniversary", defaultFooter: "Hosted by [Family]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'anni-romantic', name: 'Romantic Rose', bg: 'linear-gradient(135deg,#fff1f2,#fce7f3)', pattern: DOT_PATTERN, textColor: '#881337', accentColor: '#e11d48', defaultHeading: "Celebrating [X] Years ❤️", defaultBody: "[Partner 1] & [Partner 2]\nthen, now, always.", defaultFooter: "[Date] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'anni-elegant',  name: 'Elegant',       bg: 'linear-gradient(135deg,#1c1917,#292524)', pattern: STRIPE_D, textColor: '#fef9c3', accentColor: '#d97706', defaultHeading: "50 Years Together 🥂", defaultBody: "A Golden Anniversary Celebration\nfor [Partner 1] & [Partner 2]", defaultFooter: "Black tie · [Date] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+    ],
+  },
+
+  // ── NEW YEAR ────────────────────────────────────────────────────
+  {
+    id: 'new-year',
+    name: 'New Year',
+    emoji: '🎆',
+    slug: 'new-year',
+    description: "Ring in the new year with a spectacular New Year's Eve party invitation.",
+    color: 'from-violet-600', color2: 'to-indigo-500',
+    tags: ["new year's eve party", 'new year invitation', 'nye party', 'countdown party'],
+    searches: 240000,
+    templates: [
+      { id: 'nye-glam',    name: 'Glam Gold',    bg: 'linear-gradient(135deg,#0c0a09,#1c1917)', pattern: STAR_PATTERN, textColor: '#fbbf24', accentColor: '#f59e0b', defaultHeading: "New Year's Eve 🥂", defaultBody: "Join us to toast to [Year]!\nCocktails · Dinner · Dancing", defaultFooter: "RSVP by [Date]", defaultDate: "December 31, [Year]", defaultTime: "8:00 PM", defaultVenue: "[Venue]" },
+      { id: 'nye-modern',  name: 'Modern Blue',  bg: 'linear-gradient(135deg,#1e1b4b,#312e81)', pattern: STAR_PATTERN, textColor: '#e0e7ff', accentColor: '#818cf8', defaultHeading: "Countdown to [Year] 🎆", defaultBody: "Let's celebrate the new year\ntogether!", defaultFooter: "Date · Time · Venue", defaultDate: "December 31, [Year]", defaultTime: "9:00 PM", defaultVenue: "[Venue]" },
+      { id: 'nye-festive', name: 'Festive',      bg: 'linear-gradient(135deg,#fef9c3,#fef3c7)', pattern: STRIPE_D, textColor: '#713f12', accentColor: '#d97706', defaultHeading: "Happy New Year! 🎉", defaultBody: "Ring in [Year] with us!", defaultFooter: "Dec 31 · [Time] · [Venue]", defaultDate: "December 31, [Year]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+    ],
+  },
+
+  // ── BRIDAL SHOWER ───────────────────────────────────────────────
+  {
+    id: 'bridal-shower',
+    name: 'Bridal Shower',
+    emoji: '💐',
+    slug: 'bridal-shower',
+    description: 'Celebrate the bride-to-be with a beautiful bridal shower invitation.',
+    color: 'from-pink-400', color2: 'to-rose-300',
+    tags: ['bridal shower', 'hen party', 'bachelorette', 'bride to be', 'bridal shower invitation'],
+    searches: 200000,
+    templates: [
+      { id: 'bridal-floral',   name: 'Floral',     bg: 'linear-gradient(160deg,#fce7f3,#fdf2f8,#f3e8ff)', pattern: DOT_PATTERN, textColor: '#831843', accentColor: '#ec4899', defaultHeading: "Bridal Shower 💐", defaultBody: "Celebrating [Bride's Name]\nbefore she says 'I Do'", defaultFooter: "Hosted by [Name]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'bridal-elegant',  name: 'Elegant',    bg: 'linear-gradient(135deg,#fdf6e3,#fef9f0)', pattern: DOT_PATTERN, textColor: '#44403c', accentColor: '#b45309', defaultHeading: "She's Getting Married! 💍", defaultBody: "Please join us for a\nBridal Shower in honor of\n[Bride's Name]", defaultFooter: "RSVP to [Contact]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'bridal-modern',   name: 'Modern',     bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)', pattern: STRIPE_H, textColor: '#14532d', accentColor: '#059669', defaultHeading: "Bride-to-Be! 🌸", defaultBody: "[Bride's Name]\nis getting married!\nCome celebrate!", defaultFooter: "[Date] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+    ],
+  },
+
+  // ── GENDER REVEAL ───────────────────────────────────────────────
+  {
+    id: 'gender-reveal',
+    name: 'Gender Reveal',
+    emoji: '🎀',
+    slug: 'gender-reveal',
+    description: 'Celebrate the big reveal with a fun and memorable gender reveal invitation.',
+    color: 'from-purple-500', color2: 'to-pink-400',
+    tags: ['gender reveal party', 'gender reveal invitation', 'baby gender reveal', 'pink or blue'],
+    searches: 170000,
+    templates: [
+      { id: 'reveal-pink-blue', name: 'Pink or Blue', bg: 'linear-gradient(135deg,#fce7f3,#ede9fe)', pattern: DOT_PATTERN, textColor: '#6b21a8', accentColor: '#ec4899', defaultHeading: "Pink or Blue? 💗💙", defaultBody: "Join us to find out if\n[Parent Names]'s baby is\na boy or a girl!", defaultFooter: "Hosted by [Name]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'reveal-modern',    name: 'Modern',       bg: 'linear-gradient(135deg,#f8fafc,#f1f5f9)', textColor: '#0f172a', accentColor: '#8b5cf6', defaultHeading: "The Big Reveal! 🎉", defaultBody: "[Parent Names]\nare revealing their\nbaby's gender!", defaultFooter: "[Date] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'reveal-confetti',  name: 'Confetti',     bg: 'linear-gradient(135deg,#fdf4ff,#fae8ff)', pattern: STAR_PATTERN, textColor: '#701a75', accentColor: '#d946ef', defaultHeading: "Pop · Poof · Reveal! 🎊", defaultBody: "He or She?\nCome find out with us!", defaultFooter: "[Date] · [Time] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+    ],
+  },
+
+  // ── RETIREMENT ──────────────────────────────────────────────────
   {
     id: 'retirement',
     name: 'Retirement',
     emoji: '🎉',
     slug: 'retirement',
     description: 'Honor a lifetime of work with a beautiful retirement party invitation.',
-    color: 'from-amber-500',
-    color2: 'to-yellow-400',
+    color: 'from-amber-500', color2: 'to-yellow-400',
     tags: ['retirement party', 'retirement invitation', 'farewell party'],
     searches: 150000,
     templates: [
-      { id: 'retire-gold', name: 'Golden Years', bg: 'linear-gradient(135deg,#fffbeb,#fef3c7)', textColor: '#78350f', accentColor: '#f59e0b', defaultHeading: "Congratulations!", defaultBody: "Please join us in celebrating\n[Name]'s Retirement", defaultFooter: "Date · Time · Location" },
-      { id: 'retire-fun', name: 'Fun', bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)', textColor: '#14532d', accentColor: '#16a34a', defaultHeading: "They're Finally Free!", defaultBody: "[Name] is retiring!\nCome celebrate!", defaultFooter: "Date · Time · Venue" },
+      { id: 'retire-gold', name: 'Golden Years', bg: 'linear-gradient(135deg,#fffbeb,#fef3c7)', pattern: DOT_PATTERN, textColor: '#78350f', accentColor: '#f59e0b', defaultHeading: "Congratulations! 🎉", defaultBody: "Please join us in celebrating\n[Name]'s Retirement", defaultFooter: "Hosted by [Team / Family]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'retire-fun',  name: 'Fun',          bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)', pattern: STRIPE_H, textColor: '#14532d', accentColor: '#16a34a', defaultHeading: "They're Finally Free! 🥳", defaultBody: "[Name] is retiring!\nCome celebrate!", defaultFooter: "Date · Time · Venue", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'retire-class', name: 'Classy',      bg: 'linear-gradient(135deg,#1c1917,#292524)', pattern: DOT_PATTERN, textColor: '#fef9c3', accentColor: '#d97706', defaultHeading: "A Career Well Celebrated 🥂", defaultBody: "[Name] is retiring after\n[X] years of excellence", defaultFooter: "Formal dinner · RSVP", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
     ],
   },
+
+  // ── VALENTINE'S ─────────────────────────────────────────────────
   {
     id: 'valentines',
     name: "Valentine's Day",
     emoji: '❤️',
     slug: 'valentines',
     description: "Share the love with beautiful Valentine's Day cards and invitations.",
-    color: 'from-red-500',
-    color2: 'to-pink-500',
+    color: 'from-red-500', color2: 'to-pink-500',
     tags: ["valentine's day", 'love card', 'romantic invitation', 'galentines'],
     searches: 220000,
     templates: [
-      { id: 'val-romantic', name: 'Romantic', bg: 'linear-gradient(135deg,#fff1f2,#fce7f3)', textColor: '#881337', accentColor: '#e11d48', defaultHeading: "Be My Valentine", defaultBody: "You make my heart smile.\nWill you be mine?", defaultFooter: "With love, [Your Name]" },
-      { id: 'val-cute', name: 'Cute', bg: 'linear-gradient(135deg,#fce7f3,#f3e8ff)', textColor: '#6b21a8', accentColor: '#ec4899', defaultHeading: "Galentine's Party!", defaultBody: "Celebrating friendship & love\nwith the best people", defaultFooter: "Date · Time · Location" },
+      { id: 'val-romantic', name: 'Romantic',    bg: 'linear-gradient(135deg,#fff1f2,#fce7f3)', pattern: DOT_PATTERN, textColor: '#881337', accentColor: '#e11d48', defaultHeading: "Be My Valentine ❤️", defaultBody: "You make my heart smile.\nWill you be mine?", defaultFooter: "With love, [Your Name]", defaultDate: "February 14", defaultTime: "", defaultVenue: "" },
+      { id: 'val-cute',     name: 'Galentines', bg: 'linear-gradient(135deg,#fce7f3,#f3e8ff)', pattern: DOT_PATTERN, textColor: '#6b21a8', accentColor: '#ec4899', defaultHeading: "Galentine's Party! 💕", defaultBody: "Celebrating friendship & love\nwith the best people", defaultFooter: "Date · Time · Location", defaultDate: "February 13", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'val-dinner',   name: 'Dinner Date', bg: 'linear-gradient(135deg,#1c1917,#292524)', pattern: STAR_PATTERN, textColor: '#fecdd3', accentColor: '#f43f5e', defaultHeading: "Dinner For Two 🕯️", defaultBody: "An intimate Valentine's evening\njust for us", defaultFooter: "February 14 · [Restaurant]", defaultDate: "February 14", defaultTime: "[Time]", defaultVenue: "[Restaurant]" },
     ],
   },
+
+  // ── HALLOWEEN ───────────────────────────────────────────────────
   {
     id: 'halloween',
     name: 'Halloween',
     emoji: '🎃',
     slug: 'halloween',
     description: 'Spooky and fun Halloween party invitations for all ages.',
-    color: 'from-orange-500',
-    color2: 'to-orange-400',
+    color: 'from-orange-500', color2: 'to-orange-400',
     tags: ['halloween party', 'spooky invitation', 'costume party', 'trick or treat'],
     searches: 200000,
     templates: [
-      { id: 'halloween-spooky', name: 'Spooky', bg: 'linear-gradient(135deg,#1c1917,#292524)', textColor: '#fb923c', accentColor: '#f97316', defaultHeading: "If You Dare…", defaultBody: "You're Invited to a\nHalloween Party!", defaultFooter: "Date · Time · Location" },
-      { id: 'halloween-fun', name: 'Fun', bg: 'linear-gradient(135deg,#fff7ed,#ffedd5)', textColor: '#7c2d12', accentColor: '#ea580c', defaultHeading: "Boo! Halloween Party", defaultBody: "Dress up and come celebrate!", defaultFooter: "Date · Time · Venue" },
+      { id: 'halloween-spooky', name: 'Spooky',      bg: 'linear-gradient(135deg,#1c1917,#292524)', pattern: STAR_PATTERN, textColor: '#fb923c', accentColor: '#f97316', defaultHeading: "If You Dare… 🎃", defaultBody: "You're Invited to a\nHalloween Party!", defaultFooter: "Costumes required", defaultDate: "October 31", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'halloween-fun',    name: 'Fun Kids',    bg: 'linear-gradient(135deg,#fff7ed,#ffedd5)', pattern: DOT_PATTERN, textColor: '#7c2d12', accentColor: '#ea580c', defaultHeading: "Boo! 🎃", defaultBody: "Trick or treat!\nCome in costume!", defaultFooter: "October 31 · [Time] · [Address]", defaultDate: "October 31", defaultTime: "[Time]", defaultVenue: "[Address]" },
+      { id: 'halloween-witch',  name: 'Witch Night', bg: 'linear-gradient(135deg,#1a1a2e,#16213e)', pattern: STAR_PATTERN, textColor: '#c084fc', accentColor: '#a855f7', defaultHeading: "Witch's Gathering 🧙‍♀️", defaultBody: "Broomsticks at the door\nby midnight!", defaultFooter: "Oct 31 · [Time] · [Venue]", defaultDate: "October 31", defaultTime: "8:00 PM", defaultVenue: "[Venue]" },
     ],
   },
+
+  // ── QUINCEAÑERA ─────────────────────────────────────────────────
   {
     id: 'quinceañera',
     name: 'Quinceañera',
     emoji: '👑',
     slug: 'quinceanera',
     description: 'Celebrate a quinceañera with a stunning, unforgettable invitation.',
-    color: 'from-fuchsia-500',
-    color2: 'to-pink-400',
+    color: 'from-fuchsia-500', color2: 'to-pink-400',
     tags: ['quinceañera', 'quince', 'mis quince', '15th birthday invitation'],
     searches: 90000,
     templates: [
-      { id: 'quince-royal', name: 'Royal', bg: 'linear-gradient(135deg,#fdf4ff,#fae8ff)', textColor: '#701a75', accentColor: '#d946ef', defaultHeading: "Mis Quince Años", defaultBody: "Request the honor of your presence\nat the quinceañera of\n[Name]", defaultFooter: "Date · Time · Venue" },
-      { id: 'quince-glam', name: 'Glam', bg: 'linear-gradient(135deg,#fdf2f8,#fce7f3)', textColor: '#831843', accentColor: '#ec4899', defaultHeading: "Quinceañera", defaultBody: "Celebrating 15 years of\n[Name]", defaultFooter: "Date · Venue · RSVP" },
+      { id: 'quince-royal', name: 'Royal',    bg: 'linear-gradient(135deg,#fdf4ff,#fae8ff)', pattern: DOT_PATTERN, textColor: '#701a75', accentColor: '#d946ef', defaultHeading: "Mis Quince Años 👑", defaultBody: "Request the honor of your presence\nat the quinceañera of\n[Name]", defaultFooter: "RSVP · [Contact]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'quince-glam',  name: 'Glam',     bg: 'linear-gradient(135deg,#1c1917,#292524)', pattern: STAR_PATTERN, textColor: '#f9a8d4', accentColor: '#ec4899', defaultHeading: "Quinceañera 🎀", defaultBody: "Celebrating 15 years of\n[Name]", defaultFooter: "Date · Venue · RSVP", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'quince-light', name: 'Soft Pink', bg: 'linear-gradient(135deg,#fdf2f8,#fce7f3,#fbcfe8)', pattern: DOT_PATTERN, textColor: '#831843', accentColor: '#f43f5e', defaultHeading: "XV Años 🌸", defaultBody: "[Name]\ncelebrates her 15th birthday", defaultFooter: "[Date] · [Venue]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
     ],
   },
+
+  // ── EID ─────────────────────────────────────────────────────────
   {
     id: 'eid',
     name: 'Eid',
     emoji: '🌙',
     slug: 'eid',
     description: 'Beautiful Eid Mubarak invitations and greeting cards for family and friends.',
-    color: 'from-emerald-600',
-    color2: 'to-teal-500',
+    color: 'from-emerald-600', color2: 'to-teal-500',
     tags: ['eid mubarak', 'eid party', 'eid al fitr', 'eid al adha', 'eid invitation'],
     searches: 120000,
     templates: [
-      { id: 'eid-classic', name: 'Classic', bg: 'linear-gradient(135deg,#064e3b,#065f46)', textColor: '#d1fae5', accentColor: '#34d399', defaultHeading: "Eid Mubarak", defaultBody: "You are warmly invited\nto celebrate Eid with us", defaultFooter: "Date · Time · Location" },
-      { id: 'eid-modern', name: 'Modern', bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)', textColor: '#14532d', accentColor: '#059669', defaultHeading: "Eid Mubarak 🌙", defaultBody: "Wishing you and your family\nEid filled with joy & blessings", defaultFooter: "From [Your Family Name]" },
+      { id: 'eid-classic',   name: 'Classic Green', bg: 'linear-gradient(135deg,#064e3b,#065f46)', pattern: STAR_PATTERN, textColor: '#d1fae5', accentColor: '#34d399', defaultHeading: "Eid Mubarak 🌙", defaultBody: "You are warmly invited\nto celebrate Eid with us", defaultFooter: "Hosted by [Family Name]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'eid-modern',    name: 'Modern',        bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)', pattern: STRIPE_H, textColor: '#14532d', accentColor: '#059669', defaultHeading: "Eid Mubarak 🌙", defaultBody: "Wishing you and your family\nEid filled with joy & blessings", defaultFooter: "From [Your Family Name]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'eid-gold',      name: 'Gold & Green',  bg: 'linear-gradient(135deg,#1a2e1a,#1c3520)', pattern: STAR_PATTERN, textColor: '#fbbf24', accentColor: '#f59e0b', defaultHeading: "Eid Mubarak ✨", defaultBody: "May this Eid bring peace,\njoy, and blessings to all", defaultFooter: "Celebrate with [Family Name]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
     ],
   },
+
+  // ── DIWALI ──────────────────────────────────────────────────────
   {
     id: 'diwali',
     name: 'Diwali',
     emoji: '🪔',
     slug: 'diwali',
     description: 'Illuminate your celebrations with vibrant Diwali invitation cards.',
-    color: 'from-amber-400',
-    color2: 'to-orange-500',
+    color: 'from-amber-400', color2: 'to-orange-500',
     tags: ['diwali invitation', 'diwali party', 'deepawali', 'festival of lights'],
     searches: 100000,
     templates: [
-      { id: 'diwali-vibrant', name: 'Vibrant', bg: 'linear-gradient(135deg,#7c2d12,#92400e)', textColor: '#fef9c3', accentColor: '#f59e0b', defaultHeading: "Happy Diwali! 🪔", defaultBody: "You are invited to celebrate\nthe Festival of Lights with us", defaultFooter: "Date · Time · Location" },
-      { id: 'diwali-modern', name: 'Modern', bg: 'linear-gradient(135deg,#fffbeb,#fef3c7)', textColor: '#92400e', accentColor: '#d97706', defaultHeading: "Diwali Celebration", defaultBody: "Join us for sweets, lights,\nand togetherness", defaultFooter: "Date · Venue · RSVP" },
+      { id: 'diwali-vibrant', name: 'Vibrant',    bg: 'linear-gradient(135deg,#7c2d12,#92400e)', pattern: STAR_PATTERN, textColor: '#fef9c3', accentColor: '#f59e0b', defaultHeading: "Happy Diwali! 🪔", defaultBody: "You are invited to celebrate\nthe Festival of Lights with us", defaultFooter: "Hosted by [Family Name]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'diwali-modern',  name: 'Modern',     bg: 'linear-gradient(135deg,#fffbeb,#fef3c7)', pattern: DOT_PATTERN, textColor: '#92400e', accentColor: '#d97706', defaultHeading: "Diwali Celebration 🪔", defaultBody: "Join us for sweets, lights,\nand togetherness", defaultFooter: "Date · Venue · RSVP", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'diwali-royal',   name: 'Royal Dark', bg: 'linear-gradient(135deg,#1c1917,#292524)', pattern: STAR_PATTERN, textColor: '#fbbf24', accentColor: '#f59e0b', defaultHeading: "शुभ दीपावली 🪔", defaultBody: "A Diwali Celebration\nhosted by [Family Name]", defaultFooter: "Sweets · Fireworks · [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
     ],
   },
+
+  // ── HOUSEWARMING ────────────────────────────────────────────────
   {
     id: 'housewarming',
     name: 'Housewarming',
     emoji: '🏠',
     slug: 'housewarming',
     description: 'Welcome guests to your new home with a warm, beautiful invitation.',
-    color: 'from-teal-500',
-    color2: 'to-cyan-400',
+    color: 'from-teal-500', color2: 'to-cyan-400',
     tags: ['housewarming party', 'new home', 'open house invitation', 'moving party'],
     searches: 130000,
     templates: [
-      { id: 'house-warm', name: 'Warm', bg: 'linear-gradient(135deg,#fff7ed,#ffedd5)', textColor: '#7c2d12', accentColor: '#ea580c', defaultHeading: "We've Moved!", defaultBody: "Please come warm our new home\nwith your presence", defaultFooter: "Address · Date · Time" },
-      { id: 'house-modern', name: 'Modern', bg: 'linear-gradient(135deg,#f0fdfa,#ccfbf1)', textColor: '#134e4a', accentColor: '#0d9488', defaultHeading: "Housewarming Party", defaultBody: "[Your Name]\nis hosting a housewarming!", defaultFooter: "Date · Address · RSVP" },
+      { id: 'house-warm',   name: 'Warm',    bg: 'linear-gradient(135deg,#fff7ed,#ffedd5)', pattern: DOT_PATTERN, textColor: '#7c2d12', accentColor: '#ea580c', defaultHeading: "We've Moved! 🏠", defaultBody: "Please come warm our new home\nwith your presence", defaultFooter: "Light bites & drinks provided", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[New Address]" },
+      { id: 'house-modern', name: 'Modern',  bg: 'linear-gradient(135deg,#f0fdfa,#ccfbf1)', pattern: STRIPE_H, textColor: '#134e4a', accentColor: '#0d9488', defaultHeading: "Housewarming Party 🎉", defaultBody: "[Your Name]\nis hosting a housewarming!", defaultFooter: "RSVP by [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Address]" },
+      { id: 'house-minimal', name: 'Minimal', bg: '#f9fafb', textColor: '#111827', accentColor: '#374151', defaultHeading: "New Home. New Memories.", defaultBody: "[Your Names]\ncordially invite you\nto celebrate their new home", defaultFooter: "[Date] · [Address]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Address]" },
+    ],
+  },
+
+  // ── GET WELL SOON ───────────────────────────────────────────────
+  {
+    id: 'get-well',
+    name: 'Get Well Soon',
+    emoji: '🌻',
+    slug: 'get-well',
+    description: 'Send warm wishes and a speedy recovery with a heartfelt get well card.',
+    color: 'from-yellow-400', color2: 'to-green-400',
+    tags: ['get well soon card', 'get well card', 'speedy recovery', 'feel better card'],
+    searches: 160000,
+    templates: [
+      { id: 'getwell-sunny',  name: 'Sunny',   bg: 'linear-gradient(135deg,#fef9c3,#fef3c7)', pattern: DOT_PATTERN, textColor: '#713f12', accentColor: '#d97706', defaultHeading: "Get Well Soon 🌻", defaultBody: "Sending you sunshine and love.\nWishing you a speedy recovery!", defaultFooter: "Warmly, [Your Name]", defaultDate: "", defaultTime: "", defaultVenue: "" },
+      { id: 'getwell-floral', name: 'Floral',  bg: 'linear-gradient(135deg,#d1fae5,#a7f3d0)', pattern: STRIPE_H, textColor: '#064e3b', accentColor: '#059669', defaultHeading: "Feel Better Soon 🌸", defaultBody: "You are stronger than you know.\nWe're all rooting for you!", defaultFooter: "With love, [Your Name]", defaultDate: "", defaultTime: "", defaultVenue: "" },
+      { id: 'getwell-warm',   name: 'Warm',    bg: 'linear-gradient(135deg,#fff1f2,#fce7f3)', pattern: DOT_PATTERN, textColor: '#881337', accentColor: '#e11d48', defaultHeading: "Thinking of You 💗", defaultBody: "Sending healing thoughts\nand warm wishes your way.", defaultFooter: "[Your Name]", defaultDate: "", defaultTime: "", defaultVenue: "" },
     ],
   },
 ];
