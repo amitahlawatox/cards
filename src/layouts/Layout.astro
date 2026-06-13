@@ -40,23 +40,17 @@ const { title, description, canonical, ogImage = '/og-image.png', schema, noInde
     {schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
     <script is:inline>
+      /* Guaranteed light mode — wipe every possible theme key, never read OS preference */
       (function(){
-        /* Wipe ALL old keys that may have auto-saved dark mode */
         try {
-          localStorage.removeItem('cc-theme');
-          localStorage.removeItem('theme');
-          localStorage.removeItem('color-theme');
+          ['cc-theme','cc-theme-v2','theme','color-theme','dark-mode'].forEach(function(k){
+            localStorage.removeItem(k);
+          });
         } catch(e){}
-        /* Always default to light — only go dark if user explicitly chose it */
         document.documentElement.classList.remove('dark');
-        try {
-          if(localStorage.getItem('cc-theme-v2')==='dark')
-            document.documentElement.classList.add('dark');
-        } catch(e){}
-        window.__toggleTheme=function(){
-          var isDark=document.documentElement.classList.toggle('dark');
-          try{ localStorage.setItem('cc-theme-v2', isDark ? 'dark' : 'light'); }catch(e){}
-          if(typeof window.__onThemeChange==='function') window.__onThemeChange(isDark);
+        window.__toggleTheme = function(){
+          var d = document.documentElement.classList.toggle('dark');
+          if(typeof window.__onThemeChange === 'function') window.__onThemeChange(d);
         };
       })();
     </script>

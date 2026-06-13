@@ -1,11 +1,36 @@
 import { motion } from 'framer-motion';
 
 const CARDS = [
-  { bg: 'linear-gradient(160deg,#fce7f3,#fdf2f8,#f3e8ff)', label: '🎂 Birthday',    rotate: -10, left: '4%',  top: '5%'  },
-  { bg: 'linear-gradient(135deg,#fdf6e3,#fef9f0,#fffbeb)', label: '💍 Wedding',     rotate:  7,  left: '52%', top: '0%'  },
-  { bg: 'linear-gradient(135deg,#e0f2fe,#bae6fd)',          label: '👶 Baby Shower', rotate: -4,  left: '28%', top: '52%' },
-  { bg: 'linear-gradient(135deg,#1e3a8a,#1e40af)',          label: '🎓 Graduation',  rotate:  11, left: '70%', top: '38%' },
-  { bg: 'linear-gradient(135deg,#14532d,#166534)',           label: '🎄 Christmas',   rotate: -7,  left: '76%', top: '8%'  },
+  {
+    bg: 'linear-gradient(160deg,#fce7f3,#fdf2f8,#f3e8ff)',
+    accent: '#ec4899', textDark: '#831843', textMid: '#9d174d',
+    emoji: '🎂', title: "You're Invited!", sub: 'Join us to celebrate', footer: 'RSVP · June 2025',
+    rotate: -10, left: '4%', top: '5%',
+  },
+  {
+    bg: 'linear-gradient(135deg,#fdf6e3,#fef9f0,#fffbeb)',
+    accent: '#b45309', textDark: '#44403c', textMid: '#78716c',
+    emoji: '💍', title: 'Together Forever', sub: 'Sarah & James', footer: 'July 12, 2025 · 4 PM',
+    rotate: 7, left: '52%', top: '0%',
+  },
+  {
+    bg: 'linear-gradient(135deg,#e0f2fe,#bae6fd,#e0f9fe)',
+    accent: '#0284c7', textDark: '#0c4a6e', textMid: '#075985',
+    emoji: '👶', title: "It's a Baby Shower!", sub: 'Celebrating Emma', footer: 'Aug 3 · 2:00 PM',
+    rotate: -4, left: '28%', top: '52%',
+  },
+  {
+    bg: 'linear-gradient(135deg,#1e3a8a,#1e40af)',
+    accent: '#93c5fd', textDark: '#eff6ff', textMid: '#bfdbfe',
+    emoji: '🎓', title: 'Class of 2025', sub: 'Graduation Celebration', footer: 'May 20 · 6:00 PM',
+    rotate: 11, left: '70%', top: '38%',
+  },
+  {
+    bg: 'linear-gradient(135deg,#14532d,#166534)',
+    accent: '#86efac', textDark: '#f0fdf4', textMid: '#bbf7d0',
+    emoji: '🎄', title: 'Holiday Party', sub: "You're invited to our\nChristmas celebration", footer: 'Dec 21 · 7 PM',
+    rotate: -7, left: '76%', top: '8%',
+  },
 ];
 
 const container = {
@@ -150,9 +175,23 @@ export default function HeroSection() {
                   boxShadow: '0 20px 60px rgba(0,0,0,0.35), 0 4px 16px rgba(0,0,0,0.2)',
                 }}
               >
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(255,255,255,0.28) 0%, transparent 60%)' }} />
-                <div className="absolute inset-x-3 bottom-3">
-                  <div className="text-xs font-semibold" style={{ color: 'rgba(0,0,0,0.45)' }}>{card.label}</div>
+                {/* Shine overlay */}
+                <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(160deg, rgba(255,255,255,0.22) 0%, transparent 55%)' }} />
+                {/* Card content */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center px-3 py-4 text-center gap-1.5">
+                  <div style={{ fontSize: 28, lineHeight: 1 }}>{card.emoji}</div>
+                  <div style={{ width: 24, height: 2, borderRadius: 2, background: card.accent, opacity: 0.8, marginTop: 2 }} />
+                  <div style={{ fontSize: 10, fontWeight: 700, color: card.textDark, lineHeight: 1.2, maxWidth: '90%' }}>
+                    {card.title}
+                  </div>
+                  <div style={{ fontSize: 8, color: card.textMid, lineHeight: 1.3, whiteSpace: 'pre-line' }}>
+                    {card.sub}
+                  </div>
+                  <div style={{ width: 16, height: 1, background: card.accent, opacity: 0.35, marginTop: 2 }} />
+                </div>
+                {/* Footer */}
+                <div className="absolute inset-x-3 bottom-2.5 text-center">
+                  <div style={{ fontSize: 7, fontWeight: 600, color: card.textMid, letterSpacing: '0.04em' }}>{card.footer}</div>
                 </div>
               </motion.div>
             ))}

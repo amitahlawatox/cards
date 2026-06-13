@@ -26,10 +26,10 @@ const allTemplates = OCCASIONS.flatMap(occ =>
         <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest badge-warm">
           100+ Templates
         </div>
-        <h1 class="font-black tracking-tight mb-4" style="font-size:clamp(2.5rem,6vw,4rem);color:var(--color-text);line-height:1.05;">
+        <h1 class="font-black tracking-tight mb-4" style="font-size:clamp(2.5rem,6vw,4rem);color:#1A1340;line-height:1.05;">
           All Templates
         </h1>
-        <p class="text-lg max-w-xl mx-auto mb-8" style="color:var(--color-text-muted);">
+        <p class="text-lg max-w-xl mx-auto mb-8" style="color:#6B63A3;">
           Browse every design across all occasions. Click any template to open the editor and start customizing.
         </p>
       </div>
@@ -42,8 +42,8 @@ const allTemplates = OCCASIONS.flatMap(occ =>
           <div class="flex items-center gap-3">
             <span class="text-3xl">{occ.emoji}</span>
             <div>
-              <h2 class="text-xl font-black" style="color:var(--color-text);">{occ.name}</h2>
-              <p class="text-xs" style="color:var(--color-text-muted);">{occ.templates.length} templates</p>
+              <h2 class="text-xl font-black" style="color:#1A1340;">{occ.name}</h2>
+              <p class="text-xs" style="color:#6B63A3;">{occ.templates.length} templates</p>
             </div>
           </div>
           <a href={`/make/${occ.slug}/`}
@@ -89,9 +89,9 @@ const allTemplates = OCCASIONS.flatMap(occ =>
                 </div>
               </div>
               <!-- Label -->
-              <div class="px-3 py-2.5" style="background:var(--color-surface);border-top:1px solid var(--color-border);">
-                <p class="text-xs font-bold truncate" style="color:var(--color-text);">{tpl.name}</p>
-                <p class="text-xs" style="color:var(--color-text-muted);">{occ.emoji} {occ.name}</p>
+              <div class="px-3 py-2.5" style="background:#fff;border-top:1px solid #E4E1FF;">
+                <p class="text-xs font-bold truncate" style="color:#1A1340;">{tpl.name}</p>
+                <p class="text-xs" style="color:#6B63A3;">{occ.emoji} {occ.name}</p>
               </div>
             </a>
           ))}
