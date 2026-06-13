@@ -9,24 +9,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design tokens — warm, celebratory, light-first ── */
+/* ── Design tokens ── */
 :root {
   --color-bg:         #fffbf7;
-  --color-surface:    #fff7f0;
-  --color-surface-2:  #ffeee0;
-  --color-border:     #fdd9c2;
+  --color-surface:    #ffffff;
+  --color-surface-2:  #fef5ec;
+  --color-border:     #f0e4d4;
   --color-text:       #1a0a00;
   --color-text-muted: #8a5c3c;
-  --color-accent:     #e8420a;
-  --color-accent-2:   #ec4899;
-  --color-glow:       rgba(232,66,10,0.10);
+  --color-accent:     #EA580C;
+  --color-accent-2:   #EC4899;
+  --color-glow:       rgba(234,88,12,0.10);
 }
 
 .dark {
-  --color-bg:         #140a00;
-  --color-surface:    #1f1008;
-  --color-surface-2:  #2a1a0e;
-  --color-border:     #3d2415;
+  --color-bg:         #0e0804;
+  --color-surface:    #1a0f08;
+  --color-surface-2:  #221508;
+  --color-border:     #3a2415;
   --color-text:       #fff3ea;
   --color-text-muted: #c4936e;
   --color-accent:     #fb923c;
@@ -43,11 +43,12 @@ body {
   color: var(--color-text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Warm gradient text ── */
+/* ── Gradient text ── */
 .gradient-text-warm {
-  background: linear-gradient(135deg, #e8420a 0%, #ec4899 50%, #f97316 100%);
+  background: linear-gradient(135deg, #EA580C 0%, #EC4899 50%, #f97316 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -56,31 +57,29 @@ body {
 /* ── Scroll reveal ── */
 [data-scroll] {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 [data-scroll].scroll-visible { opacity: 1; transform: none; }
 [data-scroll="fade"] { transform: none; }
+
 @media (prefers-reduced-motion: reduce) {
   [data-scroll] { opacity: 1; transform: none; transition: none; }
-}
-
-/* ── Confetti background dots ── */
-.confetti-bg {
-  background-image:
-    radial-gradient(circle at 20% 20%, rgba(236,72,153,0.06) 0%, transparent 40%),
-    radial-gradient(circle at 80% 10%, rgba(249,115,22,0.06) 0%, transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(232,66,10,0.04) 0%, transparent 40%);
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ── Occasion card hover ── */
 .occasion-card {
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease, border-color 0.22s ease;
 }
 .occasion-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(232,66,10,0.10);
-  border-color: rgba(232,66,10,0.35) !important;
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(234,88,12,0.12);
+  border-color: rgba(234,88,12,0.3) !important;
 }
 
 /* ── Ad slot ── */
@@ -98,20 +97,20 @@ body {
   min-height: 90px;
 }
 
-/* ── Template button ── */
+/* ── Template active ── */
 .tpl-btn-active {
-  background: linear-gradient(135deg, #e8420a, #ec4899) !important;
+  background: linear-gradient(135deg, #EA580C, #EC4899) !important;
   color: white !important;
-  box-shadow: 0 4px 16px rgba(232,66,10,0.3);
+  box-shadow: 0 4px 18px rgba(234,88,12,0.35);
 }
 
 /* ── Cursor glow ── */
 #cursor-glow {
   pointer-events: none;
   position: fixed;
-  width: 360px; height: 360px;
+  width: 380px; height: 380px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232,66,10,0.07) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(234,88,12,0.065) 0%, transparent 65%);
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -123,18 +122,18 @@ body {
   position: absolute;
   border-radius: 50%;
   width: 4px; height: 4px;
-  background: rgba(232, 66, 10, 0.2);
+  background: rgba(234,88,12,0.18);
   transform: scale(0);
-  animation: ripple 0.65s ease-out forwards;
+  animation: ripple 0.7s ease-out forwards;
   pointer-events: none;
 }
 @keyframes ripple { to { transform: scale(90); opacity: 0; } }
 
-/* ── Festive badge ── */
+/* ── Badges ── */
 .badge-warm {
-  background: linear-gradient(135deg, rgba(232,66,10,0.1), rgba(236,72,153,0.1));
-  border: 1px solid rgba(232,66,10,0.2);
-  color: #e8420a;
+  background: linear-gradient(135deg, rgba(234,88,12,0.08), rgba(236,72,153,0.08));
+  border: 1px solid rgba(234,88,12,0.18);
+  color: #EA580C;
 }
 .dark .badge-warm {
   background: linear-gradient(135deg, rgba(251,146,60,0.1), rgba(244,114,182,0.1));
@@ -142,9 +141,28 @@ body {
   color: #fb923c;
 }
 
-/* ── Card editor preview ── */
+/* ── Card preview shadow ── */
 .card-preview-wrap {
-  box-shadow: 0 24px 80px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08);
-  border-radius: 20px;
+  box-shadow: 0 32px 100px rgba(0,0,0,0.18), 0 4px 20px rgba(0,0,0,0.08);
+  border-radius: 24px;
   overflow: hidden;
+}
+
+/* ── Glass ── */
+.glass {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+.dark .glass {
+  background: rgba(26,15,8,0.75);
+  border-color: rgba(255,255,255,0.06);
+}
+
+/* ── Dark glass for header on hero ── */
+.glass-dark {
+  background: rgba(12,7,5,0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }

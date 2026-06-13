@@ -1,0 +1,131 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { OCCASIONS } from '../../lib/occasions';
+
+const totalTemplates = OCCASIONS.reduce((sum, o) => sum + o.templates.length, 0);
+---
+
+<Layout
+  title="About CardCraftly — Free Online Card & Invitation Maker"
+  description="CardCraftly is a free, no-signup invitation and greeting card maker. Create beautiful cards for any occasion and download high-resolution PNG instantly."
+  canonical="https://www.cardcraftly.com/about/"
+>
+  <Header />
+
+  <main id="main-content">
+
+    <!-- Hero -->
+    <section class="relative overflow-hidden py-24 lg:py-32" style="background:#0C0705;">
+      <div class="absolute pointer-events-none" style="top:-20%;left:20%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(234,88,12,0.15) 0%,transparent 60%);" />
+      <div class="absolute pointer-events-none" style="bottom:-10%;right:10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,0.12) 0%,transparent 60%);" />
+      <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:80px 80px;" />
+      <div class="relative mx-auto max-w-4xl px-6 text-center">
+        <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest" style="background:rgba(234,88,12,0.1);border:1px solid rgba(234,88,12,0.2);color:#fb923c;">
+          Our Mission
+        </div>
+        <h1 class="font-black tracking-tight mb-6 text-white" style="font-size:clamp(2.5rem,7vw,4.5rem);line-height:0.95;">
+          Beautiful cards for<br />
+          <span style="background:linear-gradient(135deg,#fb923c,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+            every celebration
+          </span>
+        </h1>
+        <p class="text-xl max-w-2xl mx-auto leading-relaxed" style="color:rgba(255,255,255,0.45);">
+          CardCraftly exists to make creating a beautiful invitation or greeting card instant, free, and enjoyable — for everyone, for every occasion.
+        </p>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="relative overflow-hidden py-16" style="background:var(--color-surface-2);">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center" data-scroll="fade">
+          {[
+            [OCCASIONS.length + '+', 'Occasions'],
+            [totalTemplates + '+', 'Templates'],
+            ['100%', 'Free, Forever'],
+            ['0', 'Required Sign-ups'],
+          ].map(([val, label]) => (
+            <div>
+              <div class="font-black mb-1" style="font-size:2.5rem;line-height:1;background:linear-gradient(135deg,#ea580c,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{val}</div>
+              <div class="text-sm font-semibold" style="color:var(--color-text-muted);">{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission content -->
+    <section class="mx-auto max-w-3xl px-6 py-20" data-scroll>
+      <div class="prose-like space-y-8">
+        <div class="rounded-2xl p-8" style="background:var(--color-surface);border:1px solid var(--color-border);">
+          <h2 class="text-2xl font-black mb-4" style="color:var(--color-text);">Why we built this</h2>
+          <p class="leading-relaxed" style="color:var(--color-text-muted);">
+            Creating an invitation shouldn't require a graphic design degree, a Canva subscription, or thirty minutes of your day.
+            CardCraftly was built on one principle: <strong style="color:var(--color-text);">beautiful cards should be accessible to everyone</strong>.
+          </p>
+          <p class="mt-4 leading-relaxed" style="color:var(--color-text-muted);">
+            Whether you're planning a birthday party, celebrating a wedding, or sending a get-well-soon card,
+            CardCraftly gives you professional-quality designs in seconds — completely free, with no watermark, no account, and no hidden costs.
+          </p>
+        </div>
+
+        <div class="rounded-2xl p-8" style="background:var(--color-surface);border:1px solid var(--color-border);">
+          <h2 class="text-2xl font-black mb-4" style="color:var(--color-text);">What we offer</h2>
+          <ul class="space-y-3">
+            {[
+              ['18+ occasions', 'From birthdays and weddings to Diwali, Eid, and Halloween — we cover every celebration.'],
+              ['100+ templates', 'Professionally designed styles: floral, minimal, bold, elegant, dark, and more.'],
+              ['Real-time preview', 'See every text change reflected instantly in your card preview.'],
+              ['High-res PNG download', '1800×2520px retina-quality PNG, free, with no watermark.'],
+              ['Zero sign-up', 'No account, no email, no credit card. Open the site, make your card, download it. Done.'],
+            ].map(([title, desc]) => (
+              <li class="flex gap-4">
+                <div class="shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5" style="background:linear-gradient(135deg,#ea580c,#ec4899);">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                  <span class="font-bold" style="color:var(--color-text);">{title}</span>
+                  <span style="color:var(--color-text-muted);"> — {desc}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="rounded-2xl p-8" style="background:linear-gradient(135deg,rgba(234,88,12,0.05),rgba(236,72,153,0.05));border:1px solid rgba(234,88,12,0.15);">
+          <h2 class="text-2xl font-black mb-4" style="color:var(--color-text);">Privacy first</h2>
+          <p class="leading-relaxed" style="color:var(--color-text-muted);">
+            Your cards are generated entirely in your browser. Nothing you type is ever sent to our servers.
+            We don't use tracking cookies, we don't collect personal data, and we never will.
+            CardCraftly is designed to be a private, instant tool — not a data collection platform.
+          </p>
+        </div>
+      </div>
+
+      <!-- Contact + CTA -->
+      <div class="mt-14 text-center" data-scroll="fade">
+        <h2 class="text-2xl font-black mb-4" style="color:var(--color-text);">Get in touch</h2>
+        <p class="mb-8" style="color:var(--color-text-muted);">
+          Have a feature request, found a bug, or want to say hi?
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="mailto:contact@cardcraftly.com"
+            class="px-8 py-4 rounded-2xl font-bold text-white transition-all hover:opacity-90"
+            style="background:linear-gradient(135deg,#ea580c,#ec4899);">
+            contact@cardcraftly.com
+          </a>
+          <a href="/occasions/"
+            class="px-8 py-4 rounded-2xl font-bold transition-all hover:opacity-80"
+            style="background:var(--color-surface);border:1px solid var(--color-border);color:var(--color-text);">
+            Browse Occasions →
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

@@ -2,6 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import HeroSection from '../components/HeroSection';
+import OccasionsGrid from '../components/OccasionsGrid';
+import FeaturesSection from '../components/FeaturesSection';
+import HowItWorksSection from '../components/HowItWorksSection';
 import { OCCASIONS } from '../lib/occasions';
 
 const schema = {
@@ -9,14 +13,11 @@ const schema = {
   "@type": "WebApplication",
   "name": "CardCraftly — Free Invitation & Greeting Card Maker",
   "url": "https://www.cardcraftly.com",
-  "description": "Free online invitation and greeting card maker. 12+ occasions. Customize and download PNG instantly.",
+  "description": "Free online invitation and greeting card maker. 18+ occasions. Customize and download PNG instantly.",
   "applicationCategory": "UtilityApplication",
   "operatingSystem": "Any",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
 };
-
-const topOccasions = OCCASIONS.slice(0, 8);
-const allOccasions = OCCASIONS;
 ---
 
 <Layout
@@ -25,196 +26,74 @@ const allOccasions = OCCASIONS;
   canonical="https://www.cardcraftly.com/"
   schema={schema}
 >
-  <Header />
+  <!-- data-homepage used by header scroll script -->
+  <script is:inline>document.body.dataset.homepage = 'true';</script>
+    <Header />
 
-  <main id="main-content" class="confetti-bg">
+    <main id="main-content">
 
-    <!-- ── HERO ── -->
-    <section class="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28">
+      <!-- ── Hero (dark, animated, Framer Motion) ── -->
+      <HeroSection client:load />
 
-      <!-- Decorative blobs -->
-      <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        <div class="absolute -top-20 -right-20 h-[380px] w-[380px] rounded-full opacity-30"
-          style="background:radial-gradient(circle,#fbbf24,transparent 65%);filter:blur(70px);"></div>
-        <div class="absolute top-40 -left-20 h-[300px] w-[300px] rounded-full opacity-20"
-          style="background:radial-gradient(circle,#ec4899,transparent 65%);filter:blur(60px);"></div>
-      </div>
+      <!-- ── Occasions grid (3D tilt cards) ── -->
+      <OccasionsGrid occasions={OCCASIONS} client:visible />
 
-      <div class="mx-auto max-w-6xl px-4 sm:px-6">
-        <div class="text-center" data-scroll="fade">
+      <!-- ── How it works ── -->
+      <HowItWorksSection client:visible />
 
-          <!-- Badge -->
-          <div class="mb-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold badge-warm">
-            🎉 100% Free &nbsp;·&nbsp; No Watermark &nbsp;·&nbsp; No Sign-Up
-          </div>
+      <!-- ── Features ── -->
+      <FeaturesSection client:visible />
 
-          <!-- Heading -->
-          <h1 class="text-5xl font-black tracking-tight sm:text-7xl leading-none mb-5">
-            <span class="gradient-text-warm">Free Invitation</span>
-            <br/>
-            <span style="color:var(--color-text);">& Card Maker</span>
-          </h1>
-          <p class="mx-auto max-w-xl text-lg mb-8" style="color:var(--color-text-muted);">
-            Create stunning cards for <strong style="color:var(--color-text);">any occasion</strong> in seconds.
-            Customize live, download PNG free — no account needed.
-          </p>
-
-          <!-- CTAs -->
-          <div class="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="/occasions/"
-              class="rounded-2xl px-8 py-4 text-base font-black text-white transition-all hover:opacity-90 active:scale-95"
-              style="background:linear-gradient(135deg,#e8420a,#ec4899,#f97316);box-shadow:0 8px 32px rgba(232,66,10,0.3);">
-              🎉 Browse All Occasions
-            </a>
-            <a href="/make/birthday/"
-              class="rounded-2xl px-8 py-4 text-base font-bold transition-all hover:bg-orange-50 dark:hover:bg-orange-900/20"
-              style="border:2px solid var(--color-border);color:var(--color-text);">
-              🎂 Birthday Invitations
-            </a>
-          </div>
-        </div>
-
-        <!-- ── Occasion preview strip ── -->
-        <div class="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4" data-scroll>
-          {topOccasions.map((occ, i) => (
-            <a href={`/make/${occ.slug}/`}
-              class={`occasion-card group rounded-2xl p-5 text-center transition-all ${i >= 4 ? 'hidden sm:block' : ''}`}
-              style="background:var(--color-surface);border:1px solid var(--color-border);">
-              <div class="mb-2 text-4xl">{occ.emoji}</div>
-              <p class="text-sm font-bold" style="color:var(--color-text);">{occ.name}</p>
-              <p class="text-xs mt-0.5" style="color:var(--color-text-muted);">{occ.templates.length} templates</p>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ── AD ── -->
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 mb-12">
-      <div class="ad-slot h-[90px]">· advertisement ·</div>
-    </div>
-
-    <!-- ── ALL OCCASIONS ── -->
-    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-12" data-scroll>
-      <div class="flex items-end justify-between mb-8">
-        <div>
-          <h2 class="text-3xl font-black mb-1" style="color:var(--color-text);">All Occasions</h2>
-          <p class="text-sm" style="color:var(--color-text-muted);">Pick yours and start creating in 10 seconds</p>
-        </div>
-        <a href="/occasions/" class="hidden sm:flex items-center gap-1 text-sm font-bold transition-colors hover:opacity-80" style="color:#e8420a;">
-          See all
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-      </div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {allOccasions.map(occ => (
-          <a href={`/make/${occ.slug}/`}
-            class="occasion-card group rounded-2xl p-5 text-center"
-            style="background:var(--color-surface);border:1px solid var(--color-border);">
-            <div class="mb-2 text-4xl">{occ.emoji}</div>
-            <h3 class="font-bold text-sm mb-0.5 transition-colors" style="color:var(--color-text);">{occ.name}</h3>
-            <p class="text-xs" style="color:var(--color-text-muted);">{occ.templates.length} free templates</p>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- ── HOW IT WORKS ── -->
-    <section class="py-16 my-4" style="background:linear-gradient(135deg,#fff0e8,#fff0f5);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);" data-scroll>
-      <div class="mx-auto max-w-5xl px-4 sm:px-6 text-center">
-        <h2 class="text-3xl font-black mb-2" style="color:var(--color-text);">Ready in 3 Steps</h2>
-        <p class="mb-12 text-sm" style="color:var(--color-text-muted);">No design skills needed</p>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {[
-            { n: '1', emoji: '🎨', title: 'Pick a Template',  desc: 'Choose your occasion and select from beautiful pre-designed templates.' },
-            { n: '2', emoji: '✏️', title: 'Customize Text',   desc: 'Edit the heading, message, and footer. See your changes live instantly.' },
-            { n: '3', emoji: '📥', title: 'Download Free',    desc: 'Click download — get a high-res PNG. No watermark. No subscription.' },
-          ].map(s => (
-            <div class="flex flex-col items-center gap-3">
-              <div class="relative flex h-16 w-16 items-center justify-center rounded-2xl text-2xl"
-                style="background:linear-gradient(135deg,rgba(232,66,10,0.1),rgba(236,72,153,0.1));border:1px solid rgba(232,66,10,0.2);">
-                {s.emoji}
-                <span class="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-black text-white"
-                  style="background:linear-gradient(135deg,#e8420a,#ec4899);">{s.n}</span>
-              </div>
-              <h3 class="font-bold" style="color:var(--color-text);">{s.title}</h3>
-              <p class="text-sm" style="color:var(--color-text-muted);">{s.desc}</p>
+      <!-- ── CTA Banner ── -->
+      <section class="mx-auto max-w-6xl px-6 py-20" data-scroll="fade">
+        <div class="relative rounded-3xl overflow-hidden text-white text-center px-8 py-16"
+          style="background:linear-gradient(135deg,#ea580c 0%,#ec4899 50%,#f97316 100%);">
+          <!-- Dot pattern overlay -->
+          <div class="absolute inset-0 pointer-events-none opacity-10"
+            style="background-image:radial-gradient(rgba(255,255,255,0.5) 1px,transparent 1px);background-size:28px 28px;" />
+          <div class="relative">
+            <h2 class="text-4xl lg:text-5xl font-black tracking-tight mb-3">Ready to create?</h2>
+            <p class="text-lg opacity-80 mb-10 max-w-md mx-auto">Your card is ready in under 60 seconds. No account needed.</p>
+            <div class="flex flex-wrap gap-3 justify-center">
+              {OCCASIONS.slice(0,6).map(o => (
+                <a href={`/make/${o.slug}/`}
+                  class="rounded-full px-5 py-2.5 text-sm font-bold transition-all hover:scale-105 active:scale-95"
+                  style="background:rgba(255,255,255,0.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);">
+                  {o.emoji} {o.name}
+                </a>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ── FEATURES ── -->
-    <section class="mx-auto max-w-6xl px-4 sm:px-6 py-14" data-scroll>
-      <h2 class="text-3xl font-black text-center mb-2" style="color:var(--color-text);">Why CardCraftly?</h2>
-      <p class="text-center text-sm mb-10" style="color:var(--color-text-muted);">We beat the competition where it matters most</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {[
-          { icon: '⚡', title: 'Live Preview',       desc: 'Every keystroke updates the card preview in real time.' },
-          { icon: '🎨', title: 'Beautiful Templates', desc: 'Floral, bold, minimal, elegant — designed by professionals.' },
-          { icon: '📥', title: 'No Watermark PNG',   desc: 'High-res 3× retina PNG. Free. No credit card. No catch.' },
-          { icon: '🔒', title: 'Zero Sign-Up',       desc: 'Open the site, make your card, download. Nothing else required.' },
-          { icon: '🌍', title: '12+ Occasions',      desc: 'Birthday, Eid, Diwali, Wedding, Halloween and more.' },
-          { icon: '📱', title: 'Mobile-First',       desc: 'Designed for phone users — 60% of invitation makers are on mobile.' },
-        ].map(f => (
-          <div class="rounded-2xl p-6 transition-all occasion-card" style="background:var(--color-surface);border:1px solid var(--color-border);">
-            <div class="mb-3 text-3xl">{f.icon}</div>
-            <h3 class="font-bold mb-1.5" style="color:var(--color-text);">{f.title}</h3>
-            <p class="text-sm leading-relaxed" style="color:var(--color-text-muted);">{f.desc}</p>
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
+      </section>
 
-    <!-- ── CTA BANNER ── -->
-    <section class="mx-auto max-w-6xl px-4 sm:px-6 pb-14" data-scroll="fade">
-      <div class="rounded-3xl p-10 text-center text-white overflow-hidden relative"
-        style="background:linear-gradient(135deg,#e8420a 0%,#ec4899 50%,#f97316 100%);">
-        <div class="absolute inset-0 opacity-10"
-          style="background:url('data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'60\' height=\'60\'><circle cx=\'30\' cy=\'30\' r=\'1.5\' fill=\'white\'/></svg>') repeat;"></div>
-        <h2 class="relative text-3xl font-black mb-2">Ready to Create?</h2>
-        <p class="relative mb-6 opacity-90">No account needed. Your card is ready in under 60 seconds.</p>
-        <div class="relative flex flex-wrap gap-3 justify-center">
-          {OCCASIONS.slice(0,5).map(o => (
-            <a href={`/make/${o.slug}/`}
-              class="rounded-full px-5 py-2 text-sm font-bold transition-all hover:scale-105"
-              style="background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);">
-              {o.emoji} {o.name}
-            </a>
+      <!-- ── FAQ ── -->
+      <section class="mx-auto max-w-3xl px-6 py-16 pb-24" data-scroll>
+        <h2 class="text-3xl font-black text-center mb-10 tracking-tight" style="color:var(--color-text);">
+          Frequently asked questions
+        </h2>
+        <div class="space-y-3">
+          {[
+            { q: 'Is CardCraftly completely free?', a: 'Yes. Every template, every download — 100% free. No subscription, no watermark, no credit card.' },
+            { q: 'Can I print the card or invitation?', a: 'Yes — the PNG download is 3× retina quality (1800×2520px) suitable for digital sharing and home printing up to 5×7 inches.' },
+            { q: 'How do I customize the text?', a: 'Just type in the heading, message, and other fields on the left. The preview panel updates instantly so you see exactly what you\'ll get.' },
+            { q: 'What occasions are supported?', a: 'Birthday, wedding, baby shower, graduation, Christmas, anniversary, new year, bridal shower, gender reveal, retirement, Valentine\'s Day, Halloween, quinceañera, Eid, Diwali, housewarming, get well soon — and more added regularly.' },
+            { q: 'Do I need an account or sign-up?', a: 'No. Zero sign-up, zero tracking cookies, zero personal data collected. Open, create, download, done.' },
+          ].map(faq => (
+            <details class="group rounded-2xl p-5 transition-all" style="background:var(--color-surface);border:1px solid var(--color-border);">
+              <summary class="flex cursor-pointer items-center justify-between font-semibold list-none gap-4" style="color:var(--color-text);">
+                {faq.q}
+                <svg class="shrink-0 transition-transform duration-200 group-open:rotate-180" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </summary>
+              <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{faq.a}</p>
+            </details>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ── FAQ ── -->
-    <section class="mx-auto max-w-3xl px-4 sm:px-6 py-12" data-scroll>
-      <h2 class="text-2xl font-black text-center mb-8" style="color:var(--color-text);">Frequently Asked Questions</h2>
-      <div class="space-y-3">
-        {[
-          { q: 'Is CardCraftly completely free?', a: 'Yes. Every template, every download — 100% free. No subscription, no watermark, no credit card.' },
-          { q: 'Can I print the invitation?', a: 'Yes — the PNG download is 3× retina quality and suitable for both digital sharing and home printing up to 5×7 inches.' },
-          { q: 'How do I customize the text?', a: 'Just type in the heading, message, and footer fields. The preview updates instantly so you see exactly what you\'ll get.' },
-          { q: 'What occasions are supported?', a: 'Birthday, wedding, baby shower, graduation, Christmas, retirement, Valentine\'s, Halloween, quinceañera, Eid, Diwali, housewarming — more added regularly.' },
-          { q: 'Do I need an account?', a: 'No. Zero sign-up, zero tracking cookies, zero personal data collected. Open, create, download, done.' },
-        ].map(faq => (
-          <details class="group rounded-2xl p-5 transition-all" style="background:var(--color-surface);border:1px solid var(--color-border);">
-            <summary class="flex cursor-pointer items-center justify-between font-semibold list-none gap-4" style="color:var(--color-text);">
-              {faq.q}
-              <svg class="shrink-0 transition-transform group-open:rotate-180" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{faq.a}</p>
-          </details>
-        ))}
-      </div>
-    </section>
+    </main>
 
-    <!-- ── BOTTOM AD ── -->
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 mb-12">
-      <div class="ad-slot h-[90px]">· advertisement ·</div>
-    </div>
-
-  </main>
-
-  <Footer />
+    <Footer />
 </Layout>
