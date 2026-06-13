@@ -19,8 +19,6 @@ const { title, description, canonical, ogImage = '/og-image.png', schema, noInde
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ec4899" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <title>{title}</title>
     <meta name="description" content={description.slice(0, 160)} />
@@ -43,13 +41,17 @@ const { title, description, canonical, ogImage = '/og-image.png', schema, noInde
 
     <script is:inline>
       (function(){
+        /* Always start light; wipe any old auto-saved dark preference */
+        try { localStorage.removeItem('cc-theme'); } catch(e){}
+        document.documentElement.classList.remove('dark');
+        /* Check new key for explicit user toggle */
         try {
-          var s=localStorage.getItem('cc-theme');
-          if(s==='dark') document.documentElement.classList.add('dark');
-        }catch(e){}
+          if(localStorage.getItem('cc-theme-v2')==='dark')
+            document.documentElement.classList.add('dark');
+        } catch(e){}
         window.__toggleTheme=function(){
           var d=document.documentElement.classList.toggle('dark');
-          try{localStorage.setItem('cc-theme',d?'dark':'light');}catch(e){}
+          try{localStorage.setItem('cc-theme-v2',d?'dark':'light');}catch(e){}
           if(typeof window.__onThemeChange==='function') window.__onThemeChange(d);
         };
       })();
