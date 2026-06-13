@@ -45,12 +45,12 @@ const { title, description, canonical, ogImage = '/og-image.png', schema, noInde
       (function(){
         try {
           var s=localStorage.getItem('cc-theme');
-          if(s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches))
-            document.documentElement.classList.add('dark');
+          if(s==='dark') document.documentElement.classList.add('dark');
         }catch(e){}
         window.__toggleTheme=function(){
           var d=document.documentElement.classList.toggle('dark');
           try{localStorage.setItem('cc-theme',d?'dark':'light');}catch(e){}
+          if(typeof window.__onThemeChange==='function') window.__onThemeChange(d);
         };
       })();
     </script>

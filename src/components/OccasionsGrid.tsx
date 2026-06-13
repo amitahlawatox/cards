@@ -21,7 +21,7 @@ function OccasionCard({ occ, index }: { occ: Occasion; index: number }) {
       href={`/make/${occ.slug}/`}
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-30px' }}
+      viewport={{ once: true, margin: '-30px', amount: 0 }}
       transition={{ delay: index * 0.04, type: 'spring', damping: 26, stiffness: 100 }}
       style={{ rotateX: rx, rotateY: ry, transformStyle: 'preserve-3d' }}
       onMouseMove={onMove}
