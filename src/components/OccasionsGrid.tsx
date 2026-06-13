@@ -19,31 +19,40 @@ function OccasionCard({ occ, index }: { occ: Occasion; index: number }) {
   return (
     <motion.a
       href={`/make/${occ.slug}/`}
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-30px', amount: 0 }}
+      /* Single merged style — fixes the duplicate-style bug */
+      style={{
+        rotateX: rx,
+        rotateY: ry,
+        transformStyle: 'preserve-3d' as const,
+        background: 'var(--color-surface)',
+        border: '1px solid var(--color-border)',
+        overflow: 'hidden',
+      }}
+      /* animate (not whileInView) so cards are ALWAYS visible after mount */
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04, type: 'spring', damping: 26, stiffness: 100 }}
-      style={{ rotateX: rx, rotateY: ry, transformStyle: 'preserve-3d' }}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       whileHover={{ scale: 1.04 }}
       className="group relative flex flex-col items-center gap-3 rounded-2xl p-6 text-center cursor-pointer"
-      style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', overflow: 'hidden' }}
     >
       {/* Gradient hover shimmer */}
       <div
         className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
         style={{ background: 'linear-gradient(135deg, rgba(79,70,229,0.06) 0%, rgba(124,58,237,0.06) 100%)' }}
       />
-      {/* Top gradient line on hover */}
+      {/* Top accent line on hover */}
       <div
         className="absolute top-0 inset-x-0 h-px rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
         style={{ background: 'linear-gradient(90deg, transparent, #4F46E560, #7C3AED60, transparent)' }}
       />
 
-      <div className="relative text-4xl" style={{ transform: 'translateZ(16px)' }}>{occ.emoji}</div>
-      <h3 className="relative font-bold text-sm" style={{ color: 'var(--color-text)', transform: 'translateZ(10px)' }}>{occ.name}</h3>
-      <p className="relative text-xs" style={{ color: 'var(--color-text-muted)', transform: 'translateZ(6px)' }}>
+      <div className="relative z-10 text-4xl" style={{ transform: 'translateZ(16px)' }}>{occ.emoji}</div>
+      <h3 className="relative z-10 font-bold text-sm" style={{ color: 'var(--color-text)', transform: 'translateZ(10px)' }}>
+        {occ.name}
+      </h3>
+      <p className="relative z-10 text-xs" style={{ color: 'var(--color-text-muted)', transform: 'translateZ(6px)' }}>
         {occ.templates.length} free templates
       </p>
     </motion.a>
@@ -57,14 +66,11 @@ export default function OccasionsGrid({ occasions }: Props) {
     <section className="mx-auto max-w-6xl px-6 py-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ type: 'spring', damping: 25 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: 'spring', damping: 25, delay: 0.1 }}
         className="text-center mb-14"
       >
-        <div
-          className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest badge-warm"
-        >
+        <div className="inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest badge-warm">
           All Occasions
         </div>
         <h2

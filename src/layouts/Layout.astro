@@ -13,7 +13,7 @@ const { title, description, canonical, ogImage = '/og-image.png', schema, noInde
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,18 +41,22 @@ const { title, description, canonical, ogImage = '/og-image.png', schema, noInde
 
     <script is:inline>
       (function(){
-        /* Always start light; wipe any old auto-saved dark preference */
-        try { localStorage.removeItem('cc-theme'); } catch(e){}
+        /* Wipe ALL old keys that may have auto-saved dark mode */
+        try {
+          localStorage.removeItem('cc-theme');
+          localStorage.removeItem('theme');
+          localStorage.removeItem('color-theme');
+        } catch(e){}
+        /* Always default to light — only go dark if user explicitly chose it */
         document.documentElement.classList.remove('dark');
-        /* Check new key for explicit user toggle */
         try {
           if(localStorage.getItem('cc-theme-v2')==='dark')
             document.documentElement.classList.add('dark');
         } catch(e){}
         window.__toggleTheme=function(){
-          var d=document.documentElement.classList.toggle('dark');
-          try{localStorage.setItem('cc-theme-v2',d?'dark':'light');}catch(e){}
-          if(typeof window.__onThemeChange==='function') window.__onThemeChange(d);
+          var isDark=document.documentElement.classList.toggle('dark');
+          try{ localStorage.setItem('cc-theme-v2', isDark ? 'dark' : 'light'); }catch(e){}
+          if(typeof window.__onThemeChange==='function') window.__onThemeChange(isDark);
         };
       })();
     </script>
