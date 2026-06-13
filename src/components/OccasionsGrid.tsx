@@ -33,12 +33,12 @@ function OccasionCard({ occ, index }: { occ: Occasion; index: number }) {
       {/* Gradient hover shimmer */}
       <div
         className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{ background: 'linear-gradient(135deg, rgba(234,88,12,0.06) 0%, rgba(236,72,153,0.06) 100%)' }}
+        style={{ background: 'linear-gradient(135deg, rgba(79,70,229,0.06) 0%, rgba(124,58,237,0.06) 100%)' }}
       />
       {/* Top gradient line on hover */}
       <div
         className="absolute top-0 inset-x-0 h-px rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, #ea580c60, #ec489960, transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, #4F46E560, #7C3AED60, transparent)' }}
       />
 
       <div className="relative text-4xl" style={{ transform: 'translateZ(16px)' }}>{occ.emoji}</div>

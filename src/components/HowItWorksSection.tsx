@@ -59,7 +59,7 @@ export default function HowItWorksSection() {
           {/* Connecting dashes */}
           <div
             className="hidden sm:block absolute top-10 pointer-events-none"
-            style={{ left: '20%', right: '20%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(234,88,12,0.25), rgba(236,72,153,0.25), transparent)' }}
+            style={{ left: '20%', right: '20%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(79,70,229,0.25), rgba(124,58,237,0.25), transparent)' }}
           />
 
           {STEPS.map((step, i) => (
@@ -77,16 +77,16 @@ export default function HowItWorksSection() {
                   transition={{ type: 'spring', damping: 15 }}
                   className="w-20 h-20 rounded-2xl flex items-center justify-center"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(234,88,12,0.1), rgba(236,72,153,0.1))',
-                    border: '1px solid rgba(234,88,12,0.18)',
-                    color: '#ea580c',
+                    background: 'linear-gradient(135deg, rgba(79,70,229,0.1), rgba(124,58,237,0.1))',
+                    border: '1px solid rgba(79,70,229,0.18)',
+                    color: '#4F46E5',
                   }}
                 >
                   {step.icon}
                 </motion.div>
                 <div
                   className="absolute -top-2.5 -right-2.5 w-6 h-6 rounded-full flex items-center justify-center text-xs font-black text-white"
-                  style={{ background: 'linear-gradient(135deg, #ea580c, #ec4899)' }}
+                  style={{ background: 'linear-gradient(135deg, #4F46E5, #7C3AED)' }}
                 >
                   {step.n}
                 </div>
@@ -109,7 +109,7 @@ export default function HowItWorksSection() {
             whileHover={{ scale: 1.04, opacity: 0.92 }}
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center gap-2 px-9 py-4 rounded-2xl text-white font-bold text-lg"
-            style={{ background: 'linear-gradient(135deg, #ea580c, #ec4899)', boxShadow: '0 8px 32px rgba(234,88,12,0.3)' }}
+            style={{ background: 'linear-gradient(135deg, #4F46E5, #7C3AED)', boxShadow: '0 8px 32px rgba(79,70,229,0.35)' }}
           >
             Start Creating — It's Free
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

@@ -94,7 +94,7 @@ export default function FeaturesSection() {
             >
               <div
                 className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
-                style={{ background: 'linear-gradient(135deg, rgba(234,88,12,0.1), rgba(236,72,153,0.1))', color: '#ea580c' }}
+                style={{ background: 'linear-gradient(135deg, rgba(79,70,229,0.1), rgba(124,58,237,0.1))', color: '#4F46E5' }}
               >
                 {f.icon}
               </div>

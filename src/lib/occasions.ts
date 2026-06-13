@@ -336,6 +336,73 @@ export const OCCASIONS: Occasion[] = [
       { id: 'getwell-warm',   name: 'Warm',    bg: 'linear-gradient(135deg,#fff1f2,#fce7f3)', pattern: DOT_PATTERN, textColor: '#881337', accentColor: '#e11d48', defaultHeading: "Thinking of You 💗", defaultBody: "Sending healing thoughts\nand warm wishes your way.", defaultFooter: "[Your Name]", defaultDate: "", defaultTime: "", defaultVenue: "" },
     ],
   },
+  // ── ENGAGEMENT PARTY ────────────────────────────────────────────
+  {
+    id: 'engagement',
+    name: 'Engagement Party',
+    emoji: '💍',
+    slug: 'engagement',
+    description: 'Celebrate your "yes!" with a stunning engagement party invitation.',
+    color: 'from-rose-500', color2: 'to-pink-400',
+    tags: ['engagement party', 'engagement invitation', 'engaged', 'proposal party'],
+    searches: 240000,
+    templates: [
+      { id: 'eng-romantic', name: 'Romantic', bg: 'linear-gradient(135deg,#fce7f3,#fdf2f8,#ffe4e6)', pattern: DOT_PATTERN, textColor: '#9d174d', accentColor: '#e11d48', defaultHeading: "We Said Yes! 💍", defaultBody: "[Name] & [Name]\nare engaged!\nJoin us to celebrate!", defaultFooter: "RSVP by [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'eng-elegant', name: 'Elegant', bg: 'linear-gradient(135deg,#f5f3ff,#ede9fe)', pattern: DOT_PATTERN, textColor: '#4c1d95', accentColor: '#7c3aed', defaultHeading: "We're Engaged!", defaultBody: "[Partner 1] & [Partner 2]\nrequest the pleasure of your company", defaultFooter: "Cocktails & Celebrations · [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'eng-dark', name: 'Dark Romance', bg: 'linear-gradient(135deg,#1e1b4b,#312e81)', pattern: STAR_PATTERN, textColor: '#e0e7ff', accentColor: '#818cf8', defaultHeading: "She Said Yes! ✨", defaultBody: "Celebrate with [Partner 1] & [Partner 2]\non their engagement", defaultFooter: "Dress code: Cocktail", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+    ],
+  },
+
+  // ── KIDS PARTY ──────────────────────────────────────────────────
+  {
+    id: 'kids-party',
+    name: "Kids Party",
+    emoji: '🎈',
+    slug: 'kids-party',
+    description: 'Fun and colourful party invitations to delight every little guest.',
+    color: 'from-yellow-400', color2: 'to-orange-400',
+    tags: ['kids birthday party', 'childrens party', 'kids invitation', 'party for kids'],
+    searches: 310000,
+    templates: [
+      { id: 'kids-rainbow', name: 'Rainbow', bg: 'linear-gradient(135deg,#fef9c3,#fce7f3,#dbeafe)', pattern: DOT_PATTERN, textColor: '#1e40af', accentColor: '#f59e0b', defaultHeading: "Party Time! 🎈", defaultBody: "[Child's Name] is turning [Age]!\nCome join the fun!", defaultFooter: "RSVP to [Parent's Name]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'kids-superhero', name: 'Superhero', bg: 'linear-gradient(135deg,#1e3a8a,#1d4ed8)', pattern: STRIPE_D, textColor: '#eff6ff', accentColor: '#fbbf24', defaultHeading: "Superhero Alert! 🦸", defaultBody: "[Name] is turning [Age] — assemble!", defaultFooter: "Capes welcome · [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'kids-unicorn', name: 'Unicorn', bg: 'linear-gradient(135deg,#fae8ff,#ffe4e6,#dbeafe)', pattern: DOT_PATTERN, textColor: '#7e22ce', accentColor: '#ec4899', defaultHeading: "Unicorn Party! 🦄✨", defaultBody: "You're magically invited to\n[Name]'s birthday bash!", defaultFooter: "Bring your sparkle · [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+    ],
+  },
+
+  // ── FAREWELL ────────────────────────────────────────────────────
+  {
+    id: 'farewell',
+    name: 'Farewell Party',
+    emoji: '✈️',
+    slug: 'farewell',
+    description: 'Send someone off in style with a heartfelt farewell card or invitation.',
+    color: 'from-sky-500', color2: 'to-blue-400',
+    tags: ['farewell party', 'going away party', 'bon voyage', 'goodbye party'],
+    searches: 95000,
+    templates: [
+      { id: 'farewell-adventure', name: 'Adventure', bg: 'linear-gradient(135deg,#eff6ff,#dbeafe)', pattern: STRIPE_H, textColor: '#1e40af', accentColor: '#3b82f6', defaultHeading: "Bon Voyage! ✈️", defaultBody: "We're saying see you later to\n[Name]!\nJoin us for a farewell celebration", defaultFooter: "Let's give them a great send-off!", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'farewell-warm', name: 'Warm & Heartfelt', bg: 'linear-gradient(135deg,#fff7ed,#ffedd5)', pattern: DOT_PATTERN, textColor: '#7c2d12', accentColor: '#ea580c', defaultHeading: "Until We Meet Again 💛", defaultBody: "Farewell [Name]!\nYou will be deeply missed.", defaultFooter: "Come celebrate the journey ahead", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Location]" },
+      { id: 'farewell-dark', name: 'Dark & Bold', bg: 'linear-gradient(135deg,#0f172a,#1e293b)', pattern: STAR_PATTERN, textColor: '#e2e8f0', accentColor: '#38bdf8', defaultHeading: "New Chapter Awaits 🌟", defaultBody: "Raising a glass to [Name]\nas they embark on their next adventure", defaultFooter: "Come for the stories · Stay for the hugs", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+    ],
+  },
+
+  // ── CORPORATE EVENT ─────────────────────────────────────────────
+  {
+    id: 'corporate',
+    name: 'Corporate Event',
+    emoji: '💼',
+    slug: 'corporate',
+    description: 'Professional event invitations for conferences, launches, and business gatherings.',
+    color: 'from-slate-600', color2: 'to-slate-500',
+    tags: ['corporate event', 'business invitation', 'conference invite', 'product launch'],
+    searches: 180000,
+    templates: [
+      { id: 'corp-sleek', name: 'Sleek Pro', bg: 'linear-gradient(135deg,#0f172a,#1e293b)', pattern: STRIPE_D, textColor: '#f8fafc', accentColor: '#818cf8', defaultHeading: "You're Invited", defaultBody: "[Company Name]\npresents [Event Name]", defaultFooter: "Business Formal · [Location]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue / Conference Center]" },
+      { id: 'corp-clean', name: 'Clean White', bg: '#f8fafc', textColor: '#0f172a', accentColor: '#4F46E5', defaultHeading: "[Event Name]", defaultBody: "[Company Name] cordially invites\nyou to join us at [Event]", defaultFooter: "RSVP required · [Contact]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+      { id: 'corp-launch', name: 'Launch Night', bg: 'linear-gradient(135deg,#1e1b4b,#312e81)', pattern: STAR_PATTERN, textColor: '#e0e7ff', accentColor: '#a5b4fc', defaultHeading: "Product Launch 🚀", defaultBody: "[Company] invites you to\nexperience [Product Name]", defaultFooter: "VIP Preview · [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
+    ],
+  },
 ];
 
 export function getOccasionBySlug(slug: string) {

@@ -26,13 +26,13 @@ export default function HeroSection() {
       {/* Animated gradient orbs */}
       <motion.div
         className="absolute pointer-events-none"
-        style={{ top: '-20%', left: '15%', width: 900, height: 900, borderRadius: '50%', background: 'radial-gradient(circle, rgba(234,88,12,0.16) 0%, transparent 60%)' }}
+        style={{ top: '-20%', left: '15%', width: 900, height: 900, borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.18) 0%, transparent 60%)' }}
         animate={{ scale: [1, 1.07, 1], opacity: [0.7, 1, 0.7] }}
         transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
         className="absolute pointer-events-none"
-        style={{ bottom: '-10%', right: '5%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(236,72,153,0.13) 0%, transparent 60%)' }}
+        style={{ bottom: '-10%', right: '5%', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 60%)' }}
         animate={{ scale: [1, 1.09, 1], opacity: [0.6, 1, 0.6] }}
         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
       />
@@ -60,11 +60,11 @@ export default function HeroSection() {
             <motion.div
               variants={fadeUp}
               className="inline-flex items-center gap-2.5 mb-8 px-5 py-2 rounded-full text-sm font-medium"
-              style={{ background: 'rgba(234,88,12,0.08)', border: '1px solid rgba(234,88,12,0.2)', color: '#fb923c' }}
+              style={{ background: 'rgba(79,70,229,0.08)', border: '1px solid rgba(79,70,229,0.2)', color: '#818cf8' }}
             >
               <span className="relative flex h-2 w-2 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500" />
               </span>
               100% Free · No Watermark · No Sign-Up
             </motion.div>
@@ -77,7 +77,7 @@ export default function HeroSection() {
             >
               Make cards<br />
               <span style={{
-                background: 'linear-gradient(135deg, #fb923c 0%, #f472b6 60%, #fb923c 100%)',
+                background: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #ec4899 100%)',
                 backgroundSize: '200%',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -104,7 +104,7 @@ export default function HeroSection() {
                 whileHover={{ scale: 1.04, opacity: 0.92 }}
                 whileTap={{ scale: 0.97 }}
                 className="group relative overflow-hidden px-8 py-4 rounded-2xl text-white font-bold text-lg text-center"
-                style={{ background: 'linear-gradient(135deg, #ea580c 0%, #ec4899 100%)' }}
+                style={{ background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)' }}
               >
                 <span className="relative z-10">Browse Occasions →</span>
               </motion.a>
@@ -156,7 +156,7 @@ export default function HeroSection() {
                 </div>
               </motion.div>
             ))}
-            <div className="absolute" style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 320, height: 320, borderRadius: '50%', background: 'radial-gradient(circle, rgba(234,88,12,0.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
+            <div className="absolute" style={{ top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 320, height: 320, borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
           </div>
         </div>
       </div>

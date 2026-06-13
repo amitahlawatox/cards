@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import CardEditor from '../../components/CardEditor';
+import CanvasEditor from '../../components/CanvasEditor';
 import { OCCASIONS, getOccasionBySlug } from '../../lib/occasions';
 
 export function getStaticPaths() {
@@ -41,9 +41,9 @@ const related = OCCASIONS.filter(o => o.slug !== occ.slug).slice(0, 6);
     <!-- Breadcrumb -->
     <nav class="mb-6 text-sm text-[var(--color-text-muted)]" aria-label="Breadcrumb">
       <ol class="flex items-center gap-2 flex-wrap">
-        <li><a href="/" class="hover:text-pink-600 transition-colors">Home</a></li>
+        <li><a href="/" class="hover:text-indigo-600 transition-colors">Home</a></li>
         <li aria-hidden="true">›</li>
-        <li><a href="/occasions/" class="hover:text-pink-600 transition-colors">Occasions</a></li>
+        <li><a href="/occasions/" class="hover:text-indigo-600 transition-colors">Occasions</a></li>
         <li aria-hidden="true">›</li>
         <li class="text-[var(--color-text)] font-medium">{occ.name}</li>
       </ol>
@@ -61,7 +61,7 @@ const related = OCCASIONS.filter(o => o.slug !== occ.slug).slice(0, 6);
     <div class="ad-slot mb-8 h-24" aria-hidden="true">Advertisement</div>
 
     <!-- Card editor -->
-    <CardEditor client:load templates={occ.templates} occasionName={occ.name} />
+    <CanvasEditor client:load templates={occ.templates} occasionName={occ.name} />
 
     <!-- Tags / SEO keywords -->
     <div class="mt-10 flex flex-wrap gap-2" aria-label="Related searches">
@@ -80,7 +80,7 @@ const related = OCCASIONS.filter(o => o.slug !== occ.slug).slice(0, 6);
           <a href={`/make/${o.slug}/`}
             class="occasion-card rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 text-center hover:border-pink-300 transition-all group">
             <div class="text-3xl mb-2">{o.emoji}</div>
-            <p class="text-xs font-semibold group-hover:text-pink-600 transition-colors">{o.name}</p>
+            <p class="text-xs font-semibold group-hover:text-indigo-600 transition-colors">{o.name}</p>
           </a>
         ))}
       </div>
