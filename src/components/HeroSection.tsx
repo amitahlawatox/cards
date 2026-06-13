@@ -45,8 +45,8 @@ const fadeUp = {
 export default function HeroSection() {
   return (
     <section className="relative min-h-[100svh] flex items-center overflow-hidden">
-      {/* Dark warm bg */}
-      <div className="absolute inset-0" style={{ background: '#0C0705' }} />
+      {/* Rich deep-violet bg — clearly branded, not "dark mode" */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0d0a24 0%, #1a1035 45%, #0f0c28 100%)' }} />
 
       {/* Animated gradient orbs */}
       <motion.div
