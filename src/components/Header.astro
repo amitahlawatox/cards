@@ -42,23 +42,6 @@ const nav = [
 
     <!-- Right -->
     <div class="flex items-center gap-3">
-      <!-- Theme toggle — no inline onclick, wired in script below -->
-      <button id="theme-toggle-btn" aria-label="Toggle dark mode"
-        class="theme-btn rounded-xl p-2.5 transition-all border border-transparent"
-        style="color:rgba(255,255,255,0.6);">
-        <!-- Moon shown in light mode -->
-        <svg id="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-        <!-- Sun shown in dark mode, hidden by default -->
-        <svg id="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      </button>
       <a
         href="/make/birthday/"
         class="hidden sm:flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:opacity-90 active:scale-95"
@@ -96,34 +79,16 @@ const nav = [
 (function () {
   var header   = document.getElementById('site-header');
   var navLinks = document.querySelectorAll('.nav-link');
-  var themeBtn = document.getElementById('theme-toggle-btn');
-  var iconMoon = document.getElementById('icon-moon');
-  var iconSun  = document.getElementById('icon-sun');
   var isHome   = document.body.dataset.homepage === 'true';
 
-  function dark() { return document.documentElement.classList.contains('dark'); }
-
-  /* Update the moon/sun icon to match current state */
-  function syncIcon() {
-    if (!iconMoon || !iconSun) return;
-    iconMoon.style.display = dark() ? 'none'  : 'block';
-    iconSun.style.display  = dark() ? 'block' : 'none';
-  }
-
   function applyOverHero() {
-    /* Over the hero: always white text, but slightly different bg to signal light vs dark */
-    header.style.background    = dark() ? 'rgba(6,4,20,0.88)'  : 'rgba(13,10,36,0.72)';
+    header.style.background    = 'rgba(13,10,36,0.72)';
     header.style.borderBottom  = '1px solid rgba(255,255,255,0.07)';
     header.style.boxShadow     = 'none';
     header.style.backdropFilter= 'blur(14px)';
     navLinks.forEach(function(l) {
       l.style.color = l.classList.contains('active') ? '#a5b4fc' : 'rgba(255,255,255,0.6)';
     });
-    if (themeBtn) {
-      themeBtn.style.color            = 'rgba(255,255,255,0.7)';
-      themeBtn.style.background       = dark() ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.06)';
-      themeBtn.style.border           = dark() ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(255,255,255,0.1)';
-    }
   }
 
   function applyLight() {
@@ -134,50 +99,14 @@ const nav = [
     navLinks.forEach(function(l) {
       l.style.color = l.classList.contains('active') ? '#4F46E5' : '#6B63A3';
     });
-    if (themeBtn) {
-      themeBtn.style.color      = '#6B63A3';
-      themeBtn.style.background = 'transparent';
-      themeBtn.style.border     = '1px solid transparent';
-    }
-  }
-
-  function applyDark() {
-    header.style.background    = 'rgba(6,4,20,0.93)';
-    header.style.borderBottom  = '1px solid rgba(42,32,80,1)';
-    header.style.boxShadow     = '0 1px 20px rgba(0,0,0,0.25)';
-    header.style.backdropFilter= 'blur(16px)';
-    navLinks.forEach(function(l) {
-      l.style.color = l.classList.contains('active') ? '#818cf8' : '#9B8FD4';
-    });
-    if (themeBtn) {
-      themeBtn.style.color      = '#9B8FD4';
-      themeBtn.style.background = 'transparent';
-      themeBtn.style.border     = '1px solid transparent';
-    }
   }
 
   function update() {
     var overHero = isHome && window.scrollY < window.innerHeight * 0.75;
-    syncIcon();
-    if (overHero)      { applyOverHero(); }
-    else if (dark())   { applyDark();     }
-    else               { applyLight();    }
+    if (overHero) applyOverHero(); else applyLight();
   }
 
   window.addEventListener('scroll', update, { passive: true });
-
-  /* Wire toggle button via addEventListener — more reliable than onclick attr */
-  if (themeBtn) {
-    themeBtn.addEventListener('click', function() {
-      if (typeof window.__toggleTheme === 'function') {
-        window.__toggleTheme();
-      }
-    });
-  }
-
-  /* Called by __toggleTheme after toggling the dark class */
-  window.__onThemeChange = function() { update(); };
-
   update();
 
   /* Mobile menu */

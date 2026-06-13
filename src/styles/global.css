@@ -29,17 +29,7 @@
   --color-glow:       rgba(79,70,229,0.10);
 }
 
-.dark {
-  --color-bg:         #060614;
-  --color-surface:    #0E0B22;
-  --color-surface-2:  #140F2E;
-  --color-border:     #2A2050;
-  --color-text:       #F0EFFE;
-  --color-text-muted: #9B8FD4;
-  --color-accent:     #818CF8;
-  --color-accent-2:   #F472B6;
-  --color-glow:       rgba(129,140,248,0.12);
-}
+/* Dark mode removed — site is light-only */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -141,11 +131,6 @@ body {
   border: 1px solid rgba(79,70,229,0.18);
   color: #4F46E5;
 }
-.dark .badge-warm {
-  background: linear-gradient(135deg, rgba(129,140,248,0.1), rgba(167,139,250,0.1));
-  border-color: rgba(129,140,248,0.2);
-  color: #818CF8;
-}
 
 /* ── Card preview shadow ── */
 .card-preview-wrap {
@@ -160,10 +145,6 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.5);
-}
-.dark .glass {
-  background: rgba(14,11,34,0.8);
-  border-color: rgba(255,255,255,0.06);
 }
 
 /* ── Animate gradient text ── */
@@ -230,8 +211,3 @@ body {
   border-color: rgba(79,70,229,0.25);
 }
 
-.dark .tool-btn.active {
-  color: #818CF8;
-  background: rgba(79,70,229,0.15);
-  border-color: rgba(129,140,248,0.3);
-}

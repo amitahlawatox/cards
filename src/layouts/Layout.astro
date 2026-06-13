@@ -40,19 +40,13 @@ const { title, description, canonical, ogImage = '/og-image.png', schema, noInde
     {schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
     <script is:inline>
-      /* Guaranteed light mode — wipe every possible theme key, never read OS preference */
-      (function(){
-        try {
-          ['cc-theme','cc-theme-v2','theme','color-theme','dark-mode'].forEach(function(k){
-            localStorage.removeItem(k);
-          });
-        } catch(e){}
-        document.documentElement.classList.remove('dark');
-        window.__toggleTheme = function(){
-          var d = document.documentElement.classList.toggle('dark');
-          if(typeof window.__onThemeChange === 'function') window.__onThemeChange(d);
-        };
-      })();
+      /* Light mode only — clear any stale dark preference */
+      try {
+        ['cc-theme','cc-theme-v2','theme','color-theme','dark-mode'].forEach(function(k){
+          localStorage.removeItem(k);
+        });
+      } catch(e){}
+      document.documentElement.classList.remove('dark');
     </script>
     <slot name="head" />
   </head>
