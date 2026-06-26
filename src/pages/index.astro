@@ -8,6 +8,7 @@ import FeaturesSection from '../components/FeaturesSection';
 import HowItWorksSection from '../components/HowItWorksSection';
 import { OCCASIONS } from '../lib/occasions';
 import { SITE, absoluteUrl } from '../lib/site';
+import { GUIDE_PAGES, MARKET_CLUSTERS, SEASONAL_HUBS } from '../lib/content';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -35,6 +36,54 @@ const schema = {
     <OccasionsGrid occasions={OCCASIONS} client:load />
     <HowItWorksSection client:visible />
     <FeaturesSection client:visible />
+
+    <section class="mx-auto max-w-7xl px-6 py-16" data-scroll>
+      <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">SEO growth hubs</p>
+          <h2 class="text-3xl font-black tracking-tight" style="color:var(--color-text);">Browse seasonal, editorial, and market-specific paths</h2>
+        </div>
+        <a href="/seasonal/" class="text-sm font-bold" style="color:#7C3AED;">See all content hubs</a>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-3">
+        <div class="rounded-[2rem] border p-7" style="background:linear-gradient(135deg,#fff7ed,#fff1f2);border-color:#FDBA74;">
+          <p class="text-xs font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Seasonal</p>
+          <h3 class="mt-3 text-2xl font-black" style="color:#1A1340;">Holiday and event-season clusters</h3>
+          <div class="mt-5 space-y-3">
+            {SEASONAL_HUBS.slice(0, 3).map((hub) => (
+              <a href={`/seasonal/${hub.slug}/`} class="block rounded-2xl border px-4 py-3 text-sm font-semibold transition-all hover:-translate-y-0.5" style="background:rgba(255,255,255,0.72);border-color:rgba(255,255,255,0.6);color:#6B63A3;">
+                {hub.title}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div class="rounded-[2rem] border p-7" style="background:linear-gradient(135deg,#eef2ff,#f5f3ff);border-color:#C4B5FD;">
+          <p class="text-xs font-bold uppercase tracking-[0.24em]" style="color:#7C3AED;">Editorial</p>
+          <h3 class="mt-3 text-2xl font-black" style="color:#1A1340;">Helpful invitation wording guides</h3>
+          <div class="mt-5 space-y-3">
+            {GUIDE_PAGES.slice(0, 3).map((guide) => (
+              <a href={`/guides/${guide.slug}/`} class="block rounded-2xl border px-4 py-3 text-sm font-semibold transition-all hover:-translate-y-0.5" style="background:rgba(255,255,255,0.72);border-color:rgba(255,255,255,0.6);color:#6B63A3;">
+                {guide.title}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div class="rounded-[2rem] border p-7" style="background:linear-gradient(135deg,#fffbeb,#fff7ed);border-color:#FCD34D;">
+          <p class="text-xs font-bold uppercase tracking-[0.24em]" style="color:#d97706;">Market-specific</p>
+          <h3 class="mt-3 text-2xl font-black" style="color:#1A1340;">Indian festive and family-event demand</h3>
+          <div class="mt-5 space-y-3">
+            {MARKET_CLUSTERS.map((cluster) => (
+              <a href={`/indian/${cluster.slug}/`} class="block rounded-2xl border px-4 py-3 text-sm font-semibold transition-all hover:-translate-y-0.5" style="background:rgba(255,255,255,0.72);border-color:rgba(255,255,255,0.6);color:#6B63A3;">
+                {cluster.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="mx-auto max-w-6xl px-6 py-20" data-scroll="fade">
       <div

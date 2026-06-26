@@ -1,0 +1,41 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import OccasionContentNav from '../../components/OccasionContentNav.astro';
+import OccasionTemplateGallery from '../../components/OccasionTemplateGallery.astro';
+import { getFeaturedMicrositePaths } from '../../lib/content';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return getFeaturedMicrositePaths();
+}
+
+const { occasion } = Astro.props;
+const path = `/events/${occasion.slug}/`;
+const description = `A focused event microsite for ${occasion.name.toLowerCase()} invitation searchers, with templates, wording flows, and hosted invite entry points.`;
+const schema = [
+  articleSchema({ title: `${occasion.name} Event Microsite | ${SITE.name}`, description, path }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Events', path: '/events/' },
+    { name: occasion.name, path },
+  ]),
+];
+---
+
+<Layout title={`${occasion.name} Event Microsite | ${SITE.name}`} description={description} canonical={absoluteUrl(path)} schema={schema}>
+  <Header />
+  <main id="main-content" class="mx-auto max-w-6xl px-6 py-12">
+    <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#eff6ff,#fdf2f8);border-color:#C4B5FD;">
+      <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#7C3AED;">Event microsite</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:#1A1340;">{occasion.name} invitations, templates, and hosted invite tools</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed" style="color:#6B63A3;">{description}</p>
+    </div>
+
+    <OccasionTemplateGallery occasion={occasion} heading={`${occasion.name} event templates`} limit={6} linkMode="detail" />
+    <OccasionContentNav occasion={occasion} title={`Everything you need for a ${occasion.name.toLowerCase()} event page`} />
+  </main>
+  <Footer />
+</Layout>

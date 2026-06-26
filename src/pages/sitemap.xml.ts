@@ -1,4 +1,11 @@
 import type { APIRoute } from 'astro';
+import {
+  FEATURED_EVENT_MICROSITES,
+  GUIDE_PAGES,
+  MARKET_CLUSTERS,
+  MODIFIER_DEFINITIONS,
+  SEASONAL_HUBS,
+} from '../lib/content';
 import { OCCASIONS } from '../lib/occasions';
 import { absoluteUrl } from '../lib/site';
 
@@ -9,6 +16,10 @@ const staticPaths = [
   '/templates/',
   '/invitations/',
   '/wording/',
+  '/guides/',
+  '/seasonal/',
+  '/events/',
+  '/indian/',
   '/privacy/',
   '/terms/',
 ];
@@ -24,6 +35,16 @@ function buildSitemapXml() {
   const urls = [
     ...staticPaths,
     ...OCCASIONS.flatMap((occasion) => familyBuilders.map((builder) => builder(occasion.slug))),
+    ...OCCASIONS.flatMap((occasion) =>
+      MODIFIER_DEFINITIONS.map((modifier) => `/invitations/${occasion.slug}/${modifier.slug}/`),
+    ),
+    ...OCCASIONS.flatMap((occasion) =>
+      occasion.templates.map((template) => `/template/${occasion.slug}/${template.id}/`),
+    ),
+    ...SEASONAL_HUBS.map((hub) => `/seasonal/${hub.slug}/`),
+    ...GUIDE_PAGES.map((guide) => `/guides/${guide.slug}/`),
+    ...FEATURED_EVENT_MICROSITES.map((slug) => `/events/${slug}/`),
+    ...MARKET_CLUSTERS.map((cluster) => `/indian/${cluster.slug}/`),
   ];
 
   const body = urls

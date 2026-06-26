@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import InvitationViewer from '../../components/InvitationViewer';
+import { OCCASIONS } from '../../lib/occasions';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { breadcrumbSchema } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return OCCASIONS.map((occasion) => ({
+    params: { occasion: occasion.slug },
+    props: { occasion },
+  }));
+}
+
+const { occasion } = Astro.props;
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Hosted Invite', path: `/invite/${occasion.slug}/` },
+  ]),
+];
+---
+
+<Layout
+  title={`${occasion.name} Hosted Invitation | ${SITE.name}`}
+  description={`Preview and share a hosted ${occasion.name.toLowerCase()} invitation page generated from the editor.`}
+  canonical={absoluteUrl(`/invite/${occasion.slug}/`)}
+  schema={schema}
+>
+  <Header />
+
+  <main id="main-content" class="mx-auto max-w-7xl px-6 py-12">
+    <div class="mb-8 max-w-3xl">
+      <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Hosted invitation</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:var(--color-text);">{occasion.name} invitation page</h1>
+      <p class="mt-3 text-base leading-relaxed" style="color:var(--color-text-muted);">
+        This page lets the host share a card preview and lightweight RSVP contact details without needing a separate account system.
+      </p>
+    </div>
+
+    <InvitationViewer client:load occasionName={occasion.name} />
+  </main>
+
+  <Footer />
+</Layout>

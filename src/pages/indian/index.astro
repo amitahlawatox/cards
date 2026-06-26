@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { MARKET_CLUSTERS } from '../../lib/content';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+
+const path = '/indian/';
+const title = `Indian Invitation Ideas | ${SITE.name}`;
+const description = 'Market-specific invitation clusters for Indian festive, family, and hosted event search demand.';
+const schema = [
+  articleSchema({ title, description, path }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Indian Clusters', path },
+  ]),
+];
+---
+
+<Layout title={title} description={description} canonical={absoluteUrl(path)} schema={schema}>
+  <Header />
+  <main id="main-content" class="mx-auto max-w-7xl px-6 py-12">
+    <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#fff7ed,#fffbeb);border-color:#FDBA74;">
+      <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#d97706;">Market hub</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:#1A1340;">Indian festive and family invitation clusters</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed" style="color:#6B63A3;">
+        Browse targeted pages built around Indian festive, family-event, and WhatsApp-friendly invitation intent.
+      </p>
+    </div>
+
+    <section class="mt-10 grid gap-5 md:grid-cols-2" data-scroll>
+      {MARKET_CLUSTERS.map((cluster) => (
+        <a href={`/indian/${cluster.slug}/`} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+          <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#d97706;">Cluster</p>
+          <h2 class="mt-3 text-2xl font-black" style="color:var(--color-text);">{cluster.title}</h2>
+          <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{cluster.description}</p>
+        </a>
+      ))}
+    </section>
+  </main>
+  <Footer />
+</Layout>

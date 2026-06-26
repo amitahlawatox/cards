@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SEASONAL_HUBS } from '../../lib/content';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+
+const schema = [
+  articleSchema({
+    title: `Seasonal Invitation Hubs | ${SITE.name}`,
+    description: 'Seasonal invitation hubs for Diwali, Christmas, New Year, wedding season, graduation season, and baby shower season.',
+    path: '/seasonal/',
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Seasonal', path: '/seasonal/' },
+  ]),
+];
+---
+
+<Layout title={`Seasonal Invitation Hubs | ${SITE.name}`} description="Seasonal invitation hubs for Diwali, Christmas, New Year, wedding season, graduation season, and baby shower season." canonical={absoluteUrl('/seasonal/')} schema={schema}>
+  <Header />
+
+  <main id="main-content" class="mx-auto max-w-7xl px-6 py-12">
+    <div class="mb-10 max-w-3xl">
+      <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Seasonal search</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:var(--color-text);">Seasonal invitation hubs</h1>
+      <p class="mt-3 text-base leading-relaxed" style="color:var(--color-text-muted);">These hubs group the occasions and guides most likely to surge together during seasonal demand windows.</p>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {SEASONAL_HUBS.map((hub) => (
+        <a href={`/seasonal/${hub.slug}/`} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-xl font-black" style="color:var(--color-text);">{hub.title}</h2>
+          <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{hub.description}</p>
+        </a>
+      ))}
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

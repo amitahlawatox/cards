@@ -7,6 +7,7 @@ interface Props {
   intro?: string;
   limit?: number;
   showEditorCta?: boolean;
+  linkMode?: 'editor' | 'detail';
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   intro = `Browse editable ${occasion.name.toLowerCase()} styles and open the editor when you are ready to customize.`,
   limit = occasion.templates.length,
   showEditorCta = true,
+  linkMode = 'editor',
 } = Astro.props;
 
 const templates = occasion.templates.slice(0, limit);
@@ -40,7 +42,7 @@ const templates = occasion.templates.slice(0, limit);
   <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
     {templates.map((template) => (
       <a
-        href={`/make/${occasion.slug}/`}
+        href={linkMode === 'detail' ? `/template/${occasion.slug}/${template.id}/` : `/make/${occasion.slug}/`}
         class="group occasion-card cursor-pointer overflow-hidden rounded-2xl"
         style={`border:1px solid var(--color-border);background:${template.bg};`}
         title={`${template.name} - ${occasion.name}`}
@@ -64,7 +66,7 @@ const templates = occasion.templates.slice(0, limit);
             style="background:rgba(0,0,0,0.35);backdrop-filter:blur(2px);"
           >
             <span class="rounded-full px-3 py-1.5 text-xs font-bold text-white" style="background:rgba(234,88,12,0.9);">
-              Customize
+              {linkMode === 'detail' ? 'View details' : 'Customize'}
             </span>
           </div>
         </div>

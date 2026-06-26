@@ -1,0 +1,64 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import OccasionContentNav from '../../../components/OccasionContentNav.astro';
+import OccasionTemplateGallery from '../../../components/OccasionTemplateGallery.astro';
+import { getTemplateDetailDescription, getTemplateStaticPaths } from '../../../lib/content';
+import { SITE, absoluteUrl } from '../../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../../lib/seo';
+
+export function getStaticPaths() {
+  return getTemplateStaticPaths();
+}
+
+const { occasion, template } = Astro.props;
+const description = getTemplateDetailDescription(occasion, template);
+const path = `/template/${occasion.slug}/${template.id}/`;
+const schema = [
+  articleSchema({ title: `${template.name} ${occasion.name} Template | ${SITE.name}`, description, path }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Templates', path: '/templates/' },
+    { name: occasion.name, path: `/templates/${occasion.slug}/` },
+    { name: template.name, path },
+  ]),
+];
+---
+
+<Layout title={`${template.name} ${occasion.name} Template | ${SITE.name}`} description={description} canonical={absoluteUrl(path)} schema={schema}>
+  <Header />
+  <main id="main-content" class="mx-auto max-w-6xl px-6 py-12">
+    <div class="grid gap-8 lg:grid-cols-[0.7fr_0.9fr] lg:items-start">
+      <div class="rounded-3xl overflow-hidden border" style={`background:${template.bg};border-color:var(--color-border);`}>
+        <div class="relative aspect-[3/4] min-h-[420px] p-10 text-center">
+          {template.pattern && <div class="absolute inset-0 pointer-events-none" style={`background-image:${template.pattern};background-size:26px 26px;opacity:0.7;`} />}
+          <div class="relative z-10 flex h-full flex-col items-center justify-center gap-3">
+            <div style={`width:36px;height:2px;background:${template.accentColor};border-radius:2px;opacity:0.8;`} />
+            <h1 class="text-2xl font-black" style={`color:${template.textColor};`}>{template.defaultHeading}</h1>
+            <div style={`width:24px;height:1px;background:${template.accentColor};opacity:0.4;`} />
+            <p class="text-sm leading-relaxed whitespace-pre-line" style={`color:${template.textColor};opacity:0.82;`}>{template.defaultBody}</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Template detail</p>
+        <h2 class="mt-3 text-4xl font-black tracking-tight" style="color:var(--color-text);">{template.name}</h2>
+        <p class="mt-4 text-base leading-relaxed" style="color:var(--color-text-muted);">{description}</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href={`/make/${occasion.slug}/`} class="rounded-full px-5 py-3 text-sm font-bold text-white" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);">
+            Customize this template
+          </a>
+          <a href={`/wording/${occasion.slug}/`} class="rounded-full px-5 py-3 text-sm font-bold" style="background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border);">
+            Matching wording ideas
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <OccasionContentNav occasion={occasion} title={`Keep exploring ${occasion.name.toLowerCase()} invitation resources`} />
+    <OccasionTemplateGallery occasion={occasion} heading={`More ${occasion.name} templates`} limit={6} linkMode="detail" />
+  </main>
+  <Footer />
+</Layout>

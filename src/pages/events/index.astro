@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { FEATURED_EVENT_MICROSITES, getOccasionBySlug } from '../../lib/content';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+
+const occasions = FEATURED_EVENT_MICROSITES.map((slug) => getOccasionBySlug(slug)).filter(Boolean);
+const path = '/events/';
+const title = `Event Microsites | ${SITE.name}`;
+const description = 'Focused invitation hubs for weddings, birthdays, baby showers, and corporate events with templates, wording, and hosted invite flows.';
+const schema = [
+  articleSchema({ title, description, path }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Events', path },
+  ]),
+];
+---
+
+<Layout title={title} description={description} canonical={absoluteUrl(path)} schema={schema}>
+  <Header />
+  <main id="main-content" class="mx-auto max-w-7xl px-6 py-12">
+    <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#eef2ff,#fff7ed);border-color:#C4B5FD;">
+      <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#7C3AED;">Event hub</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:#1A1340;">Invitation microsites by event category</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed" style="color:#6B63A3;">
+        Explore deeper event-specific journeys built to capture high-intent searchers and guide them from inspiration to customization.
+      </p>
+    </div>
+
+    <section class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4" data-scroll>
+      {occasions.map((occasion) => (
+        <a href={`/events/${occasion.slug}/`} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+          <p class="text-3xl">{occasion.emoji}</p>
+          <h2 class="mt-4 text-xl font-black" style="color:var(--color-text);">{occasion.name}</h2>
+          <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">{occasion.description}</p>
+        </a>
+      ))}
+    </section>
+  </main>
+  <Footer />
+</Layout>
