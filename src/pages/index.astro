@@ -7,93 +7,118 @@ import OccasionsGrid from '../components/OccasionsGrid';
 import FeaturesSection from '../components/FeaturesSection';
 import HowItWorksSection from '../components/HowItWorksSection';
 import { OCCASIONS } from '../lib/occasions';
+import { SITE, absoluteUrl } from '../lib/site';
 
 const schema = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "CardCraftly — Free Invitation & Greeting Card Maker",
-  "url": "https://www.cardcraftly.com",
-  "description": "Free online invitation and greeting card maker. 18+ occasions. Customize and download PNG instantly.",
-  "applicationCategory": "UtilityApplication",
-  "operatingSystem": "Any",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: `${SITE.name} - Free Invitation and Greeting Card Maker`,
+  url: SITE.domain,
+  description: SITE.defaultDescription,
+  applicationCategory: 'UtilityApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
 };
 ---
 
 <Layout
-  title="Free Invitation Maker & Greeting Card Creator | CardCraftly"
-  description="Create beautiful free invitations and greeting cards online. Birthday, wedding, baby shower, graduation & more. Customize text, download PNG instantly. No sign-up needed."
-  canonical="https://www.cardcraftly.com/"
+  title={SITE.defaultTitle}
+  description={SITE.defaultDescription}
+  canonical={absoluteUrl('/')}
   schema={schema}
 >
-  <!-- data-homepage used by header scroll script -->
   <script is:inline>document.body.dataset.homepage = 'true';</script>
-    <Header />
+  <Header />
 
-    <main id="main-content">
+  <main id="main-content">
+    <HeroSection client:load />
+    <OccasionsGrid occasions={OCCASIONS} client:load />
+    <HowItWorksSection client:visible />
+    <FeaturesSection client:visible />
 
-      <!-- ── Hero (dark, animated, Framer Motion) ── -->
-      <HeroSection client:load />
-
-      <!-- ── Occasions grid (3D tilt cards) ── -->
-      <OccasionsGrid occasions={OCCASIONS} client:load />
-
-      <!-- ── How it works ── -->
-      <HowItWorksSection client:visible />
-
-      <!-- ── Features ── -->
-      <FeaturesSection client:visible />
-
-      <!-- ── CTA Banner ── -->
-      <section class="mx-auto max-w-6xl px-6 py-20" data-scroll="fade">
-        <div class="relative rounded-3xl overflow-hidden text-white text-center px-8 py-16"
-          style="background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#EC4899 100%);">
-          <!-- Dot pattern overlay -->
-          <div class="absolute inset-0 pointer-events-none opacity-10"
-            style="background-image:radial-gradient(rgba(255,255,255,0.5) 1px,transparent 1px);background-size:28px 28px;" />
-          <div class="relative">
-            <h2 class="text-4xl lg:text-5xl font-black tracking-tight mb-3">Ready to create?</h2>
-            <p class="text-lg opacity-80 mb-10 max-w-md mx-auto">Your card is ready in under 60 seconds. No account needed.</p>
-            <div class="flex flex-wrap gap-3 justify-center">
-              {OCCASIONS.slice(0,6).map(o => (
-                <a href={`/make/${o.slug}/`}
-                  class="rounded-full px-5 py-2.5 text-sm font-bold transition-all hover:scale-105 active:scale-95"
-                  style="background:rgba(255,255,255,0.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);">
-                  {o.emoji} {o.name}
-                </a>
-              ))}
-            </div>
+    <section class="mx-auto max-w-6xl px-6 py-20" data-scroll="fade">
+      <div
+        class="relative overflow-hidden rounded-3xl px-8 py-16 text-center text-white"
+        style="background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#EC4899 100%);"
+      >
+        <div
+          class="absolute inset-0 pointer-events-none opacity-10"
+          style="background-image:radial-gradient(rgba(255,255,255,0.5) 1px,transparent 1px);background-size:28px 28px;"
+        />
+        <div class="relative">
+          <h2 class="mb-3 text-4xl font-black tracking-tight lg:text-5xl">Ready to create?</h2>
+          <p class="mx-auto mb-10 max-w-md text-lg opacity-80">
+            Your card can be ready in under 60 seconds. No account needed.
+          </p>
+          <div class="flex flex-wrap justify-center gap-3">
+            {OCCASIONS.slice(0, 6).map((occasion) => (
+              <a
+                href={`/make/${occasion.slug}/`}
+                class="rounded-full px-5 py-2.5 text-sm font-bold transition-all hover:scale-105 active:scale-95"
+                style="background:rgba(255,255,255,0.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);"
+              >
+                {occasion.emoji} {occasion.name}
+              </a>
+            ))}
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ── FAQ ── -->
-      <section class="mx-auto max-w-3xl px-6 py-16 pb-24" data-scroll>
-        <h2 class="text-3xl font-black text-center mb-10 tracking-tight" style="color:var(--color-text);">
-          Frequently asked questions
-        </h2>
-        <div class="space-y-3">
-          {[
-            { q: 'Is CardCraftly completely free?', a: 'Yes. Every template, every download — 100% free. No subscription, no watermark, no credit card.' },
-            { q: 'Can I print the card or invitation?', a: 'Yes — the PNG download is 3× retina quality (1800×2520px) suitable for digital sharing and home printing up to 5×7 inches.' },
-            { q: 'How do I customize the text?', a: 'Just type in the heading, message, and other fields on the left. The preview panel updates instantly so you see exactly what you\'ll get.' },
-            { q: 'What occasions are supported?', a: 'Birthday, wedding, baby shower, graduation, Christmas, anniversary, new year, bridal shower, gender reveal, retirement, Valentine\'s Day, Halloween, quinceañera, Eid, Diwali, housewarming, get well soon — and more added regularly.' },
-            { q: 'Do I need an account or sign-up?', a: 'No. Zero sign-up, zero tracking cookies, zero personal data collected. Open, create, download, done.' },
-          ].map(faq => (
-            <details class="group rounded-2xl p-5 transition-all" style="background:var(--color-surface);border:1px solid var(--color-border);">
-              <summary class="flex cursor-pointer items-center justify-between font-semibold list-none gap-4" style="color:var(--color-text);">
-                {faq.q}
-                <svg class="shrink-0 transition-transform duration-200 group-open:rotate-180" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <polyline points="6 9 12 15 18 9"/>
-                </svg>
-              </summary>
-              <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{faq.a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
+    <section class="mx-auto max-w-3xl px-6 py-16 pb-24" data-scroll>
+      <h2 class="mb-10 text-center text-3xl font-black tracking-tight" style="color:var(--color-text);">
+        Frequently asked questions
+      </h2>
+      <div class="space-y-3">
+        {[
+          {
+            q: `Is ${SITE.name} completely free?`,
+            a: 'Yes. Every template and every download is free. No subscription, no watermark, and no credit card required.',
+          },
+          {
+            q: 'Can I print the card or invitation?',
+            a: 'Yes. The PNG download is high resolution and suitable for digital sharing and home printing.',
+          },
+          {
+            q: 'How do I customize the text?',
+            a: 'Type in the heading, message, and detail fields on the left. The preview updates instantly so you can see the final design as you edit.',
+          },
+          {
+            q: 'What occasions are supported?',
+            a: 'The library includes birthdays, weddings, baby showers, graduations, anniversaries, holidays, and many more celebration types.',
+          },
+          {
+            q: 'Do I need an account or sign-up?',
+            a: 'No. You can open the site, make your card, and download it without creating an account.',
+          },
+        ].map((faq) => (
+          <details
+            class="group rounded-2xl p-5 transition-all"
+            style="background:var(--color-surface);border:1px solid var(--color-border);"
+          >
+            <summary
+              class="flex list-none cursor-pointer items-center justify-between gap-4 font-semibold"
+              style="color:var(--color-text);"
+            >
+              {faq.q}
+              <svg
+                class="shrink-0 transition-transform duration-200 group-open:rotate-180"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
 
-    </main>
-
-    <Footer />
+  <Footer />
 </Layout>

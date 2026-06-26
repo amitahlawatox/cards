@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE, absoluteUrl } from '../../lib/site';
+---
+
+<Layout
+  title={`Privacy Policy | ${SITE.name}`}
+  description={`Learn how ${SITE.name} handles data, downloads, analytics, and contact information.`}
+  canonical={absoluteUrl('/privacy/')}
+>
+  <Header />
+
+  <main id="main-content" class="mx-auto max-w-4xl px-6 py-12">
+    <section class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-8 sm:p-10">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-text-muted)]">Legal</p>
+      <h1 class="mb-4 text-4xl font-black tracking-tight text-[var(--color-text)]">Privacy Policy</h1>
+      <p class="text-sm text-[var(--color-text-muted)]">Last updated: June 26, 2026</p>
+
+      <div class="mt-8 space-y-8 text-[var(--color-text-muted)]">
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">Overview</h2>
+          <p>{SITE.name} is designed to let visitors create invitation and greeting card graphics directly in the browser. We aim to collect as little personal information as possible.</p>
+        </section>
+
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">Information we collect</h2>
+          <p>We may receive basic technical information such as browser type, device type, and aggregate visit data from our hosting platform or analytics tools if they are enabled. If you email us, we receive the information you include in that message.</p>
+        </section>
+
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">Card content</h2>
+          <p>The editor is intended to work client-side. Text you enter into a card is meant to stay in your browser unless you choose to share it elsewhere.</p>
+        </section>
+
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">How we use information</h2>
+          <p>We use limited operational data to keep the site running, improve performance, understand which pages are useful, and respond to support requests.</p>
+        </section>
+
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">Third-party services</h2>
+          <p>Our site may rely on hosting, analytics, security, or email providers. Those providers may process technical request data as part of delivering the service.</p>
+        </section>
+
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">Contact</h2>
+          <p>If you have a privacy question, contact us at <a class="font-semibold text-orange-500" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

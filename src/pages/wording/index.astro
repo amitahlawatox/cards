@@ -1,0 +1,66 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { OCCASIONS } from '../../lib/occasions';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+
+const schema = [
+  articleSchema({
+    title: `Invitation Wording Ideas by Occasion | ${SITE.name}`,
+    description: 'Browse invitation wording examples, message ideas, and event checklists for birthdays, weddings, baby showers, Diwali, anniversaries, and more.',
+    path: '/wording/',
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Wording', path: '/wording/' },
+  ]),
+];
+---
+
+<Layout
+  title={`Invitation Wording Ideas by Occasion | ${SITE.name}`}
+  description="Browse invitation wording examples, message ideas, and event checklists for birthdays, weddings, baby showers, Diwali, anniversaries, and more."
+  canonical={absoluteUrl('/wording/')}
+  schema={schema}
+>
+  <Header />
+
+  <main id="main-content">
+    <section class="relative overflow-hidden py-20 lg:py-28" style="background:linear-gradient(135deg,#fff7f0,#fef5ec);">
+      <div class="absolute inset-0 pointer-events-none" style="background-image:radial-gradient(rgba(234,88,12,0.07) 1px,transparent 1px);background-size:32px 32px;" />
+      <div class="relative mx-auto max-w-6xl px-6 text-center">
+        <div class="badge-warm mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest">
+          Wording Library
+        </div>
+        <h1 class="mb-4 font-black tracking-tight" style="font-size:clamp(2.5rem,6vw,4rem);color:#1A1340;line-height:1.05;">
+          Invitation wording ideas by occasion
+        </h1>
+        <p class="mx-auto max-w-2xl text-lg" style="color:#6B63A3;">
+          Use message examples, quick invite formats, and planning checklists before you open the editor.
+        </p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 py-14">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {OCCASIONS.map((occasion) => (
+          <a
+            href={`/wording/${occasion.slug}/`}
+            class="rounded-3xl border p-6 transition-all hover:-translate-y-1"
+            style="background:var(--color-surface);border-color:var(--color-border);"
+          >
+            <div class="text-3xl">{occasion.emoji}</div>
+            <h2 class="mt-4 text-lg font-black" style="color:var(--color-text);">{occasion.name} wording</h2>
+            <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+              Short, formal, casual, and text-friendly invite wording for {occasion.name.toLowerCase()} events.
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

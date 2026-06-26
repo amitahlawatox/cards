@@ -1,15 +1,19 @@
 ---
 import '../styles/global.css';
+import { SITE, absoluteUrl } from '../lib/site';
+import { organizationSchema } from '../lib/seo';
 
 interface Props {
   title: string;
   description: string;
   canonical: string;
   ogImage?: string;
-  schema?: object;
+  schema?: object | object[];
   noIndex?: boolean;
 }
-const { title, description, canonical, ogImage = '/og-image.png', schema, noIndex } = Astro.props;
+const { title, description, canonical, ogImage = SITE.ogImage, schema, noIndex } = Astro.props;
+const resolvedOgImage = ogImage.startsWith('http') ? ogImage : absoluteUrl(ogImage);
+const schemaNodes = [organizationSchema(), ...(Array.isArray(schema) ? schema : schema ? [schema] : [])];
 ---
 
 <!doctype html>
@@ -27,17 +31,23 @@ const { title, description, canonical, ogImage = '/og-image.png', schema, noInde
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description.slice(0, 160)} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={resolvedOgImage} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="CardCraftly" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description.slice(0, 160)} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={resolvedOgImage} />
 
-    {noIndex && <meta name="robots" content="noindex, nofollow" />}
-    {schema && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    <meta
+      name="robots"
+      content={noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+    />
+    {schemaNodes.map((node) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(node)} />
+    ))}
 
     <script is:inline>
       /* Light mode only — clear any stale dark preference */
@@ -97,6 +107,8 @@ const { title, description, canonical, ogImage = '/og-image.png', schema, noInde
       })();
     </script>
 
-    {import.meta.env.PROD && <script is:inline defer src="/_vercel/insights/script.js"></script>}
+    {import.meta.env.PROD && import.meta.env.PUBLIC_ENABLE_VERCEL_INSIGHTS === 'true' && (
+      <script is:inline defer src="/_vercel/insights/script.js"></script>
+    )}
   </body>
 </html>

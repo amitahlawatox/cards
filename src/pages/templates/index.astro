@@ -3,120 +3,109 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { OCCASIONS } from '../../lib/occasions';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
 
-// Flatten all templates with their occasion info
-const allTemplates = OCCASIONS.flatMap(occ =>
-  occ.templates.map(tpl => ({ ...tpl, occasion: occ }))
-);
+const schema = [
+  articleSchema({
+    title: `All Card Templates | 100+ Free Designs | ${SITE.name}`,
+    description: 'Browse free invitation and greeting card templates across birthdays, weddings, baby showers, holidays, and business events.',
+    path: '/templates/',
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Templates', path: '/templates/' },
+  ]),
+];
 ---
 
 <Layout
-  title="All Card Templates — 100+ Free Designs | CardCraftly"
-  description="Browse 100+ free invitation and greeting card templates. Birthday, wedding, baby shower, graduation and more. Pick a design, customize, download PNG instantly."
-  canonical="https://www.cardcraftly.com/templates/"
+  title={`All Card Templates | 100+ Free Designs | ${SITE.name}`}
+  description="Browse 100+ free invitation and greeting card templates. Birthday, wedding, baby shower, graduation, holiday, and business designs included."
+  canonical={absoluteUrl('/templates/')}
+  schema={schema}
 >
   <Header />
 
   <main id="main-content">
-
-    <!-- Hero -->
     <section class="relative overflow-hidden py-20 lg:py-28" style="background:linear-gradient(135deg,#fff7f0,#fef5ec);">
       <div class="absolute inset-0 pointer-events-none" style="background-image:radial-gradient(rgba(234,88,12,0.07) 1px,transparent 1px);background-size:32px 32px;" />
       <div class="relative mx-auto max-w-7xl px-6 text-center">
-        <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest badge-warm">
-          100+ Templates
+        <div class="badge-warm mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest">
+          Template Library
         </div>
-        <h1 class="font-black tracking-tight mb-4" style="font-size:clamp(2.5rem,6vw,4rem);color:#1A1340;line-height:1.05;">
+        <h1 class="mb-4 font-black tracking-tight" style="font-size:clamp(2.5rem,6vw,4rem);color:#1A1340;line-height:1.05;">
           All Templates
         </h1>
-        <p class="text-lg max-w-xl mx-auto mb-8" style="color:#6B63A3;">
-          Browse every design across all occasions. Click any template to open the editor and start customizing.
+        <p class="mx-auto mb-8 max-w-xl text-lg" style="color:#6B63A3;">
+          Browse every design across all occasions, then open the template landing page or editor for the style you want.
         </p>
       </div>
     </section>
 
-    <!-- Templates by occasion -->
-    {OCCASIONS.map((occ) => (
-      <section class="mx-auto max-w-7xl px-6 py-12" id={occ.slug} data-scroll>
-        <div class="flex items-center justify-between mb-7">
+    {OCCASIONS.map((occasion) => (
+      <section class="mx-auto max-w-7xl px-6 py-12" id={occasion.slug} data-scroll>
+        <div class="mb-7 flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <span class="text-3xl">{occ.emoji}</span>
+            <span class="text-3xl">{occasion.emoji}</span>
             <div>
-              <h2 class="text-xl font-black" style="color:#1A1340;">{occ.name}</h2>
-              <p class="text-xs" style="color:#6B63A3;">{occ.templates.length} templates</p>
+              <h2 class="text-xl font-black" style="color:#1A1340;">{occasion.name}</h2>
+              <p class="text-xs" style="color:#6B63A3;">{occasion.templates.length} templates</p>
             </div>
           </div>
-          <a href={`/make/${occ.slug}/`}
-            class="hidden sm:flex items-center gap-1.5 text-sm font-bold transition-all hover:opacity-80"
-            style="color:#ea580c;">
-            Open editor
+          <a
+            href={`/templates/${occasion.slug}/`}
+            class="hidden items-center gap-1.5 text-sm font-bold transition-all hover:opacity-80 sm:flex"
+            style="color:#ea580c;"
+          >
+            View template page
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
             </svg>
           </a>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-          {occ.templates.map((tpl) => (
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+          {occasion.templates.map((template) => (
             <a
-              href={`/make/${occ.slug}/`}
-              class="group occasion-card rounded-2xl overflow-hidden cursor-pointer"
-              style={`border:1px solid var(--color-border);background:${tpl.bg};`}
-              title={`${tpl.name} — ${occ.name}`}
+              href={`/templates/${occasion.slug}/`}
+              class="group occasion-card cursor-pointer overflow-hidden rounded-2xl"
+              style={`border:1px solid var(--color-border);background:${template.bg};`}
+              title={`${template.name} - ${occasion.name}`}
             >
-              <!-- Card preview mockup -->
-              <div class="relative aspect-[3/4] flex flex-col items-center justify-center p-4 text-center" style="min-height:140px;">
-                {tpl.pattern && (
-                  <div class="absolute inset-0 pointer-events-none" style={`background-image:${tpl.pattern};background-size:24px 24px;opacity:0.7;`} />
+              <div class="relative aspect-[3/4] min-h-[140px] p-4 text-center">
+                {template.pattern && (
+                  <div class="absolute inset-0 pointer-events-none" style={`background-image:${template.pattern};background-size:24px 24px;opacity:0.7;`} />
                 )}
-                <!-- Accent line -->
-                <div class="relative z-10 flex flex-col items-center gap-1.5 w-full">
-                  <div style={`width:28px;height:2px;background:${tpl.accentColor};border-radius:2px;opacity:0.8;`} />
-                  <p class="text-xs font-bold leading-tight" style={`color:${tpl.textColor};font-size:10px;max-width:90%;`}>
-                    {tpl.defaultHeading.length > 20 ? tpl.defaultHeading.slice(0,18) + '…' : tpl.defaultHeading}
+                <div class="relative z-10 flex h-full flex-col items-center justify-center gap-1.5">
+                  <div style={`width:28px;height:2px;background:${template.accentColor};border-radius:2px;opacity:0.8;`} />
+                  <p class="max-w-[90%] text-xs font-bold leading-tight" style={`color:${template.textColor};font-size:10px;`}>
+                    {template.defaultHeading.length > 20 ? `${template.defaultHeading.slice(0, 18)}...` : template.defaultHeading}
                   </p>
-                  <div style={`width:20px;height:1px;background:${tpl.accentColor};opacity:0.4;`} />
-                  <p style={`color:${tpl.textColor};font-size:8px;opacity:0.7;`}>
-                    {tpl.defaultBody.split('\n')[0].slice(0,22)}
+                  <div style={`width:20px;height:1px;background:${template.accentColor};opacity:0.4;`} />
+                  <p style={`color:${template.textColor};font-size:8px;opacity:0.7;`}>
+                    {template.defaultBody.split('\n')[0].slice(0, 22)}
                   </p>
                 </div>
-                <!-- Hover overlay -->
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center"
-                  style="background:rgba(0,0,0,0.35);backdrop-filter:blur(2px);">
-                  <span class="text-white text-xs font-bold px-3 py-1.5 rounded-full" style="background:rgba(234,88,12,0.9);">
-                    Customize →
+                <div
+                  class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                  style="background:rgba(0,0,0,0.35);backdrop-filter:blur(2px);"
+                >
+                  <span class="rounded-full px-3 py-1.5 text-xs font-bold text-white" style="background:rgba(234,88,12,0.9);">
+                    View templates
                   </span>
                 </div>
               </div>
-              <!-- Label -->
-              <div class="px-3 py-2.5" style="background:#fff;border-top:1px solid #E4E1FF;">
-                <p class="text-xs font-bold truncate" style="color:#1A1340;">{tpl.name}</p>
-                <p class="text-xs" style="color:#6B63A3;">{occ.emoji} {occ.name}</p>
+              <div class="border-t px-3 py-2.5" style="background:#fff;border-color:#E4E1FF;">
+                <p class="truncate text-xs font-bold" style="color:#1A1340;">{template.name}</p>
+                <p class="text-xs" style="color:#6B63A3;">{occasion.emoji} {occasion.name}</p>
               </div>
             </a>
           ))}
         </div>
       </section>
     ))}
-
-    <!-- CTA -->
-    <section class="mx-auto max-w-6xl px-6 pb-24 pt-8" data-scroll="fade">
-      <div class="relative rounded-3xl overflow-hidden text-white text-center px-8 py-16"
-        style="background:linear-gradient(135deg,#ea580c 0%,#ec4899 100%);">
-        <div class="absolute inset-0 pointer-events-none opacity-10"
-          style="background-image:radial-gradient(rgba(255,255,255,0.5) 1px,transparent 1px);background-size:28px 28px;" />
-        <div class="relative">
-          <h2 class="text-3xl lg:text-4xl font-black tracking-tight mb-3">See something you like?</h2>
-          <p class="text-lg opacity-80 mb-8 max-w-md mx-auto">Click any template above to open the editor and start customizing instantly.</p>
-          <a href="/occasions/"
-            class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-lg transition-all hover:scale-105"
-            style="background:rgba(255,255,255,0.2);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.3);">
-            Browse by Occasion
-          </a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <Footer />

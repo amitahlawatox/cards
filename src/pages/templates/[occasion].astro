@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FaqSection from '../../components/FaqSection.astro';
+import OccasionContentNav from '../../components/OccasionContentNav.astro';
+import OccasionTemplateGallery from '../../components/OccasionTemplateGallery.astro';
+import { OCCASIONS } from '../../lib/occasions';
+import {
+  getOccasionFaqs,
+  getOccasionRelated,
+  getOccasionTemplateHighlights,
+} from '../../lib/landing';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return OCCASIONS.map((occasion) => ({
+    params: { occasion: occasion.slug },
+    props: { occasion },
+  }));
+}
+
+const { occasion } = Astro.props;
+const faqs = getOccasionFaqs(occasion);
+const highlights = getOccasionTemplateHighlights(occasion);
+const related = getOccasionRelated(occasion, 4);
+const title = `Free ${occasion.name} Invitation Templates | ${SITE.name}`;
+const description = `Browse ${occasion.templates.length} editable ${occasion.name.toLowerCase()} templates, compare styles, and open the editor to customize your favorite design.`;
+const schema = [
+  articleSchema({
+    title,
+    description,
+    path: `/templates/${occasion.slug}/`,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Templates', path: '/templates/' },
+    { name: occasion.name, path: `/templates/${occasion.slug}/` },
+  ]),
+  faqSchema(faqs),
+];
+---
+
+<Layout title={title} description={description} canonical={absoluteUrl(`/templates/${occasion.slug}/`)} schema={schema}>
+  <Header />
+
+  <main id="main-content">
+    <section class="mx-auto max-w-6xl px-6 py-12">
+      <nav class="mb-6 text-sm text-[var(--color-text-muted)]" aria-label="Breadcrumb">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="transition-colors hover:text-indigo-600">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/templates/" class="transition-colors hover:text-indigo-600">Templates</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="font-medium text-[var(--color-text)]">{occasion.name}</li>
+        </ol>
+      </nav>
+
+      <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#fff7f0,#eff6ff);border-color:#DDD6FE;">
+        <p class="text-sm font-bold uppercase tracking-[0.26em]" style="color:#7C3AED;">Template page</p>
+        <h1 class="mt-3 text-4xl font-black tracking-tight sm:text-5xl" style="color:#1A1340;">
+          {occasion.name} invitation templates
+        </h1>
+        <p class="mt-4 max-w-3xl text-lg leading-relaxed" style="color:#6B63A3;">
+          {description}
+        </p>
+      </div>
+    </section>
+
+    <OccasionTemplateGallery occasion={occasion} heading={`Editable ${occasion.name} templates`} intro={`Compare styles for ${occasion.name.toLowerCase()} events and open the editor when you are ready to personalize the design.`} />
+
+    <section class="mx-auto max-w-6xl px-6 py-10" data-scroll>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Template styles in this collection</h2>
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {highlights.map((highlight) => (
+          <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+            <h3 class="text-lg font-bold" style="color:var(--color-text);">{highlight.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">{highlight.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <OccasionContentNav occasion={occasion} title={`Use these ${occasion.name.toLowerCase()} templates with the right copy`} />
+    <FaqSection title={`${occasion.name} template FAQ`} faqs={faqs} />
+
+    <section class="mx-auto max-w-6xl px-6 py-10" data-scroll>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Related template collections</h2>
+      <div class="grid gap-4 md:grid-cols-4">
+        {related.map((entry) => (
+          <a href={`/templates/${entry.slug}/`} class="rounded-3xl border p-5 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+            <p class="text-2xl">{entry.emoji}</p>
+            <p class="mt-3 text-sm font-bold" style="color:var(--color-text);">{entry.name} templates</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

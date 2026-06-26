@@ -3,92 +3,131 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import CanvasEditor from '../../components/CanvasEditor';
-import { OCCASIONS, getOccasionBySlug } from '../../lib/occasions';
+import FaqSection from '../../components/FaqSection.astro';
+import OccasionContentNav from '../../components/OccasionContentNav.astro';
+import OccasionTemplateGallery from '../../components/OccasionTemplateGallery.astro';
+import { OCCASIONS } from '../../lib/occasions';
+import {
+  getOccasionChecklist,
+  getOccasionFaqs,
+  getOccasionPlanningTips,
+  getOccasionRelated,
+} from '../../lib/landing';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { breadcrumbSchema, faqSchema } from '../../lib/seo';
 
 export function getStaticPaths() {
-  return OCCASIONS.map(occ => ({
-    params: { occasion: occ.slug },
-    props: { occ },
+  return OCCASIONS.map((occasion) => ({
+    params: { occasion: occasion.slug },
+    props: { occasion },
   }));
 }
 
-const { occ } = Astro.props;
+const { occasion } = Astro.props;
+const related = getOccasionRelated(occasion, 6);
+const faqs = getOccasionFaqs(occasion);
+const checklist = getOccasionChecklist(occasion);
+const planningTips = getOccasionPlanningTips(occasion);
 
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": `Free ${occ.name} Invitation Maker — CardCraftly`,
-  "url": `https://www.cardcraftly.com/make/${occ.slug}/`,
-  "description": occ.description,
-  "applicationCategory": "UtilityApplication",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-};
-
-// Related occasions (exclude current)
-const related = OCCASIONS.filter(o => o.slug !== occ.slug).slice(0, 6);
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: `Free ${occasion.name} Invitation Maker - ${SITE.name}`,
+    url: absoluteUrl(`/make/${occasion.slug}/`),
+    description: occasion.description,
+    applicationCategory: 'UtilityApplication',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  },
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Occasions', path: '/occasions/' },
+    { name: occasion.name, path: `/make/${occasion.slug}/` },
+  ]),
+  faqSchema(faqs),
+];
 ---
 
 <Layout
-  title={`Free ${occ.name} Invitation Maker — Customize & Download | CardCraftly`}
-  description={`${occ.description} Free ${occ.templates.length} templates. Customize text, fonts, download high-res PNG. No sign-up, no watermark.`}
-  canonical={`https://www.cardcraftly.com/make/${occ.slug}/`}
+  title={`Free ${occasion.name} Invitation Maker | Customize and Download | ${SITE.name}`}
+  description={`${occasion.description} Choose from ${occasion.templates.length} templates, customize your text, and download a high-resolution PNG.`}
+  canonical={absoluteUrl(`/make/${occasion.slug}/`)}
   schema={schema}
 >
   <Header />
 
-  <main id="main-content" class="mx-auto max-w-6xl px-4 sm:px-6 py-10">
-
-    <!-- Breadcrumb -->
+  <main id="main-content" class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
     <nav class="mb-6 text-sm text-[var(--color-text-muted)]" aria-label="Breadcrumb">
-      <ol class="flex items-center gap-2 flex-wrap">
-        <li><a href="/" class="hover:text-indigo-600 transition-colors">Home</a></li>
-        <li aria-hidden="true">›</li>
-        <li><a href="/occasions/" class="hover:text-indigo-600 transition-colors">Occasions</a></li>
-        <li aria-hidden="true">›</li>
-        <li class="text-[var(--color-text)] font-medium">{occ.name}</li>
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a href="/" class="transition-colors hover:text-indigo-600">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/occasions/" class="transition-colors hover:text-indigo-600">Occasions</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="font-medium text-[var(--color-text)]">{occasion.name}</li>
       </ol>
     </nav>
 
-    <div class="mb-8">
-      <div class="flex items-center gap-3 mb-2">
-        <span class="text-4xl" aria-hidden="true">{occ.emoji}</span>
-        <h1 class="text-3xl sm:text-4xl font-black">Free {occ.name} Invitation Maker</h1>
+    <section class="mb-8 grid gap-6 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
+      <div>
+        <div class="mb-2 flex items-center gap-3">
+          <span class="text-4xl" aria-hidden="true">{occasion.emoji}</span>
+          <h1 class="text-3xl font-black sm:text-4xl">Free {occasion.name} Invitation Maker</h1>
+        </div>
+        <p class="max-w-2xl text-[var(--color-text-muted)]">
+          {occasion.description} Pick a template, customize your text, and download your invitation for free.
+        </p>
       </div>
-      <p class="text-[var(--color-text-muted)] max-w-2xl">{occ.description} Pick a template, customize your text, and download your invitation for free.</p>
-    </div>
 
-    <!-- Top ad -->
-    <div class="ad-slot mb-8 h-24" aria-hidden="true">Advertisement</div>
+      <aside class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-lg font-bold" style="color:var(--color-text);">What to prepare</h2>
+        <ul class="mt-4 space-y-3 text-sm" style="color:var(--color-text-muted);">
+          {checklist.map((item) => (
+            <li class="flex gap-3">
+              <span class="mt-1 h-2 w-2 rounded-full bg-orange-400"></span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </section>
 
-    <!-- Card editor -->
-    <CanvasEditor client:load templates={occ.templates} occasionName={occ.name} />
+    <CanvasEditor client:load templates={occasion.templates} occasionName={occasion.name} />
 
-    <!-- Tags / SEO keywords -->
     <div class="mt-10 flex flex-wrap gap-2" aria-label="Related searches">
-      {occ.tags.map(tag => (
+      {occasion.tags.map((tag) => (
         <span class="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5 text-xs font-medium text-[var(--color-text-muted)]">
           {tag}
         </span>
       ))}
     </div>
 
-    <!-- Related occasions -->
-    <section class="mt-14" data-scroll>
-      <h2 class="text-xl font-bold mb-5">More Occasions</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        {related.map(o => (
-          <a href={`/make/${o.slug}/`}
-            class="occasion-card rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 text-center hover:border-pink-300 transition-all group">
-            <div class="text-3xl mb-2">{o.emoji}</div>
-            <p class="text-xs font-semibold group-hover:text-indigo-600 transition-colors">{o.name}</p>
+    <section class="mt-12 grid gap-5 md:grid-cols-3" data-scroll>
+      {planningTips.map((tip, index) => (
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#ea580c;">Tip {index + 1}</p>
+          <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{tip}</p>
+        </div>
+      ))}
+    </section>
+
+    <OccasionContentNav occasion={occasion} />
+    <OccasionTemplateGallery occasion={occasion} heading={`Popular ${occasion.name} templates`} limit={6} />
+    <FaqSection title={`${occasion.name} invitation maker FAQ`} faqs={faqs} />
+
+    <section class="mt-6" data-scroll>
+      <h2 class="mb-5 text-xl font-bold">More occasions</h2>
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {related.map((entry) => (
+          <a
+            href={`/make/${entry.slug}/`}
+            class="occasion-card rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 text-center transition-all hover:border-pink-300 group"
+          >
+            <div class="mb-2 text-3xl">{entry.emoji}</div>
+            <p class="text-xs font-semibold transition-colors group-hover:text-indigo-600">{entry.name}</p>
           </a>
         ))}
       </div>
     </section>
-
-    <!-- Bottom ad -->
-    <div class="ad-slot mt-10 h-24" aria-hidden="true">Advertisement</div>
-
   </main>
 
   <Footer />

@@ -1,68 +1,68 @@
 ---
 import { OCCASIONS } from '../lib/occasions';
+import { SITE } from '../lib/site';
+
 const year = new Date().getFullYear();
-const col1 = OCCASIONS.slice(0, 9);
+const featuredOccasions = OCCASIONS.slice(0, 9);
 ---
 
 <footer style="background:#0C0705;border-top:1px solid rgba(255,255,255,0.06);">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8 pt-16 pb-8">
-
-    <!-- Top row -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-14">
-      <!-- Brand -->
+  <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 lg:px-8">
+    <div class="mb-14 grid grid-cols-1 gap-12 md:grid-cols-4">
       <div class="md:col-span-1">
-        <a href="/" class="inline-flex items-center gap-2.5 mb-5 group">
-          <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style="background:linear-gradient(135deg,#ea580c,#ec4899);">
+        <a href="/" class="mb-5 inline-flex items-center gap-2.5 group">
+          <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl" style="background:linear-gradient(135deg,#ea580c,#ec4899);">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect x="3" y="5" width="18" height="14" rx="2" stroke="white" stroke-width="2"/>
-              <line x1="3" y1="9.5" x2="21" y2="9.5" stroke="white" stroke-width="1.8"/>
-              <rect x="6" y="13" width="4" height="1.5" rx="0.75" fill="white"/>
-              <rect x="6" y="16" width="7" height="1.5" rx="0.75" fill="white"/>
+              <rect x="3" y="5" width="18" height="14" rx="2" stroke="white" stroke-width="2" />
+              <line x1="3" y1="9.5" x2="21" y2="9.5" stroke="white" stroke-width="1.8" />
+              <rect x="6" y="13" width="4" height="1.5" rx="0.75" fill="white" />
+              <rect x="6" y="16" width="7" height="1.5" rx="0.75" fill="white" />
             </svg>
           </div>
-          <span class="text-lg font-black gradient-text-warm">CardCraftly</span>
+          <span class="gradient-text-warm text-lg font-black">{SITE.name}</span>
         </a>
-        <p class="text-sm leading-relaxed mb-6" style="color:rgba(255,255,255,0.38);">
-          Free invitation & greeting card maker. 18+ occasions. Customize text, download PNG. No sign-up, no watermark, no cost.
+        <p class="mb-6 text-sm leading-relaxed" style="color:rgba(255,255,255,0.38);">
+          Free invitation and greeting card maker. Browse templates, customize online, and use wording ideas for birthdays, weddings, holidays, and more.
         </p>
         <div class="flex flex-col gap-2">
-          {[['✓ 100% Free', '#4ade80'], ['✓ No Watermark', '#f472b6'], ['⚡ Instant Download', '#fb923c']].map(([text, color]) => (
+          {[
+            ['100% Free', '#4ade80'],
+            ['No Watermark', '#f472b6'],
+            ['Instant Download', '#fb923c'],
+          ].map(([text, color]) => (
             <span class="text-xs font-semibold" style={`color:${color};`}>{text}</span>
           ))}
         </div>
       </div>
 
-      <!-- Occasions -->
       <div>
         <h3 class="mb-5 text-xs font-bold uppercase tracking-widest" style="color:rgba(255,255,255,0.3);">Occasions</h3>
         <ul class="space-y-2.5">
-          {col1.map(o => (
+          {featuredOccasions.map((occasion) => (
             <li>
-              <a href={`/make/${o.slug}/`} class="text-sm transition-colors hover:text-orange-400" style="color:rgba(255,255,255,0.45);">
-                {o.emoji} {o.name}
+              <a href={`/make/${occasion.slug}/`} class="text-sm transition-colors hover:text-orange-400" style="color:rgba(255,255,255,0.45);">
+                {occasion.emoji} {occasion.name}
               </a>
             </li>
           ))}
         </ul>
       </div>
 
-      <!-- Tools -->
       <div>
-        <h3 class="mb-5 text-xs font-bold uppercase tracking-widest" style="color:rgba(255,255,255,0.3);">Popular Cards</h3>
+        <h3 class="mb-5 text-xs font-bold uppercase tracking-widest" style="color:rgba(255,255,255,0.3);">Resources</h3>
         <ul class="space-y-2.5">
           {[
-            ['Birthday Card Maker',       '/make/birthday/'],
-            ['Wedding Invitation Maker',  '/make/wedding/'],
-            ['Baby Shower Invitations',   '/make/baby-shower/'],
-            ['Graduation Party Invites',  '/make/graduation/'],
-            ['Christmas Party Invites',   '/make/christmas/'],
-            ["Valentine's Day Cards",     '/make/valentines/'],
-            ['Halloween Party Invites',   '/make/halloween/'],
-            ['Eid Mubarak Cards',         '/make/eid/'],
-            ['All Templates →',           '/templates/'],
+            ['Invitation Maker', '/occasions/'],
+            ['Invitation Hubs', '/invitations/'],
+            ['All Templates', '/templates/'],
+            ['Wording Ideas', '/wording/'],
+            ['Birthday Invitations', '/invitations/birthday/'],
+            ['Wedding Templates', '/templates/wedding/'],
+            ['Diwali Invitations', '/invitations/diwali/'],
+            ['Anniversary Wording', '/wording/anniversary/'],
           ].map(([label, href]) => (
             <li>
-              <a href={href} class="text-sm transition-colors hover:text-orange-400" style={href === '/templates/' ? 'color:#fb923c;font-weight:600;' : 'color:rgba(255,255,255,0.45);'}>
+              <a href={href} class="text-sm transition-colors hover:text-orange-400" style="color:rgba(255,255,255,0.45);">
                 {label}
               </a>
             </li>
@@ -70,15 +70,15 @@ const col1 = OCCASIONS.slice(0, 9);
         </ul>
       </div>
 
-      <!-- Company -->
       <div>
         <h3 class="mb-5 text-xs font-bold uppercase tracking-widest" style="color:rgba(255,255,255,0.3);">Company</h3>
         <ul class="space-y-2.5">
           {[
-            ['About',            '/about/'],
-            ['All Occasions',    '/occasions/'],
-            ['Templates',        '/templates/'],
-            ['Privacy Policy',   '/privacy/'],
+            ['About', '/about/'],
+            ['All Occasions', '/occasions/'],
+            ['Templates', '/templates/'],
+            ['Wording', '/wording/'],
+            ['Privacy Policy', '/privacy/'],
             ['Terms of Service', '/terms/'],
           ].map(([label, href]) => (
             <li>
@@ -90,21 +90,16 @@ const col1 = OCCASIONS.slice(0, 9);
         </ul>
         <div class="mt-7">
           <h3 class="mb-3 text-xs font-bold uppercase tracking-widest" style="color:rgba(255,255,255,0.3);">Contact</h3>
-          <a href="mailto:contact@cardcraftly.com" class="text-sm transition-colors hover:text-orange-400" style="color:rgba(255,255,255,0.45);">
-            contact@cardcraftly.com
+          <a href={`mailto:${SITE.email}`} class="text-sm transition-colors hover:text-orange-400" style="color:rgba(255,255,255,0.45);">
+            {SITE.email}
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Bottom bar -->
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8" style="border-top:1px solid rgba(255,255,255,0.06);">
-      <p class="text-xs" style="color:rgba(255,255,255,0.22);">
-        &copy; {year} CardCraftly. All rights reserved.
-      </p>
-      <p class="text-xs" style="color:rgba(255,255,255,0.18);">
-        Made with ♥ for every celebration, big and small.
-      </p>
+    <div class="flex flex-col items-center justify-between gap-4 pt-8 sm:flex-row" style="border-top:1px solid rgba(255,255,255,0.06);">
+      <p class="text-xs" style="color:rgba(255,255,255,0.22);">&copy; {year} {SITE.name}. All rights reserved.</p>
+      <p class="text-xs" style="color:rgba(255,255,255,0.18);">Made for celebrations, milestones, and last-minute invites.</p>
     </div>
   </div>
 </footer>

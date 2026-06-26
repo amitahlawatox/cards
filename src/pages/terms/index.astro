@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE, absoluteUrl } from '../../lib/site';
+---
+
+<Layout
+  title={`Terms of Service | ${SITE.name}`}
+  description={`Review the terms for using ${SITE.name} and its online card-making tools.`}
+  canonical={absoluteUrl('/terms/')}
+>
+  <Header />
+
+  <main id="main-content" class="mx-auto max-w-4xl px-6 py-12">
+    <section class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-8 sm:p-10">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-[var(--color-text-muted)]">Legal</p>
+      <h1 class="mb-4 text-4xl font-black tracking-tight text-[var(--color-text)]">Terms of Service</h1>
+      <p class="text-sm text-[var(--color-text-muted)]">Last updated: June 26, 2026</p>
+
+      <div class="mt-8 space-y-8 text-[var(--color-text-muted)]">
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">Use of the site</h2>
+          <p>{SITE.name} provides online tools for creating invitation and greeting card designs. You agree to use the site lawfully and not to interfere with its operation.</p>
+        </section>
+
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">Your content</h2>
+          <p>You are responsible for the text, images, and messages you create or upload. Do not use the service for unlawful, infringing, abusive, or harmful content.</p>
+        </section>
+
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">Intellectual property</h2>
+          <p>The site design, branding, templates, and software remain the property of {SITE.name} or its licensors unless otherwise stated. You may use generated cards for personal or business communication, subject to applicable law and third-party rights.</p>
+        </section>
+
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">Availability</h2>
+          <p>We may update, suspend, or remove features at any time. The service is provided on an as-is basis without warranties of uninterrupted availability.</p>
+        </section>
+
+        <section>
+          <h2 class="mb-2 text-xl font-bold text-[var(--color-text)]">Contact</h2>
+          <p>Questions about these terms can be sent to <a class="font-semibold text-orange-500" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

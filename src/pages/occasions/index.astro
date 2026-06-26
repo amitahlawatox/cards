@@ -4,33 +4,32 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import OccasionsGrid from '../../components/OccasionsGrid';
 import { OCCASIONS } from '../../lib/occasions';
+import { SITE, absoluteUrl } from '../../lib/site';
 ---
 
 <Layout
-  title="All Occasions — Free Card & Invitation Templates | CardCraftly"
-  description="Browse all 18+ free invitation and greeting card occasions. Birthday, wedding, baby shower, graduation, Eid, Diwali, Halloween and more. No sign-up required."
-  canonical="https://www.cardcraftly.com/occasions/"
+  title={`All Occasions | Free Card and Invitation Templates | ${SITE.name}`}
+  description="Browse all free invitation and greeting card occasions. Birthday, wedding, baby shower, graduation, Eid, Diwali, Halloween, and more. No sign-up required."
+  canonical={absoluteUrl('/occasions/')}
 >
   <Header />
 
   <main id="main-content">
-    <!-- Hero banner -->
     <section class="relative overflow-hidden py-20 lg:py-28" style="background:linear-gradient(135deg,#fff7f0,#fef5ec);">
       <div class="absolute inset-0 pointer-events-none" style="background-image:radial-gradient(rgba(234,88,12,0.07) 1px,transparent 1px);background-size:32px 32px;" />
       <div class="relative mx-auto max-w-7xl px-6 text-center">
-        <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest badge-warm">
-          18+ Occasions
+        <div class="badge-warm mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest">
+          {OCCASIONS.length}+ occasions
         </div>
-        <h1 class="font-black tracking-tight mb-4" style="font-size:clamp(2.5rem,6vw,4rem);color:var(--color-text);line-height:1.05;">
+        <h1 class="mb-4 font-black tracking-tight" style="font-size:clamp(2.5rem,6vw,4rem);color:var(--color-text);line-height:1.05;">
           Every celebration, covered
         </h1>
-        <p class="text-lg max-w-xl mx-auto" style="color:var(--color-text-muted);">
-          Pick your occasion, choose a template, personalize the text, and download your free PNG — no sign-up required.
+        <p class="mx-auto max-w-xl text-lg" style="color:var(--color-text-muted);">
+          Pick your occasion, choose a template, personalize the text, and download your free PNG with no sign-up required.
         </p>
       </div>
     </section>
 
-    <!-- Animated occasions grid -->
     <OccasionsGrid occasions={OCCASIONS} client:load />
   </main>
 

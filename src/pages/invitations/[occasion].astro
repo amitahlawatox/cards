@@ -1,0 +1,137 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FaqSection from '../../components/FaqSection.astro';
+import OccasionContentNav from '../../components/OccasionContentNav.astro';
+import OccasionTemplateGallery from '../../components/OccasionTemplateGallery.astro';
+import { OCCASIONS } from '../../lib/occasions';
+import {
+  getOccasionChecklist,
+  getOccasionFaqs,
+  getOccasionPlanningTips,
+  getOccasionRelated,
+  getOccasionSummary,
+} from '../../lib/landing';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return OCCASIONS.map((occasion) => ({
+    params: { occasion: occasion.slug },
+    props: { occasion },
+  }));
+}
+
+const { occasion } = Astro.props;
+const faqs = getOccasionFaqs(occasion);
+const checklist = getOccasionChecklist(occasion);
+const planningTips = getOccasionPlanningTips(occasion);
+const related = getOccasionRelated(occasion, 4);
+const title = `Free ${occasion.name} Invitations | Templates, Wording and Online Maker | ${SITE.name}`;
+const description = `${getOccasionSummary(occasion)} Browse templates, message ideas, and create your ${occasion.name.toLowerCase()} invitation online.`;
+const schema = [
+  articleSchema({
+    title,
+    description,
+    path: `/invitations/${occasion.slug}/`,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Invitations', path: '/invitations/' },
+    { name: occasion.name, path: `/invitations/${occasion.slug}/` },
+  ]),
+  faqSchema(faqs),
+];
+---
+
+<Layout title={title} description={description} canonical={absoluteUrl(`/invitations/${occasion.slug}/`)} schema={schema}>
+  <Header />
+
+  <main id="main-content">
+    <section class="mx-auto max-w-6xl px-6 py-12">
+      <nav class="mb-6 text-sm text-[var(--color-text-muted)]" aria-label="Breadcrumb">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="transition-colors hover:text-indigo-600">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/invitations/" class="transition-colors hover:text-indigo-600">Invitations</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="font-medium text-[var(--color-text)]">{occasion.name}</li>
+        </ol>
+      </nav>
+
+      <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#fff7f0,#fdf2f8);border-color:#FBCFE8;">
+        <div class="max-w-3xl">
+          <p class="text-sm font-bold uppercase tracking-[0.26em]" style="color:#ea580c;">Invitation hub</p>
+          <h1 class="mt-3 text-4xl font-black tracking-tight sm:text-5xl" style="color:#1A1340;">
+            Free {occasion.name} invitations
+          </h1>
+          <p class="mt-4 text-lg leading-relaxed" style="color:#6B63A3;">
+            {description}
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href={`/make/${occasion.slug}/`} class="rounded-full px-5 py-3 text-sm font-bold text-white" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);">
+              Open editor
+            </a>
+            <a href={`/wording/${occasion.slug}/`} class="rounded-full px-5 py-3 text-sm font-bold" style="background:white;color:#1A1340;border:1px solid #E9D5FF;">
+              See wording ideas
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto grid max-w-6xl gap-5 px-6 md:grid-cols-3" data-scroll>
+      {planningTips.map((tip, index) => (
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#ea580c;">Planning note {index + 1}</p>
+          <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{tip}</p>
+        </div>
+      ))}
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 py-10" data-scroll>
+      <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-xl font-black" style="color:var(--color-text);">What to include</h2>
+          <ul class="mt-4 space-y-3 text-sm" style="color:var(--color-text-muted);">
+            {checklist.map((item) => (
+              <li class="flex gap-3">
+                <span class="mt-1 h-2 w-2 rounded-full bg-pink-500"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-xl font-black" style="color:var(--color-text);">Popular searches around this occasion</h2>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {occasion.tags.map((tag) => (
+              <span class="rounded-full border px-3 py-1.5 text-xs font-semibold" style="border-color:var(--color-border);color:var(--color-text-muted);">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <OccasionTemplateGallery occasion={occasion} heading={`${occasion.name} invitation templates`} limit={6} />
+    <OccasionContentNav occasion={occasion} title={`Keep building your ${occasion.name.toLowerCase()} invitation`} />
+    <FaqSection title={`${occasion.name} invitations FAQ`} faqs={faqs} />
+
+    <section class="mx-auto max-w-6xl px-6 py-10" data-scroll>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Related invitation hubs</h2>
+      <div class="grid gap-4 md:grid-cols-4">
+        {related.map((entry) => (
+          <a href={`/invitations/${entry.slug}/`} class="rounded-3xl border p-5 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+            <p class="text-2xl">{entry.emoji}</p>
+            <p class="mt-3 text-sm font-bold" style="color:var(--color-text);">{entry.name} invitations</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

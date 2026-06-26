@@ -1,0 +1,41 @@
+---
+import type { FaqItem } from '../lib/seo';
+
+interface Props {
+  title?: string;
+  faqs: FaqItem[];
+}
+
+const { title = 'Frequently asked questions', faqs } = Astro.props;
+---
+
+<section class="mx-auto max-w-4xl px-6 py-10" data-scroll>
+  <h2 class="mb-6 text-2xl font-black tracking-tight" style="color:var(--color-text);">{title}</h2>
+  <div class="space-y-3">
+    {faqs.map((faq) => (
+      <details
+        class="group rounded-2xl p-5 transition-all"
+        style="background:var(--color-surface);border:1px solid var(--color-border);"
+      >
+        <summary
+          class="flex list-none cursor-pointer items-center justify-between gap-4 font-semibold"
+          style="color:var(--color-text);"
+        >
+          {faq.question}
+          <svg
+            class="shrink-0 transition-transform duration-200 group-open:rotate-180"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </summary>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{faq.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>
