@@ -1,6 +1,129 @@
 import { OCCASIONS, type Occasion } from './occasions';
+import { SITE } from './site';
 
 export type LandingFamily = 'make' | 'invitations' | 'templates' | 'wording';
+
+export interface OccasionRouteSuggestion {
+  title: string;
+  href: string;
+  description: string;
+}
+
+export interface OccasionMakerGrowthData {
+  title: string;
+  metaDescription: string;
+  intro: string;
+  searchTerms: string[];
+  highlights: string[];
+  routeSuggestions: OccasionRouteSuggestion[];
+}
+
+const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'title'>> = {
+  diwali: {
+    metaDescription:
+      'Create free Diwali invitation cards online, compare festive templates, make printable invites, and share WhatsApp-ready Diwali cards in minutes.',
+    intro:
+      'Create free Diwali invitation cards online, choose festive family or office-friendly templates, and export printable or WhatsApp-ready invites in minutes.',
+    searchTerms: [
+      'diwali invitations',
+      'diwali invitation card',
+      'printable diwali invitations',
+      'diwali invite template',
+      'diwali invitation card maker online',
+    ],
+    highlights: [
+      'Use festive Diwali layouts built for family gatherings, apartment events, office celebrations, and community invites.',
+      'Choose the format that fits the moment: printable downloads, hosted invite links, or quick WhatsApp sharing.',
+      'Add host names, sweets-and-dinner timing, RSVP details, and venue notes without rewriting the whole card.',
+    ],
+    routeSuggestions: [
+      {
+        title: 'Diwali templates',
+        href: '/templates/diwali/',
+        description: 'Compare editable festive designs before choosing the right layout for your celebration.',
+      },
+      {
+        title: 'Printable Diwali invitations',
+        href: '/invitations/diwali/printable/',
+        description: 'Focus on print-friendly Diwali card ideas and downloadable invite formats.',
+      },
+      {
+        title: 'WhatsApp Diwali invites',
+        href: '/invitations/diwali/whatsapp/',
+        description: 'Open the mobile-friendly route for quick Diwali sharing and RSVP follow-up.',
+      },
+      {
+        title: 'Diwali wording ideas',
+        href: '/wording/diwali/',
+        description: 'Use festive invitation copy, host lines, and RSVP wording that feels natural for family invites.',
+      },
+      {
+        title: 'Diwali seasonal hub',
+        href: '/seasonal/diwali-invitations/',
+        description: 'Explore the broader festive cluster driving Diwali, family-event, and holiday-party intent.',
+      },
+      {
+        title: 'Indian festive invitation ideas',
+        href: '/indian/indian-festive-invitations/',
+        description: 'Move into the market-specific cluster built for Indian festive and family-event searches.',
+      },
+    ],
+  },
+  anniversary: {
+    metaDescription:
+      'Make a free anniversary invitation card online, compare romantic and elegant templates, and download printable anniversary invites in minutes.',
+    intro:
+      'Make a free anniversary invitation card online, personalize the couple details, compare romantic and elegant styles, and download a printable invite without design software.',
+    searchTerms: [
+      'free anniversary invitation templates',
+      'online anniversary invitation card maker',
+      'anniversary invitation card online',
+      'wedding anniversary invitation card maker online free',
+      'free printable anniversary invitations',
+    ],
+    highlights: [
+      'Choose layouts for silver, golden, milestone, and casual anniversary celebrations without starting from a blank card.',
+      'Pair romantic wording, RSVP details, and hosted invite links with elegant or family-friendly templates.',
+      'Export a printable card when you need formal invites, or use a digital version for faster guest sharing.',
+    ],
+    routeSuggestions: [
+      {
+        title: 'Anniversary templates',
+        href: '/templates/anniversary/',
+        description: 'Browse romantic, elegant, and milestone-ready anniversary invitation designs.',
+      },
+      {
+        title: 'Free anniversary invitations',
+        href: '/invitations/anniversary/free/',
+        description: 'Land on the cost-conscious route built for free anniversary invite searches.',
+      },
+      {
+        title: 'Printable anniversary invites',
+        href: '/invitations/anniversary/printable/',
+        description: 'Focus on printable anniversary invitation ideas and print-ready formats.',
+      },
+      {
+        title: 'Anniversary wording ideas',
+        href: '/wording/anniversary/',
+        description: 'Get formal, casual, and family-friendly wording for anniversary celebrations.',
+      },
+      {
+        title: 'Online card maker',
+        href: '/features/online-card-maker/',
+        description: 'Explore the broader feature page for free online card maker intent.',
+      },
+      {
+        title: 'Printable invitation maker',
+        href: '/features/printable-invitation-maker/',
+        description: 'See the product-focused route for printable invitation demand and export workflows.',
+      },
+    ],
+  },
+};
+
+function getIndefiniteArticle(value: string) {
+  return /^[aeiou]/i.test(value.trim()) ? 'an' : 'a';
+}
 
 export function getOccasionBySlug(slug: string) {
   return OCCASIONS.find((occasion) => occasion.slug === slug);
@@ -26,22 +149,25 @@ export function getOccasionChecklist(occasion: Occasion) {
 }
 
 export function getOccasionFaqs(occasion: Occasion) {
+  const lowerName = occasion.name.toLowerCase();
+  const article = getIndefiniteArticle(lowerName);
+
   return [
     {
-      question: `Can I make a ${occasion.name.toLowerCase()} invitation for free?`,
-      answer: `Yes. You can customize a ${occasion.name.toLowerCase()} design, update the text, and download it without paying for a subscription.`,
+      question: `Can I make ${article} ${lowerName} invitation for free?`,
+      answer: `Yes. You can customize your ${lowerName} design, update the text, and download it without paying for a subscription.`,
     },
     {
-      question: `What should a ${occasion.name.toLowerCase()} invitation include?`,
-      answer: `A strong ${occasion.name.toLowerCase()} invitation usually includes the event title, date, time, venue, host details, and an RSVP contact.`,
+      question: `What should ${article} ${lowerName} invitation include?`,
+      answer: `A strong ${lowerName} invitation usually includes the event title, date, time, venue, host details, and an RSVP contact.`,
     },
     {
-      question: `Can I use these ${occasion.name.toLowerCase()} templates on mobile?`,
-      answer: `Yes. The editor is designed to work on mobile and desktop so you can create and download your card from any device.`,
+      question: `Can I use these ${lowerName} templates on mobile?`,
+      answer: 'Yes. The editor is designed to work on mobile and desktop so you can create and download your card from any device.',
     },
     {
-      question: `Can I print my ${occasion.name.toLowerCase()} invitation after downloading it?`,
-      answer: `Yes. The downloaded PNG works for digital sharing and can also be used for home or local print workflows.`,
+      question: `Can I print my ${lowerName} invitation after downloading it?`,
+      answer: 'Yes. The downloaded PNG works for digital sharing and can also be used for home or local print workflows.',
     },
   ];
 }
@@ -77,6 +203,67 @@ export function getOccasionPlanningTips(occasion: Occasion) {
   ];
 }
 
+export function getOccasionMakerGrowthData(occasion: Occasion): OccasionMakerGrowthData {
+  const override = MAKER_GROWTH_OVERRIDES[occasion.slug];
+
+  if (override) {
+    return {
+      title: `Free ${occasion.name} Invitation Maker | ${SITE.name}`,
+      ...override,
+    };
+  }
+
+  return {
+    title: `Free ${occasion.name} Invitation Maker | Customize and Download | ${SITE.name}`,
+    metaDescription: `${occasion.description} Choose from ${occasion.templates.length} templates, personalize your text, and download a high-resolution invitation for free.`,
+    intro: `${occasion.description} Pick a template, customize your text, and download your invitation for free.`,
+    searchTerms: [
+      `${occasion.name.toLowerCase()} invitation`,
+      `${occasion.name.toLowerCase()} template`,
+      `online ${occasion.name.toLowerCase()} invitation`,
+      `printable ${occasion.name.toLowerCase()} invitation`,
+      `${occasion.name.toLowerCase()} invitation wording`,
+    ],
+    highlights: [
+      `Browse editable ${occasion.name.toLowerCase()} templates built to match different event styles and guest expectations.`,
+      `Customize guest-facing details like host names, timing, venue notes, and RSVP information in one editor flow.`,
+      `Switch from inspiration to a finished ${occasion.name.toLowerCase()} card quickly with templates, wording, and download options in the same journey.`,
+    ],
+    routeSuggestions: [
+      {
+        title: `${occasion.name} templates`,
+        href: `/templates/${occasion.slug}/`,
+        description: `Compare editable ${occasion.name.toLowerCase()} template styles before opening the editor.`,
+      },
+      {
+        title: `${occasion.name} invitation hub`,
+        href: `/invitations/${occasion.slug}/`,
+        description: `Explore the broader invitation cluster for templates, wording, and long-tail occasion intent.`,
+      },
+      {
+        title: `${occasion.name} wording ideas`,
+        href: `/wording/${occasion.slug}/`,
+        description: `Use message ideas and checklists that help you finish the invitation faster.`,
+      },
+      {
+        title: 'Printable invitation maker',
+        href: '/features/printable-invitation-maker/',
+        description: 'See the print-focused product page for downloadable and print-ready card workflows.',
+      },
+      {
+        title: 'WhatsApp invitation maker',
+        href: '/features/whatsapp-invitation-maker/',
+        description: 'Use the mobile-sharing route when the invitation needs to travel fast between guests.',
+      },
+      {
+        title: 'Hosted RSVP invitation pages',
+        href: '/features/rsvp-invitation-pages/',
+        description: 'Explore shareable invite pages with RSVP-by details, schedule notes, and guest contact prompts.',
+      },
+    ],
+  };
+}
+
 export function getOccasionTemplateHighlights(occasion: Occasion) {
   return occasion.templates.slice(0, 4).map((template) => ({
     title: template.name,
@@ -85,11 +272,14 @@ export function getOccasionTemplateHighlights(occasion: Occasion) {
 }
 
 export function getOccasionHubLinks(occasion: Occasion) {
+  const lowerName = occasion.name.toLowerCase();
+  const article = getIndefiniteArticle(occasion.name);
+
   return [
     {
-      title: `Make a ${occasion.name} invitation`,
+      title: `Make ${article} ${occasion.name} invitation`,
       href: `/make/${occasion.slug}/`,
-      description: `Open the editor and customize a ${occasion.name.toLowerCase()} design right away.`,
+      description: `Open the editor and customize your ${lowerName} design right away.`,
     },
     {
       title: `${occasion.name} templates`,
