@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import RecentDrafts from '../../components/RecentDrafts';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+
+const path = '/drafts/';
+const title = `Recent Projects | ${SITE.name}`;
+const description = 'Recover unfinished invitations and continue editing recent projects saved automatically in this browser.';
+const schema = [
+  articleSchema({ title, description, path }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Recent Projects', path },
+  ]),
+];
+---
+
+<Layout title={title} description={description} canonical={absoluteUrl(path)} schema={schema} noIndex={true}>
+  <Header />
+  <main id="main-content" class="mx-auto max-w-7xl px-6 py-12">
+    <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#eef2ff,#fff7ed);border-color:#C4B5FD;">
+      <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#7C3AED;">Recent projects</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:#1A1340;">Recover unfinished invitation drafts</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed" style="color:#6B63A3;">
+        Every editor draft is saved locally in this browser. Use this page to jump back into your latest invitation projects without searching for the original occasion.
+      </p>
+    </div>
+
+    <section class="mt-10" data-scroll>
+      <RecentDrafts client:load />
+    </section>
+  </main>
+  <Footer />
+</Layout>

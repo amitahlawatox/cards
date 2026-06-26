@@ -1,5 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import {
+  DRAFT_REGISTRY_KEY,
+  createDraftRegistryEntry,
+  getDraftStorageKey,
+  parseDraftRegistry,
+  removeDraftRegistryEntry,
+  upsertDraftRegistryEntry,
+} from '../lib/drafts';
 import type { CardTemplate } from '../lib/occasions';
 import {
   EMPTY_SHARE_META,
@@ -204,10 +212,6 @@ async function renderCardToCanvas(template: CardTemplate, elements: EditorElemen
   }
 
   return canvas;
-}
-
-function getDraftStorageKey(occasionSlug: string) {
-  return `bcs-draft:${occasionSlug}`;
 }
 
 function slugToTitle(value: string) {
@@ -500,10 +504,16 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
     };
 
     window.localStorage.setItem(draftKey, JSON.stringify(payload));
+    const nextEntry = createDraftRegistryEntry(payload, template.name);
+    const currentEntries = parseDraftRegistry(window.localStorage.getItem(DRAFT_REGISTRY_KEY));
+    const nextEntries = upsertDraftRegistryEntry(currentEntries, nextEntry);
+    window.localStorage.setItem(DRAFT_REGISTRY_KEY, JSON.stringify(nextEntries));
   }, [activeTpl, draftKey, elements, occasionName, occasionSlug, shareMeta]);
 
   function resetToTemplate() {
     window.localStorage.removeItem(draftKey);
+    const nextEntries = removeDraftRegistryEntry(parseDraftRegistry(window.localStorage.getItem(DRAFT_REGISTRY_KEY)), occasionSlug);
+    window.localStorage.setItem(DRAFT_REGISTRY_KEY, JSON.stringify(nextEntries));
     setDraftRecovered(false);
     setShareMeta(EMPTY_SHARE_META);
     setElements(makeDefaultElements(template));
@@ -733,7 +743,7 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
 
         {draftRecovered && (
           <div className="border-b px-4 py-3 text-xs leading-relaxed" style={{ borderColor: 'var(--color-border)', background: 'rgba(79,70,229,0.06)', color: 'var(--color-text-muted)' }}>
-            Recent draft recovered for {slugToTitle(occasionSlug)}. Your latest local changes are loaded automatically.
+            Recent draft recovered for {slugToTitle(occasionSlug)}. Your latest local changes are loaded automatically and listed in <a href="/drafts/" className="font-semibold underline">Recent Projects</a>.
           </div>
         )}
 
@@ -1011,7 +1021,7 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
               Live Preview
             </p>
             <p className="mt-1 text-xs" style={{ color: 'var(--color-text-muted)' }}>
-              Drafts save automatically in this browser.
+              Drafts save automatically in this browser. <a href="/drafts/" className="font-semibold" style={{ color: '#4F46E5' }}>Open Recent Projects</a>
             </p>
           </div>
           <div className="flex flex-wrap gap-2">

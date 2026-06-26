@@ -45,6 +45,13 @@ const nav = [
 
     <div class="flex items-center gap-3">
       <a
+        href="/drafts/"
+        class="hidden items-center rounded-xl px-4 py-2.5 text-sm font-bold transition-all hover:opacity-90 sm:flex"
+        style="background:rgba(79,70,229,0.08);color:#4F46E5;border:1px solid rgba(79,70,229,0.18);"
+      >
+        Recent Projects
+      </a>
+      <a
         href="/make/birthday/"
         class="hidden items-center gap-1.5 rounded-xl px-5 py-2.5 text-sm font-bold text-white transition-all hover:opacity-90 active:scale-95 sm:flex"
         style="background:linear-gradient(135deg,#4F46E5,#7C3AED);box-shadow:0 4px 18px rgba(79,70,229,0.35);"
@@ -74,6 +81,9 @@ const nav = [
           {link.label}
         </a>
       ))}
+      <a href="/drafts/" class="rounded-xl px-4 py-3 text-sm font-semibold transition-all" style="color:rgba(255,255,255,0.7);">
+        Recent Projects
+      </a>
       <a href="/make/birthday/" class="mt-2 rounded-xl px-4 py-3 text-center text-sm font-bold text-white" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);">
         Make Free Card
       </a>
