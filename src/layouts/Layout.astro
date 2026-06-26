@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import { SITE, absoluteUrl } from '../lib/site';
 import { organizationSchema } from '../lib/seo';
 
@@ -107,8 +109,7 @@ const schemaNodes = [organizationSchema(), ...(Array.isArray(schema) ? schema : 
       })();
     </script>
 
-    {import.meta.env.PROD && import.meta.env.PUBLIC_ENABLE_VERCEL_INSIGHTS === 'true' && (
-      <script is:inline defer src="/_vercel/insights/script.js"></script>
-    )}
+    {import.meta.env.PROD && <Analytics />}
+    {import.meta.env.PROD && <SpeedInsights />}
   </body>
 </html>

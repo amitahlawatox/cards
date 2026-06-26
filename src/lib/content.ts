@@ -42,6 +42,18 @@ export interface MarketCluster {
   highlights: string[];
 }
 
+export interface ProductFeaturePage {
+  slug: string;
+  title: string;
+  description: string;
+  intro: string;
+  highlights: string[];
+  queryFocus: string[];
+  occasionSlugs: string[];
+  ctaPath: string;
+  ctaLabel: string;
+}
+
 export const MODIFIER_DEFINITIONS: ModifierDefinition[] = [
   { slug: 'free', label: 'Free', searchPhrase: 'free', angle: 'focuses on cost-free creation and fast access' },
   { slug: 'online', label: 'Online', searchPhrase: 'online', angle: 'highlights browser-based design without downloads' },
@@ -176,6 +188,64 @@ export const MARKET_CLUSTERS: MarketCluster[] = [
   },
 ];
 
+export const PRODUCT_FEATURE_PAGES: ProductFeaturePage[] = [
+  {
+    slug: 'online-card-maker',
+    title: 'Free Online Card Maker',
+    description: 'Create invitation cards online for birthdays, weddings, festive events, and milestone celebrations without downloads or design software.',
+    intro: 'This page is built for people who want to open a browser, personalize a card quickly, and export a polished design without friction.',
+    highlights: ['No design software required', 'Fast template switching', 'Works for family, festive, and business invites'],
+    queryFocus: ['free card maker online', 'online card maker free', 'free greeting card maker', 'card creator free'],
+    occasionSlugs: ['birthday', 'wedding', 'anniversary', 'corporate'],
+    ctaPath: '/occasions/',
+    ctaLabel: 'Browse all occasions',
+  },
+  {
+    slug: 'photo-card-maker',
+    title: 'Free Photo Card Maker',
+    description: 'Upload a picture, add text, and turn it into a personalized photo invitation or greeting card in minutes.',
+    intro: 'Photo cards are high-intent because users already know the format they want. This landing page connects that demand to the image-upload flow inside the editor.',
+    highlights: ['Image upload inside the editor', 'Great for baby showers, birthdays, and graduations', 'Export digital cards and print-ready PDFs'],
+    queryFocus: ['free photo card maker', 'photo card maker free', 'online photo invitation maker'],
+    occasionSlugs: ['baby-shower', 'birthday', 'graduation', 'anniversary'],
+    ctaPath: '/make/birthday/',
+    ctaLabel: 'Start with a photo-ready card',
+  },
+  {
+    slug: 'printable-invitation-maker',
+    title: 'Printable Invitation Maker',
+    description: 'Design printable invitations online, then download high-resolution cards and print-ready PDFs for home or local printing.',
+    intro: 'Printable demand is usually closer to conversion because the user already plans to send or print the finished card soon.',
+    highlights: ['High-resolution PNG download', 'Print-ready PDF export', 'Clean layouts for weddings, anniversaries, and festive invites'],
+    queryFocus: ['printable invitations', 'printable invitation maker', 'printable diwali invitations'],
+    occasionSlugs: ['wedding', 'anniversary', 'diwali', 'christmas'],
+    ctaPath: '/make/diwali/',
+    ctaLabel: 'Create a printable invitation',
+  },
+  {
+    slug: 'whatsapp-invitation-maker',
+    title: 'WhatsApp Invitation Maker',
+    description: 'Create WhatsApp-friendly invitation cards and share them instantly with mobile-ready layouts, hosted invite links, and RSVP prompts.',
+    intro: 'WhatsApp is a natural growth channel for family events, festive gatherings, and last-minute celebrations where speed matters more than formal print workflows.',
+    highlights: ['Hosted invite links for sharing', 'Mobile-friendly layouts', 'Useful for Indian family events and festive invites'],
+    queryFocus: ['whatsapp invitation maker', 'online whatsapp invitations', 'diwali invitation card maker online'],
+    occasionSlugs: ['diwali', 'housewarming', 'baby-shower', 'birthday'],
+    ctaPath: '/make/diwali/',
+    ctaLabel: 'Build a WhatsApp invite',
+  },
+  {
+    slug: 'rsvp-invitation-pages',
+    title: 'Hosted RSVP Invitation Pages',
+    description: 'Create shareable invitation pages with RSVP-by details, dress code notes, schedule prompts, and direct contact actions for guests.',
+    intro: 'Hosted invite pages add utility beyond static cards and help the site compete on product depth, not just template count.',
+    highlights: ['Copy a hosted invite link from the editor', 'Add RSVP-by dates, dress codes, and schedule details', 'Guests can reply by email or WhatsApp'],
+    queryFocus: ['rsvp invitation page', 'hosted invitation page', 'online invitation with rsvp'],
+    occasionSlugs: ['wedding', 'corporate', 'birthday', 'baby-shower'],
+    ctaPath: '/make/wedding/',
+    ctaLabel: 'Create a hosted RSVP invite',
+  },
+];
+
 export const FEATURED_EVENT_MICROSITES = ['birthday', 'wedding', 'baby-shower', 'corporate'] as const;
 
 export function getOccasionBySlug(slug: string) {
@@ -196,6 +266,10 @@ export function getGuideBySlug(slug: string) {
 
 export function getMarketClusterBySlug(slug: string) {
   return MARKET_CLUSTERS.find((cluster) => cluster.slug === slug);
+}
+
+export function getProductFeatureBySlug(slug: string) {
+  return PRODUCT_FEATURE_PAGES.find((feature) => feature.slug === slug);
 }
 
 export function getOccasionsBySlugs(slugs: string[]) {
@@ -222,6 +296,13 @@ export function getModifierStaticPaths() {
       props: { occasion, modifier },
     })),
   );
+}
+
+export function getProductFeatureStaticPaths() {
+  return PRODUCT_FEATURE_PAGES.map((feature) => ({
+    params: { slug: feature.slug },
+    props: { feature },
+  }));
 }
 
 export function getFeaturedMicrositePaths() {
