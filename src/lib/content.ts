@@ -54,6 +54,12 @@ export interface ProductFeaturePage {
   ctaLabel: string;
 }
 
+export interface TemplateRouteSuggestion {
+  title: string;
+  href: string;
+  description: string;
+}
+
 export const MODIFIER_DEFINITIONS: ModifierDefinition[] = [
   { slug: 'free', label: 'Free', searchPhrase: 'free', angle: 'focuses on cost-free creation and fast access' },
   { slug: 'online', label: 'Online', searchPhrase: 'online', angle: 'highlights browser-based design without downloads' },
@@ -362,4 +368,144 @@ export function getGuideExamples(guide: GuidePage) {
 
 export function getTemplateDetailDescription(occasion: Occasion, template: CardTemplate) {
   return `${template.name} is an editable ${occasion.name.toLowerCase()} invitation template with customizable text, download-ready output, and a quick path into the online editor.`;
+}
+
+function inferTemplateStyle(template: CardTemplate) {
+  const value = template.name.toLowerCase();
+
+  if (value.includes('elegant') || value.includes('classic') || value.includes('gold') || value.includes('royal')) {
+    return 'elegant';
+  }
+
+  if (value.includes('modern') || value.includes('minimal') || value.includes('clean') || value.includes('sleek')) {
+    return 'modern';
+  }
+
+  if (value.includes('kids') || value.includes('princess') || value.includes('unicorn') || value.includes('rainbow') || value.includes('superhero')) {
+    return 'for-kids';
+  }
+
+  if (value.includes('floral') || value.includes('romantic') || value.includes('botanical')) {
+    return 'elegant';
+  }
+
+  return 'editable';
+}
+
+export function getTemplateUseCases(occasion: Occasion, template: CardTemplate) {
+  const style = inferTemplateStyle(template);
+  const lowerName = occasion.name.toLowerCase();
+  const topTags = occasion.tags.slice(0, 2).join(' and ');
+  const styleLine =
+    style === 'elegant'
+      ? `Use ${template.name} when you want a polished ${lowerName} invitation that feels formal, romantic, or occasion-led without starting from scratch.`
+      : style === 'modern'
+        ? `${template.name} works well when you want a clean ${lowerName} invitation with contemporary spacing, simple copy blocks, and easy mobile readability.`
+        : style === 'for-kids'
+          ? `${template.name} is a strong fit for playful ${lowerName} invitations where color, energy, and fast guest recognition matter more than formality.`
+          : `${template.name} gives you a fast starting point for a customizable ${lowerName} invitation without losing editing flexibility.`;
+
+  return [
+    styleLine,
+    `The layout keeps room for names, dates, venue details, and RSVP notes so you can finish the invitation in one editing session.`,
+    `This template supports ${topTags} search intent while still giving you enough flexibility to adapt the message for family, festive, or business guests.`,
+  ];
+}
+
+export function getTemplateCustomizationChecklist(occasion: Occasion, template: CardTemplate) {
+  const items = [
+    `Replace the default headline with the guest-facing ${occasion.name.toLowerCase()} title or person being celebrated.`,
+    template.defaultDate ? 'Update the placeholder date and time with the confirmed event schedule.' : 'Add the final date and time so the invitation is immediately usable.',
+    template.defaultVenue ? 'Swap in the venue name, full address, or online event location before sharing the card.' : 'Add the venue, city, or joining details before sending the invitation.',
+    'Review the footer area for RSVP details, host names, dress code notes, or a hosted invite link.',
+  ];
+
+  return items;
+}
+
+export function getTemplateSearchQueries(occasion: Occasion, template: CardTemplate) {
+  const lowerName = occasion.name.toLowerCase();
+  const style = inferTemplateStyle(template);
+  const styleLabel =
+    style === 'editable'
+      ? 'editable'
+      : style === 'for-kids'
+        ? 'kids'
+        : style;
+
+  return [
+    `${template.name.toLowerCase()} ${lowerName} template`,
+    `${styleLabel} ${lowerName} invitation template`,
+    `editable ${lowerName} invitation`,
+    `online ${lowerName} card template`,
+  ];
+}
+
+export function getTemplateFaqs(occasion: Occasion, template: CardTemplate) {
+  const lowerName = occasion.name.toLowerCase();
+
+  return [
+    {
+      question: `Can I customize the ${template.name} ${occasion.name} template for free?`,
+      answer: `Yes. You can open the ${template.name} template in the editor, update the text, and export the finished ${lowerName} invitation without paying for a subscription.`,
+    },
+    {
+      question: `What details should I change before sharing this ${lowerName} template?`,
+      answer: `At minimum, update the names, event date, time, venue, and RSVP details. If the event has a dress code, schedule, or parking note, add that before downloading or sharing the invitation.`,
+    },
+    {
+      question: `Can I use the ${template.name} template for printable and digital invites?`,
+      answer: `Yes. This template works for both digital sharing and printable workflows because you can export a high-resolution PNG and a print-ready PDF from the editor.`,
+    },
+  ];
+}
+
+export function getTemplateRouteSuggestions(occasion: Occasion, template: CardTemplate): TemplateRouteSuggestion[] {
+  const style = inferTemplateStyle(template);
+  const lowerName = occasion.name.toLowerCase();
+  const links: TemplateRouteSuggestion[] = [
+    {
+      title: `Customize this ${occasion.name} template`,
+      href: `/make/${occasion.slug}/`,
+      description: `Open the editor with ${lowerName} templates and personalize the card for your exact event details.`,
+    },
+    {
+      title: `Browse all ${occasion.name} templates`,
+      href: `/templates/${occasion.slug}/`,
+      description: `Compare more ${lowerName} layouts if you want a different tone, color direction, or guest-facing format.`,
+    },
+    {
+      title: `${occasion.name} wording ideas`,
+      href: `/wording/${occasion.slug}/`,
+      description: `Use ready-made wording examples to finish names, timing, venue lines, and RSVP copy faster.`,
+    },
+  ];
+
+  if (style === 'elegant' || style === 'modern' || style === 'for-kids') {
+    links.push({
+      title:
+        style === 'for-kids'
+          ? `${occasion.name} templates for kids`
+          : `${style.charAt(0).toUpperCase() + style.slice(1)} ${occasion.name} invites`,
+      href: `/invitations/${occasion.slug}/${style === 'for-kids' ? 'for-kids' : style}/`,
+      description:
+        style === 'for-kids'
+          ? `See the playful route built for family-friendly ${lowerName} invitation searches.`
+          : `Explore the ${style}-focused route for guests searching by visual style as well as occasion.`,
+    });
+  } else if ((FEATURED_EVENT_MICROSITES as readonly string[]).includes(occasion.slug)) {
+    links.push({
+      title: `${occasion.name} event microsite`,
+      href: `/events/${occasion.slug}/`,
+      description: `Open the fuller ${lowerName} microsite with templates, wording, planning prompts, and hosted-invite flows.`,
+    });
+  } else {
+    links.push({
+      title: 'Hosted RSVP invitation pages',
+      href: '/features/rsvp-invitation-pages/',
+      description: 'See how shareable invite pages can add guest response options beyond a static invitation image.',
+    });
+  }
+
+  return links;
 }

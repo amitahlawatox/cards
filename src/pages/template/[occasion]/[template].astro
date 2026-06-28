@@ -4,9 +4,17 @@ import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import OccasionContentNav from '../../../components/OccasionContentNav.astro';
 import OccasionTemplateGallery from '../../../components/OccasionTemplateGallery.astro';
-import { getTemplateDetailDescription, getTemplateStaticPaths } from '../../../lib/content';
+import {
+  getTemplateCustomizationChecklist,
+  getTemplateDetailDescription,
+  getTemplateFaqs,
+  getTemplateRouteSuggestions,
+  getTemplateSearchQueries,
+  getTemplateStaticPaths,
+  getTemplateUseCases,
+} from '../../../lib/content';
 import { SITE, absoluteUrl } from '../../../lib/site';
-import { articleSchema, breadcrumbSchema } from '../../../lib/seo';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../../../lib/seo';
 
 export function getStaticPaths() {
   return getTemplateStaticPaths();
@@ -15,8 +23,15 @@ export function getStaticPaths() {
 const { occasion, template } = Astro.props;
 const description = getTemplateDetailDescription(occasion, template);
 const path = `/template/${occasion.slug}/${template.id}/`;
+const useCases = getTemplateUseCases(occasion, template);
+const checklist = getTemplateCustomizationChecklist(occasion, template);
+const searchQueries = getTemplateSearchQueries(occasion, template);
+const routeSuggestions = getTemplateRouteSuggestions(occasion, template);
+const faqs = getTemplateFaqs(occasion, template);
+const badges = ['Editable text', 'PNG download', 'PDF export', 'Hosted invite link'];
 const schema = [
   articleSchema({ title: `${template.name} ${occasion.name} Template | ${SITE.name}`, description, path }),
+  faqSchema(faqs),
   breadcrumbSchema([
     { name: 'Home', path: '/' },
     { name: 'Templates', path: '/templates/' },
@@ -38,6 +53,9 @@ const schema = [
             <h1 class="text-2xl font-black" style={`color:${template.textColor};`}>{template.defaultHeading}</h1>
             <div style={`width:24px;height:1px;background:${template.accentColor};opacity:0.4;`} />
             <p class="text-sm leading-relaxed whitespace-pre-line" style={`color:${template.textColor};opacity:0.82;`}>{template.defaultBody}</p>
+            {template.defaultDate && <p class="text-xs font-bold" style={`color:${template.accentColor};opacity:0.9;`}>{template.defaultDate}{template.defaultTime ? ` · ${template.defaultTime}` : ''}</p>}
+            {template.defaultVenue && <p class="text-xs" style={`color:${template.textColor};opacity:0.72;`}>{template.defaultVenue}</p>}
+            <p class="text-xs" style={`color:${template.textColor};opacity:0.7;`}>{template.defaultFooter}</p>
           </div>
         </div>
       </div>
@@ -46,6 +64,13 @@ const schema = [
         <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Template detail</p>
         <h2 class="mt-3 text-4xl font-black tracking-tight" style="color:var(--color-text);">{template.name}</h2>
         <p class="mt-4 text-base leading-relaxed" style="color:var(--color-text-muted);">{description}</p>
+        <div class="mt-5 flex flex-wrap gap-2">
+          {badges.map((badge) => (
+            <span class="rounded-full border px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em]" style="background:var(--color-surface);border-color:var(--color-border);color:#6B63A3;">
+              {badge}
+            </span>
+          ))}
+        </div>
         <div class="mt-6 flex flex-wrap gap-3">
           <a href={`/make/${occasion.slug}/`} class="rounded-full px-5 py-3 text-sm font-bold text-white" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);">
             Customize this template
@@ -54,11 +79,70 @@ const schema = [
             Matching wording ideas
           </a>
         </div>
+
+        <div class="mt-8 rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h3 class="text-lg font-black" style="color:var(--color-text);">Why this template works</h3>
+          <div class="mt-4 space-y-3">
+            {useCases.map((item) => (
+              <p class="text-sm leading-relaxed" style="color:var(--color-text-muted);">{item}</p>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
 
+    <section class="mt-10 grid gap-6 lg:grid-cols-2" data-scroll>
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#ea580c;">Before you share it</p>
+        <h3 class="mt-3 text-2xl font-black tracking-tight" style="color:var(--color-text);">What to customize in this template</h3>
+        <div class="mt-5 space-y-3">
+          {checklist.map((item) => (
+            <div class="rounded-2xl px-4 py-3" style="background:rgba(79,70,229,0.05);">
+              <p class="text-sm leading-relaxed" style="color:var(--color-text-muted);">{item}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#ea580c;">Search intent</p>
+        <h3 class="mt-3 text-2xl font-black tracking-tight" style="color:var(--color-text);">Search angles this template can satisfy</h3>
+        <div class="mt-5 flex flex-wrap gap-3">
+          {searchQueries.map((query) => (
+            <span class="rounded-full border px-4 py-2 text-sm font-semibold" style="background:var(--color-surface-2);border-color:var(--color-border);color:var(--color-text-muted);">
+              {query}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-10" data-scroll>
+      <h3 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Keep this template journey moving</h3>
+      <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {routeSuggestions.map((link) => (
+          <a href={link.href} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+            <h4 class="text-lg font-black" style="color:var(--color-text);">{link.title}</h4>
+            <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{link.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
     <OccasionContentNav occasion={occasion} title={`Keep exploring ${occasion.name.toLowerCase()} invitation resources`} />
     <OccasionTemplateGallery occasion={occasion} heading={`More ${occasion.name} templates`} limit={6} linkMode="detail" />
+
+    <section class="mx-auto max-w-4xl px-6 py-10" data-scroll>
+      <h3 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">{template.name} template FAQ</h3>
+      <div class="mt-6 space-y-4">
+        {faqs.map((faq) => (
+          <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+            <h4 class="text-lg font-black" style="color:var(--color-text);">{faq.question}</h4>
+            <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>
