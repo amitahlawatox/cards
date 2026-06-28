@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { decodeInvitePayload, EMPTY_SHARE_META, type EditorElement, type SharedInvitePayload } from '../lib/editor-share';
+import { decodeInvitePayload, EMPTY_SHARE_META, type EditorElement, type SharedInviteMeta, type SharedInvitePayload } from '../lib/editor-share';
 
 interface Props {
   occasionName: string;
@@ -12,6 +12,59 @@ const RSVP_RESPONSE_LABELS: Record<RsvpResponse, string> = {
   no: 'No, unable to attend',
   maybe: 'Maybe, still confirming',
 };
+
+function formatDisplayDateTime(value: string) {
+  if (!value) return '';
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return value.replace('T', ' ');
+  }
+
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: 'full',
+    timeStyle: 'short',
+  }).format(date);
+}
+
+function getEventDates(meta: SharedInviteMeta) {
+  const start = meta.startDateTime ? new Date(meta.startDateTime) : null;
+  if (!start || Number.isNaN(start.getTime())) {
+    return { start: null, end: null };
+  }
+
+  const rawEnd = meta.endDateTime ? new Date(meta.endDateTime) : null;
+  const hasValidEnd = rawEnd && !Number.isNaN(rawEnd.getTime()) && rawEnd.getTime() > start.getTime();
+  const end = hasValidEnd ? rawEnd : new Date(start.getTime() + 2 * 60 * 60 * 1000);
+
+  return { start, end };
+}
+
+function toCalendarStamp(date: Date) {
+  return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+}
+
+function escapeIcsText(value: string) {
+  return value.replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
+}
+
+function buildLocation(meta: SharedInviteMeta) {
+  return [meta.venueName.trim(), meta.venueAddress.trim()].filter(Boolean).join(', ');
+}
+
+function buildEventTitle(meta: SharedInviteMeta, occasionName: string) {
+  return meta.eventTitle.trim() || `${occasionName} Invitation`;
+}
+
+async function copyText(value: string, fallbackLabel: string) {
+  try {
+    await navigator.clipboard.writeText(value);
+    return true;
+  } catch {
+    window.prompt(fallbackLabel, value);
+    return false;
+  }
+}
 
 function RenderSharedElement({ element }: { element: EditorElement }) {
   const style: React.CSSProperties = {
@@ -64,6 +117,8 @@ export default function InvitationViewer({ occasionName }: Props) {
   const [guestCount, setGuestCount] = useState('');
   const [guestMessage, setGuestMessage] = useState('');
   const [copyState, setCopyState] = useState<'idle' | 'copied'>('idle');
+  const [eventCopyState, setEventCopyState] = useState<'idle' | 'copied'>('idle');
+  const [calendarState, setCalendarState] = useState<'idle' | 'ready'>('idle');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -73,6 +128,27 @@ export default function InvitationViewer({ occasionName }: Props) {
   }, []);
 
   const meta = payload?.meta ?? EMPTY_SHARE_META;
+  const { start: eventStart, end: eventEnd } = useMemo(() => getEventDates(meta), [meta]);
+  const locationLabel = useMemo(() => buildLocation(meta), [meta]);
+  const eventTitle = useMemo(() => buildEventTitle(meta, occasionName), [meta, occasionName]);
+  const hasEventDetails = Boolean(meta.eventTitle || meta.venueName || meta.venueAddress || meta.startDateTime || meta.endDateTime);
+
+  const eventDetailsMessage = useMemo(() => {
+    const lines = [
+      eventTitle,
+      eventStart ? `When: ${formatDisplayDateTime(meta.startDateTime)}` : '',
+      meta.endDateTime && eventEnd ? `Ends: ${formatDisplayDateTime(meta.endDateTime)}` : '',
+      locationLabel ? `Where: ${locationLabel}` : '',
+      meta.hostName ? `Host: ${meta.hostName}` : '',
+      meta.rsvpBy ? `RSVP by: ${meta.rsvpBy}` : '',
+      meta.dressCode ? `Dress code: ${meta.dressCode}` : '',
+      meta.schedule ? `Schedule: ${meta.schedule}` : '',
+      meta.notes ? `Notes: ${meta.notes}` : '',
+    ].filter(Boolean);
+
+    return lines.join('\n');
+  }, [eventEnd, eventStart, eventTitle, locationLabel, meta.dressCode, meta.endDateTime, meta.hostName, meta.notes, meta.rsvpBy, meta.schedule, meta.startDateTime]);
+
   const rsvpMessage = useMemo(() => {
     const greeting = meta.hostName ? `Hello ${meta.hostName},` : 'Hello,';
     const lines = [
@@ -103,10 +179,67 @@ export default function InvitationViewer({ occasionName }: Props) {
     return `https://wa.me/${digits.replace(/^\+/, '')}?text=${text}`;
   }, [meta.hostPhone, rsvpMessage]);
 
+  const googleCalendarHref = useMemo(() => {
+    if (!eventStart || !eventEnd) return '';
+
+    const params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: eventTitle,
+      dates: `${toCalendarStamp(eventStart)}/${toCalendarStamp(eventEnd)}`,
+      details: eventDetailsMessage,
+      location: locationLabel,
+    });
+
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  }, [eventDetailsMessage, eventEnd, eventStart, eventTitle, locationLabel]);
+
+  const mapsHref = useMemo(() => {
+    if (!locationLabel) return '';
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(locationLabel)}`;
+  }, [locationLabel]);
+
   async function handleCopyMessage() {
-    await navigator.clipboard.writeText(rsvpMessage);
+    await copyText(rsvpMessage, 'Copy this RSVP summary');
     setCopyState('copied');
     window.setTimeout(() => setCopyState('idle'), 2200);
+  }
+
+  async function handleCopyEventDetails() {
+    await copyText(eventDetailsMessage, 'Copy these event details');
+    setEventCopyState('copied');
+    window.setTimeout(() => setEventCopyState('idle'), 2200);
+  }
+
+  function handleDownloadCalendar() {
+    if (!eventStart || !eventEnd) return;
+
+    const content = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Bespoke Card Studio//Hosted Invite//EN',
+      'BEGIN:VEVENT',
+      `UID:${Date.now()}@bespokecardstudio.com`,
+      `DTSTAMP:${toCalendarStamp(new Date())}`,
+      `DTSTART:${toCalendarStamp(eventStart)}`,
+      `DTEND:${toCalendarStamp(eventEnd)}`,
+      `SUMMARY:${escapeIcsText(eventTitle)}`,
+      `DESCRIPTION:${escapeIcsText(eventDetailsMessage)}`,
+      locationLabel ? `LOCATION:${escapeIcsText(locationLabel)}` : '',
+      'END:VEVENT',
+      'END:VCALENDAR',
+    ]
+      .filter(Boolean)
+      .join('\r\n');
+
+    const blob = new Blob([content], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${eventTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'event'}.ics`;
+    link.click();
+    URL.revokeObjectURL(url);
+    setCalendarState('ready');
+    window.setTimeout(() => setCalendarState('idle'), 2200);
   }
 
   if (!payload) {
@@ -132,14 +265,93 @@ export default function InvitationViewer({ occasionName }: Props) {
 
       <aside className="space-y-5">
         <div className="rounded-3xl border p-6" style={{ background: 'var(--color-surface)', borderColor: 'var(--color-border)' }}>
-          <h2 className="text-2xl font-black" style={{ color: 'var(--color-text)' }}>Hosted invite details</h2>
+          <h2 className="text-2xl font-black" style={{ color: 'var(--color-text)' }}>Event details</h2>
           <div className="mt-4 space-y-3 text-sm" style={{ color: 'var(--color-text-muted)' }}>
-            {meta.hostName && <p><strong style={{ color: 'var(--color-text)' }}>Host:</strong> {meta.hostName}</p>}
-            {meta.rsvpBy && <p><strong style={{ color: 'var(--color-text)' }}>RSVP by:</strong> {meta.rsvpBy}</p>}
-            {meta.dressCode && <p><strong style={{ color: 'var(--color-text)' }}>Dress code:</strong> {meta.dressCode}</p>}
-            {meta.schedule && <p><strong style={{ color: 'var(--color-text)' }}>Schedule:</strong> {meta.schedule}</p>}
-            {meta.notes && <p><strong style={{ color: 'var(--color-text)' }}>Notes:</strong> {meta.notes}</p>}
+            <p>
+              <strong style={{ color: 'var(--color-text)' }}>Title:</strong> {eventTitle}
+            </p>
+            {eventStart && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>When:</strong> {formatDisplayDateTime(meta.startDateTime)}
+              </p>
+            )}
+            {meta.endDateTime && eventEnd && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>Ends:</strong> {formatDisplayDateTime(meta.endDateTime)}
+              </p>
+            )}
+            {meta.venueName && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>Venue:</strong> {meta.venueName}
+              </p>
+            )}
+            {meta.venueAddress && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>Address:</strong> {meta.venueAddress}
+              </p>
+            )}
+            {meta.hostName && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>Host:</strong> {meta.hostName}
+              </p>
+            )}
+            {meta.rsvpBy && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>RSVP by:</strong> {meta.rsvpBy}
+              </p>
+            )}
+            {meta.dressCode && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>Dress code:</strong> {meta.dressCode}
+              </p>
+            )}
+            {meta.schedule && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>Schedule:</strong> {meta.schedule}
+              </p>
+            )}
+            {meta.notes && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>Notes:</strong> {meta.notes}
+              </p>
+            )}
+            {!hasEventDetails && !meta.hostName && !meta.rsvpBy && !meta.dressCode && !meta.schedule && !meta.notes && (
+              <p>This hosted invitation is using only the shared card design right now. The host can add event details from the editor&apos;s Share panel.</p>
+            )}
           </div>
+
+          {(googleCalendarHref || mapsHref || hasEventDetails) && (
+            <div className="mt-5 grid gap-3">
+              {googleCalendarHref && (
+                <a href={googleCalendarHref} target="_blank" rel="noreferrer" className="rounded-2xl px-4 py-3 text-center text-sm font-bold text-white" style={{ background: 'linear-gradient(135deg,#4F46E5,#7C3AED)' }}>
+                  Add to Google Calendar
+                </a>
+              )}
+              {eventStart && (
+                <button
+                  type="button"
+                  onClick={handleDownloadCalendar}
+                  className="rounded-2xl px-4 py-3 text-center text-sm font-bold"
+                  style={{ background: 'var(--color-surface-2)', color: 'var(--color-text)', border: '1px solid var(--color-border)' }}
+                >
+                  {calendarState === 'ready' ? 'Calendar File Ready' : 'Download Calendar File'}
+                </button>
+              )}
+              {mapsHref && (
+                <a href={mapsHref} target="_blank" rel="noreferrer" className="rounded-2xl px-4 py-3 text-center text-sm font-bold" style={{ background: '#EFF6FF', color: '#1D4ED8', border: '1px solid #BFDBFE' }}>
+                  Open Location in Maps
+                </a>
+              )}
+              <button
+                type="button"
+                onClick={handleCopyEventDetails}
+                className="rounded-2xl px-4 py-3 text-center text-sm font-bold"
+                style={{ background: 'var(--color-surface-2)', color: 'var(--color-text)', border: '1px solid var(--color-border)' }}
+              >
+                {eventCopyState === 'copied' ? 'Event Details Copied' : 'Copy Event Details'}
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="rounded-3xl border p-6" style={{ background: 'var(--color-surface)', borderColor: 'var(--color-border)' }}>

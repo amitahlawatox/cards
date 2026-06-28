@@ -25,6 +25,11 @@ export interface EditorElement {
 }
 
 export interface SharedInviteMeta {
+  eventTitle: string;
+  venueName: string;
+  venueAddress: string;
+  startDateTime: string;
+  endDateTime: string;
   hostName: string;
   hostEmail: string;
   hostPhone: string;
@@ -45,6 +50,11 @@ export interface SharedInvitePayload {
 }
 
 export const EMPTY_SHARE_META: SharedInviteMeta = {
+  eventTitle: '',
+  venueName: '',
+  venueAddress: '',
+  startDateTime: '',
+  endDateTime: '',
   hostName: '',
   hostEmail: '',
   hostPhone: '',
@@ -53,6 +63,13 @@ export const EMPTY_SHARE_META: SharedInviteMeta = {
   schedule: '',
   notes: '',
 };
+
+export function normalizeShareMeta(meta?: Partial<SharedInviteMeta> | null): SharedInviteMeta {
+  return {
+    ...EMPTY_SHARE_META,
+    ...(meta ?? {}),
+  };
+}
 
 function toBase64(value: string) {
   if (typeof window === 'undefined') {
@@ -89,7 +106,10 @@ export function decodeInvitePayload(value: string): SharedInvitePayload | null {
     if (!parsed || parsed.version !== 1 || !Array.isArray(parsed.elements)) {
       return null;
     }
-    return parsed;
+    return {
+      ...parsed,
+      meta: normalizeShareMeta(parsed.meta),
+    };
   } catch {
     return null;
   }

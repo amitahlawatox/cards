@@ -242,10 +242,10 @@ export const PRODUCT_FEATURE_PAGES: ProductFeaturePage[] = [
   {
     slug: 'rsvp-invitation-pages',
     title: 'Hosted RSVP Invitation Pages',
-    description: 'Create shareable invitation pages with RSVP-by details, dress code notes, schedule prompts, and structured guest reply actions.',
+    description: 'Create shareable invitation pages with RSVP-by details, dress code notes, schedule prompts, calendar actions, and structured guest reply flows.',
     intro: 'Hosted invite pages add utility beyond static cards and help the site compete on product depth, not just template count.',
-    highlights: ['Copy a hosted invite link from the editor', 'Add RSVP-by dates, dress codes, and schedule details', 'Guests can send structured yes, no, or maybe replies by email or WhatsApp'],
-    queryFocus: ['rsvp invitation page', 'hosted invitation page', 'online invitation with rsvp'],
+    highlights: ['Copy a hosted invite link from the editor', 'Add RSVP-by dates, event timing, venue details, dress codes, and schedule notes', 'Guests can reply by email or WhatsApp and save the event to their calendar'],
+    queryFocus: ['rsvp invitation page', 'hosted invitation page', 'online invitation with rsvp', 'invitation with add to calendar'],
     occasionSlugs: ['wedding', 'corporate', 'birthday', 'baby-shower'],
     ctaPath: '/make/wedding/',
     ctaLabel: 'Create a hosted RSVP invite',

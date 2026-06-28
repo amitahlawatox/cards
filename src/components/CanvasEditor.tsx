@@ -13,6 +13,7 @@ import {
   EMPTY_SHARE_META,
   decodeInvitePayload,
   encodeInvitePayload,
+  normalizeShareMeta,
   type EditorElement,
   type SharedInviteMeta,
   type SharedInvitePayload,
@@ -469,7 +470,7 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
         skipTemplateReset.current = true;
         setActiveTpl(Math.min(payload.activeTemplate, templates.length - 1));
         setElements(payload.elements);
-        setShareMeta(payload.meta ?? EMPTY_SHARE_META);
+        setShareMeta(normalizeShareMeta(payload.meta));
         hasBootstrapped.current = true;
         return;
       }
@@ -483,7 +484,7 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
           skipTemplateReset.current = true;
           setActiveTpl(Math.min(payload.activeTemplate, templates.length - 1));
           setElements(payload.elements);
-          setShareMeta(payload.meta ?? EMPTY_SHARE_META);
+          setShareMeta(normalizeShareMeta(payload.meta));
           setDraftRecovered(true);
           hasBootstrapped.current = true;
           return;
@@ -987,9 +988,24 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
           {activePanel === 'sharing' && (
             <div className="space-y-4">
               <div className="rounded-2xl p-3 text-xs leading-relaxed" style={{ background: 'rgba(79,70,229,0.06)', color: 'var(--color-text-muted)' }}>
-                Hosted invite links work without a backend by storing the design in the URL. They are perfect for text, WhatsApp, and fast guest sharing.
+                Hosted invite links work without a backend by storing the design in the URL. Add event details here to unlock calendar actions, map links, and clearer guest-facing RSVP pages.
               </div>
 
+              <Field label="Event Title">
+                <input value={shareMeta.eventTitle} onChange={(e) => updateShareMetaField('eventTitle', e.target.value)} className="editor-input" placeholder={`e.g. ${occasionName} Celebration`} />
+              </Field>
+              <Field label="Venue Name">
+                <input value={shareMeta.venueName} onChange={(e) => updateShareMetaField('venueName', e.target.value)} className="editor-input" placeholder="e.g. The Grand Ballroom" />
+              </Field>
+              <Field label="Venue Address">
+                <textarea value={shareMeta.venueAddress} onChange={(e) => updateShareMetaField('venueAddress', e.target.value)} className="editor-input min-h-[72px]" placeholder="e.g. 12 MG Road, Bengaluru" />
+              </Field>
+              <Field label="Event Start">
+                <input type="datetime-local" value={shareMeta.startDateTime} onChange={(e) => updateShareMetaField('startDateTime', e.target.value)} className="editor-input" />
+              </Field>
+              <Field label="Event End">
+                <input type="datetime-local" value={shareMeta.endDateTime} onChange={(e) => updateShareMetaField('endDateTime', e.target.value)} className="editor-input" />
+              </Field>
               <Field label="Organizer / Host Name">
                 <input value={shareMeta.hostName} onChange={(e) => updateShareMetaField('hostName', e.target.value)} className="editor-input" placeholder="e.g. Sharma Family" />
               </Field>
