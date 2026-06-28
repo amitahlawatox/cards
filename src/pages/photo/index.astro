@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { PHOTO_FOCUSED_OCCASIONS, getOccasionBySlug } from '../../lib/content';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+
+const path = '/photo/';
+const title = `Photo Invitation Maker Ideas | ${SITE.name}`;
+const description = 'Browse photo invitation ideas for birthdays, baby showers, graduations, anniversaries, weddings, and holiday cards. Start from photo-ready card flows and templates.';
+const occasions = PHOTO_FOCUSED_OCCASIONS.map((slug) => getOccasionBySlug(slug)).filter(Boolean);
+const schema = [
+  articleSchema({ title, description, path }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Photo Invitations', path },
+  ]),
+];
+---
+
+<Layout title={title} description={description} canonical={absoluteUrl(path)} schema={schema}>
+  <Header />
+  <main id="main-content" class="mx-auto max-w-7xl px-6 py-12">
+    <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#ecfeff,#fff7ed);border-color:#C4B5FD;">
+      <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Photo card hub</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:#1A1340;">Photo invitation pages built for high-intent event searches</h1>
+      <p class="mt-4 max-w-4xl text-lg leading-relaxed" style="color:#6B63A3;">
+        These pages connect photo-card search intent to the live upload flow in the editor, so users looking for a more personal invitation can move straight into a photo-ready layout.
+      </p>
+    </div>
+
+    <section class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3" data-scroll>
+      {occasions.map((occasion) => (
+        <a href={`/photo/${occasion.slug}/`} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+          <p class="text-3xl">{occasion.emoji}</p>
+          <h2 class="mt-4 text-2xl font-black" style="color:var(--color-text);">{occasion.name} photo invitations</h2>
+          <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{occasion.description}</p>
+        </a>
+      ))}
+    </section>
+  </main>
+  <Footer />
+</Layout>

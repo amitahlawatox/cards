@@ -4,6 +4,7 @@ import {
   GUIDE_PAGES,
   MARKET_CLUSTERS,
   MODIFIER_DEFINITIONS,
+  PHOTO_FOCUSED_OCCASIONS,
   PRODUCT_FEATURE_PAGES,
   SEASONAL_HUBS,
 } from '../lib/content';
@@ -18,6 +19,7 @@ const staticPaths = [
   '/invitations/',
   '/wording/',
   '/features/',
+  '/photo/',
   '/guides/',
   '/seasonal/',
   '/events/',
@@ -44,6 +46,7 @@ function buildSitemapXml() {
       occasion.templates.map((template) => `/template/${occasion.slug}/${template.id}/`),
     ),
     ...PRODUCT_FEATURE_PAGES.map((feature) => `/features/${feature.slug}/`),
+    ...PHOTO_FOCUSED_OCCASIONS.map((slug) => `/photo/${slug}/`),
     ...SEASONAL_HUBS.map((hub) => `/seasonal/${hub.slug}/`),
     ...GUIDE_PAGES.map((guide) => `/guides/${guide.slug}/`),
     ...FEATURED_EVENT_MICROSITES.map((slug) => `/events/${slug}/`),

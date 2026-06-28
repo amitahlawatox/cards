@@ -253,6 +253,7 @@ export const PRODUCT_FEATURE_PAGES: ProductFeaturePage[] = [
 ];
 
 export const FEATURED_EVENT_MICROSITES = ['birthday', 'wedding', 'baby-shower', 'corporate'] as const;
+export const PHOTO_FOCUSED_OCCASIONS = ['birthday', 'baby-shower', 'graduation', 'anniversary', 'wedding', 'christmas'] as const;
 
 export function getOccasionBySlug(slug: string) {
   return OCCASIONS.find((occasion) => occasion.slug === slug);
@@ -313,6 +314,13 @@ export function getProductFeatureStaticPaths() {
 
 export function getFeaturedMicrositePaths() {
   return FEATURED_EVENT_MICROSITES.map((slug) => {
+    const occasion = getOccasionBySlug(slug);
+    return occasion ? { params: { occasion: occasion.slug }, props: { occasion } } : null;
+  }).filter(Boolean) as Array<{ params: { occasion: string }; props: { occasion: Occasion } }>;
+}
+
+export function getPhotoOccasionPaths() {
+  return PHOTO_FOCUSED_OCCASIONS.map((slug) => {
     const occasion = getOccasionBySlug(slug);
     return occasion ? { params: { occasion: occasion.slug }, props: { occasion } } : null;
   }).filter(Boolean) as Array<{ params: { occasion: string }; props: { occasion: Occasion } }>;
@@ -508,4 +516,54 @@ export function getTemplateRouteSuggestions(occasion: Occasion, template: CardTe
   }
 
   return links;
+}
+
+export function getPhotoPageDescription(occasion: Occasion) {
+  return `Create ${occasion.name.toLowerCase()} photo invitations online. Upload a picture, add names and event details, and export a polished photo card in minutes.`;
+}
+
+export function getPhotoPageHighlights(occasion: Occasion) {
+  const lowerName = occasion.name.toLowerCase();
+
+  return [
+    `Start with a ${lowerName} template, upload one main image, and keep the rest of the layout focused on names, timing, and venue details.`,
+    `Use photo-first invites when the guest list already knows the event type and a personal image will lift clicks, shares, or emotional response.`,
+    `Export the final ${lowerName} photo card as a PNG, a print-ready PDF, or a hosted invite link depending on how you plan to send it.`,
+  ];
+}
+
+export function getPhotoPageQueries(occasion: Occasion) {
+  const lowerName = occasion.name.toLowerCase();
+
+  return [
+    `${lowerName} photo invitation`,
+    `${lowerName} photo card maker`,
+    `online ${lowerName} photo invitation`,
+    `free ${lowerName} photo card`,
+  ];
+}
+
+export function getPhotoRouteSuggestions(occasion: Occasion) {
+  return [
+    {
+      title: `${occasion.name} photo maker`,
+      href: `/make/${occasion.slug}/?focus=photo`,
+      description: `Open the editor with the upload-first flow for a ${occasion.name.toLowerCase()} photo invite.`,
+    },
+    {
+      title: `${occasion.name} templates`,
+      href: `/templates/${occasion.slug}/`,
+      description: `Compare layouts that leave enough breathing room for a main image plus the event details.`,
+    },
+    {
+      title: `${occasion.name} wording ideas`,
+      href: `/wording/${occasion.slug}/`,
+      description: `Use short guest-facing copy that works well when the photo already carries part of the message.`,
+    },
+    {
+      title: 'Photo card maker feature page',
+      href: '/features/photo-card-maker/',
+      description: 'See the broader product route for photo-card demand, image upload, and export workflows.',
+    },
+  ];
 }

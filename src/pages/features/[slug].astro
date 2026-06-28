@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { getOccasionsBySlugs, getProductFeatureStaticPaths } from '../../lib/content';
+import { PHOTO_FOCUSED_OCCASIONS, getOccasionBySlug, getOccasionsBySlugs, getProductFeatureStaticPaths } from '../../lib/content';
 import { SITE, absoluteUrl } from '../../lib/site';
 import { articleSchema, breadcrumbSchema } from '../../lib/seo';
 
@@ -13,6 +13,8 @@ export function getStaticPaths() {
 const { feature } = Astro.props;
 const occasions = getOccasionsBySlugs(feature.occasionSlugs);
 const path = `/features/${feature.slug}/`;
+const isPhotoFeature = feature.slug === 'photo-card-maker';
+const photoOccasions = isPhotoFeature ? PHOTO_FOCUSED_OCCASIONS.map((slug) => getOccasionBySlug(slug)).filter(Boolean) : [];
 const schema = [
   articleSchema({ title: `${feature.title} | ${SITE.name}`, description: feature.description, path }),
   breadcrumbSchema([
@@ -72,6 +74,21 @@ const schema = [
         ))}
       </div>
     </section>
+
+    {isPhotoFeature && (
+      <section class="mx-auto py-10" data-scroll>
+        <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Photo invitation pages by occasion</h2>
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {photoOccasions.map((occasion) => (
+            <a href={`/photo/${occasion.slug}/`} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+              <p class="text-3xl">{occasion.emoji}</p>
+              <h3 class="mt-4 text-lg font-black" style="color:var(--color-text);">{occasion.name} photo invitations</h3>
+              <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">Open the photo-focused route for {occasion.name.toLowerCase()} card searches and jump into the upload flow faster.</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </main>
   <Footer />
 </Layout>

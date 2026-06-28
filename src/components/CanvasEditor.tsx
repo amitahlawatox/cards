@@ -434,6 +434,7 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
   const [activePanel, setActivePanel] = useState<'elements' | 'stickers' | 'shapes' | 'properties' | 'sharing'>('elements');
   const [shareMeta, setShareMeta] = useState<SharedInviteMeta>(EMPTY_SHARE_META);
   const [draftRecovered, setDraftRecovered] = useState(false);
+  const [photoFocusMode, setPhotoFocusMode] = useState(false);
 
   const skipTemplateReset = useRef(false);
   const hasBootstrapped = useRef(false);
@@ -456,6 +457,11 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
     if (hasBootstrapped.current) return;
 
     const params = new URLSearchParams(window.location.search);
+    const wantsPhotoFocus = params.get('focus') === 'photo';
+    if (wantsPhotoFocus) {
+      setActivePanel('elements');
+      setPhotoFocusMode(true);
+    }
     const shared = params.get('design');
     if (shared) {
       const payload = decodeInvitePayload(shared);
@@ -759,6 +765,11 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
         <div className="flex-1 overflow-y-auto p-4" style={{ minHeight: 240 }}>
           {activePanel === 'elements' && (
             <div className="space-y-2">
+              {photoFocusMode && (
+                <div className="rounded-2xl border px-4 py-3 text-xs leading-relaxed" style={{ background: 'rgba(79,70,229,0.06)', borderColor: 'rgba(79,70,229,0.18)', color: 'var(--color-text-muted)' }}>
+                  Photo mode is active for this session. Start by uploading one main image, then keep the event title, timing, and RSVP details short so the picture stays prominent.
+                </div>
+              )}
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
