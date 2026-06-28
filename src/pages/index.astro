@@ -8,7 +8,7 @@ import FeaturesSection from '../components/FeaturesSection';
 import HowItWorksSection from '../components/HowItWorksSection';
 import { OCCASIONS } from '../lib/occasions';
 import { SITE, absoluteUrl } from '../lib/site';
-import { GUIDE_PAGES, MARKET_CLUSTERS, PRODUCT_FEATURE_PAGES, SEASONAL_HUBS } from '../lib/content';
+import { COMPARISON_PAGES, GUIDE_PAGES, MARKET_CLUSTERS, PRODUCT_FEATURE_PAGES, SEASONAL_HUBS } from '../lib/content';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -52,6 +52,26 @@ const schema = {
             <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#ea580c;">Feature</p>
             <h3 class="mt-3 text-2xl font-black" style="color:#1A1340;">{feature.title}</h3>
             <p class="mt-3 text-sm leading-relaxed" style="color:#6B63A3;">{feature.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 py-16" data-scroll>
+      <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Choice-stage SEO</p>
+          <h2 class="text-3xl font-black tracking-tight" style="color:var(--color-text);">Compare invitation tools, workflows, and high-intent use cases</h2>
+        </div>
+        <a href="/compare/" class="text-sm font-bold" style="color:#7C3AED;">See all comparison pages</a>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {COMPARISON_PAGES.slice(0, 3).map((page) => (
+          <a href={`/compare/${page.slug}/`} class="rounded-[2rem] border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+            <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#ea580c;">Comparison</p>
+            <h3 class="mt-3 text-2xl font-black" style="color:#1A1340;">{page.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed" style="color:#6B63A3;">{page.description}</p>
           </a>
         ))}
       </div>

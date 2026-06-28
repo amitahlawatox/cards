@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getComparisonStaticPaths, getOccasionsBySlugs } from '../../lib/content';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return getComparisonStaticPaths();
+}
+
+const { page } = Astro.props;
+const occasions = getOccasionsBySlugs(page.occasionSlugs);
+const path = `/compare/${page.slug}/`;
+const schema = [
+  articleSchema({ title: `${page.title} | ${SITE.name}`, description: page.description, path }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Comparisons', path: '/compare/' },
+    { name: page.title, path },
+  ]),
+];
+---
+
+<Layout title={`${page.title} | ${SITE.name}`} description={page.description} canonical={absoluteUrl(path)} schema={schema}>
+  <Header />
+  <main id="main-content" class="mx-auto max-w-7xl px-6 py-12">
+    <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#fff7ed,#eef2ff);border-color:#C4B5FD;">
+      <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Comparison page</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:#1A1340;">{page.title}</h1>
+      <p class="mt-4 max-w-4xl text-lg leading-relaxed" style="color:#6B63A3;">{page.intro}</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href={page.ctaPath} class="rounded-full px-5 py-3 text-sm font-bold text-white" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);">
+          {page.ctaLabel}
+        </a>
+        <a href="/compare/" class="rounded-full px-5 py-3 text-sm font-bold" style="background:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border);">
+          View all comparisons
+        </a>
+      </div>
+    </div>
+
+    <section class="mt-10 grid gap-5 md:grid-cols-3" data-scroll>
+      {page.highlights.map((highlight, index) => (
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#ea580c;">Angle {index + 1}</p>
+          <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{highlight}</p>
+        </div>
+      ))}
+    </section>
+
+    <section class="mx-auto py-10" data-scroll>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Searches this page is built to earn</h2>
+      <div class="flex flex-wrap gap-3">
+        {page.queryFocus.map((query) => (
+          <span class="rounded-full border px-4 py-2 text-sm font-semibold" style="background:var(--color-surface);border-color:var(--color-border);color:var(--color-text-muted);">
+            {query}
+          </span>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto py-10" data-scroll>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">What matters most in this comparison</h2>
+      <div class="grid gap-4 md:grid-cols-3">
+        {page.comparisonPoints.map((point) => (
+          <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+            <h3 class="text-lg font-black" style="color:var(--color-text);">{point.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{point.body}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto py-10" data-scroll>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Strong next invitation journeys from this search intent</h2>
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {occasions.map((occasion) => (
+          <a href={`/make/${occasion.slug}/`} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+            <p class="text-3xl">{occasion.emoji}</p>
+            <h3 class="mt-4 text-lg font-black" style="color:var(--color-text);">{occasion.name}</h3>
+            <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">{occasion.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto py-10" data-scroll>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Best next pages for this comparison</h2>
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {page.routeSuggestions.map((route) => (
+          <a href={route.href} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+            <h3 class="text-lg font-black" style="color:var(--color-text);">{route.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{route.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

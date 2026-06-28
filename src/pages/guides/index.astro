@@ -9,7 +9,7 @@ import { articleSchema, breadcrumbSchema } from '../../lib/seo';
 const schema = [
   articleSchema({
     title: `Invitation Planning Guides | ${SITE.name}`,
-    description: 'Guides for RSVP wording, dress code wording, party schedules, invitation messages, and occasion-specific wording help.',
+    description: 'Guides for RSVP wording, invitation timing, venue wording, Indian wedding wording, dress codes, schedules, and message templates.',
     path: '/guides/',
   }),
   breadcrumbSchema([
@@ -19,13 +19,13 @@ const schema = [
 ];
 ---
 
-<Layout title={`Invitation Planning Guides | ${SITE.name}`} description="Guides for RSVP wording, dress code wording, party schedules, invitation messages, and occasion-specific wording help." canonical={absoluteUrl('/guides/')} schema={schema}>
+<Layout title={`Invitation Planning Guides | ${SITE.name}`} description="Guides for RSVP wording, invitation timing, venue wording, Indian wedding wording, dress codes, schedules, and message templates." canonical={absoluteUrl('/guides/')} schema={schema}>
   <Header />
   <main id="main-content" class="mx-auto max-w-7xl px-6 py-12">
     <div class="mb-10 max-w-3xl">
       <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Editorial guides</p>
       <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:var(--color-text);">Planning guides that help users finish the invite</h1>
-      <p class="mt-3 text-base leading-relaxed" style="color:var(--color-text-muted);">These pages are built to support search intent that sits one step before the actual invitation design task.</p>
+      <p class="mt-3 text-base leading-relaxed" style="color:var(--color-text-muted);">These pages are built to support search intent that sits one step before the actual invitation design task, including send timing, venue wording, Indian family-event copy, and RSVP language.</p>
     </div>
     <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
       {GUIDE_PAGES.map((guide) => (

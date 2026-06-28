@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import {
+  COMPARISON_PAGES,
   FEATURED_EVENT_MICROSITES,
   GUIDE_PAGES,
   MARKET_CLUSTERS,
@@ -21,6 +22,7 @@ const staticPaths = [
   '/features/',
   '/photo/',
   '/guides/',
+  '/compare/',
   '/seasonal/',
   '/events/',
   '/indian/',
@@ -49,6 +51,7 @@ function buildSitemapXml() {
     ...PHOTO_FOCUSED_OCCASIONS.map((slug) => `/photo/${slug}/`),
     ...SEASONAL_HUBS.map((hub) => `/seasonal/${hub.slug}/`),
     ...GUIDE_PAGES.map((guide) => `/guides/${guide.slug}/`),
+    ...COMPARISON_PAGES.map((page) => `/compare/${page.slug}/`),
     ...FEATURED_EVENT_MICROSITES.map((slug) => `/events/${slug}/`),
     ...MARKET_CLUSTERS.map((cluster) => `/indian/${cluster.slug}/`),
   ];
