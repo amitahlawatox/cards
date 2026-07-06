@@ -1,0 +1,28 @@
+---
+import type { Occasion } from '../lib/occasions';
+import { getOccasionModifierLinks } from '../lib/landing';
+
+interface Props {
+  occasion: Occasion;
+  title?: string;
+}
+
+const { occasion, title = `Popular modifier routes for ${occasion.name.toLowerCase()} invitations` } = Astro.props;
+const links = getOccasionModifierLinks(occasion);
+---
+
+<section class="mx-auto max-w-6xl px-6 py-10" data-scroll>
+  <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">{title}</h2>
+  <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    {links.map((link) => (
+      <a
+        href={link.href}
+        class="rounded-3xl border p-5 transition-all hover:-translate-y-1"
+        style="background:var(--color-surface);border-color:var(--color-border);"
+      >
+        <h3 class="text-base font-black" style="color:var(--color-text);">{link.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">{link.description}</p>
+      </a>
+    ))}
+  </div>
+</section>

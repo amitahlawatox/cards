@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import FaqSection from '../../components/FaqSection.astro';
 import OccasionContentNav from '../../components/OccasionContentNav.astro';
+import OccasionModifierGrid from '../../components/OccasionModifierGrid.astro';
 import OccasionTemplateGallery from '../../components/OccasionTemplateGallery.astro';
 import { OCCASIONS } from '../../lib/occasions';
 import {
@@ -28,7 +29,7 @@ const faqs = getOccasionFaqs(occasion);
 const checklist = getOccasionChecklist(occasion);
 const planningTips = getOccasionPlanningTips(occasion);
 const related = getOccasionRelated(occasion, 4);
-const title = `Free ${occasion.name} Invitations | Templates, Wording and Online Maker | ${SITE.name}`;
+const title = `Free ${occasion.name} Invitations | ${SITE.name}`;
 const description = `${getOccasionSummary(occasion)} Browse templates, message ideas, and create your ${occasion.name.toLowerCase()} invitation online.`;
 const schema = [
   articleSchema({
@@ -117,6 +118,7 @@ const schema = [
     </section>
 
     <OccasionTemplateGallery occasion={occasion} heading={`${occasion.name} invitation templates`} limit={6} />
+    <OccasionModifierGrid occasion={occasion} title={`Search-driven ${occasion.name.toLowerCase()} invitation routes`} />
     <OccasionContentNav occasion={occasion} title={`Keep building your ${occasion.name.toLowerCase()} invitation`} />
     <FaqSection title={`${occasion.name} invitations FAQ`} faqs={faqs} />
 

@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import CanvasEditor from '../../components/CanvasEditor';
 import FaqSection from '../../components/FaqSection.astro';
 import OccasionContentNav from '../../components/OccasionContentNav.astro';
+import OccasionModifierGrid from '../../components/OccasionModifierGrid.astro';
 import OccasionTemplateGallery from '../../components/OccasionTemplateGallery.astro';
 import { OCCASIONS } from '../../lib/occasions';
 import {
@@ -151,6 +152,7 @@ const schema = [
       </div>
     </section>
 
+    <OccasionModifierGrid occasion={occasion} title={`Popular ${occasion.name.toLowerCase()} invitation modifiers`} />
     <OccasionContentNav occasion={occasion} />
     <OccasionTemplateGallery occasion={occasion} heading={`Popular ${occasion.name} templates`} limit={6} />
     <FaqSection title={`${occasion.name} invitation maker FAQ`} faqs={faqs} />

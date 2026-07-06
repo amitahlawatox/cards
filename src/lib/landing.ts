@@ -1,9 +1,16 @@
+import { MODIFIER_DEFINITIONS } from './content';
 import { OCCASIONS, type Occasion } from './occasions';
 import { SITE } from './site';
 
 export type LandingFamily = 'make' | 'invitations' | 'templates' | 'wording';
 
 export interface OccasionRouteSuggestion {
+  title: string;
+  href: string;
+  description: string;
+}
+
+export interface OccasionModifierLink {
   title: string;
   href: string;
   description: string;
@@ -214,7 +221,7 @@ export function getOccasionMakerGrowthData(occasion: Occasion): OccasionMakerGro
   }
 
   return {
-    title: `Free ${occasion.name} Invitation Maker | Customize and Download | ${SITE.name}`,
+    title: `Free ${occasion.name} Invitation Maker | ${SITE.name}`,
     metaDescription: `${occasion.description} Choose from ${occasion.templates.length} templates, personalize your text, and download a high-resolution invitation for free.`,
     intro: `${occasion.description} Pick a template, customize your text, and download your invitation for free.`,
     searchTerms: [
@@ -292,6 +299,14 @@ export function getOccasionHubLinks(occasion: Occasion) {
       description: `Use wording samples, message ideas, and checklist guidance for this event type.`,
     },
   ];
+}
+
+export function getOccasionModifierLinks(occasion: Occasion): OccasionModifierLink[] {
+  return MODIFIER_DEFINITIONS.map((modifier) => ({
+    title: `${modifier.label} ${occasion.name} invitations`,
+    href: `/invitations/${occasion.slug}/${modifier.slug}/`,
+    description: `Open the ${modifier.label.toLowerCase()} route for ${occasion.name.toLowerCase()} invitation intent and related wording ideas.`,
+  }));
 }
 
 export function getOccasionSummary(occasion: Occasion) {

@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import FaqSection from '../../components/FaqSection.astro';
 import OccasionContentNav from '../../components/OccasionContentNav.astro';
+import OccasionModifierGrid from '../../components/OccasionModifierGrid.astro';
 import OccasionTemplateGallery from '../../components/OccasionTemplateGallery.astro';
 import { OCCASIONS } from '../../lib/occasions';
 import {
@@ -25,7 +26,7 @@ const { occasion } = Astro.props;
 const faqs = getOccasionFaqs(occasion);
 const highlights = getOccasionTemplateHighlights(occasion);
 const related = getOccasionRelated(occasion, 4);
-const title = `Free ${occasion.name} Invitation Templates | ${SITE.name}`;
+const title = `Free ${occasion.name} Templates | ${SITE.name}`;
 const description = `Browse ${occasion.templates.length} editable ${occasion.name.toLowerCase()} templates, compare styles, and open the editor to customize your favorite design.`;
 const schema = [
   articleSchema({
@@ -82,6 +83,7 @@ const schema = [
       </div>
     </section>
 
+    <OccasionModifierGrid occasion={occasion} title={`Template users also search these ${occasion.name.toLowerCase()} routes`} />
     <OccasionContentNav occasion={occasion} title={`Use these ${occasion.name.toLowerCase()} templates with the right copy`} />
     <FaqSection title={`${occasion.name} template FAQ`} faqs={faqs} />
 
