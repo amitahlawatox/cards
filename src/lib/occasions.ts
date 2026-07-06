@@ -403,6 +403,142 @@ export const OCCASIONS: Occasion[] = [
       { id: 'corp-launch', name: 'Launch Night', bg: 'linear-gradient(135deg,#1e1b4b,#312e81)', pattern: STAR_PATTERN, textColor: '#e0e7ff', accentColor: '#a5b4fc', defaultHeading: "Product Launch 🚀", defaultBody: "[Company] invites you to\nexperience [Product Name]", defaultFooter: "VIP Preview · [Date]", defaultDate: "[Date]", defaultTime: "[Time]", defaultVenue: "[Venue]" },
     ],
   },
+
+  // -- FOURTH OF JULY -------------------------------------------------------
+  {
+    id: 'fourth-of-july',
+    name: 'Fourth of July',
+    emoji: '🇺🇸',
+    slug: 'fourth-of-july',
+    description: 'Patriotic Fourth of July invitations for backyard cookouts, fireworks, and summer celebrations.',
+    color: 'from-red-600', color2: 'to-blue-600',
+    tags: ['fourth of july invitation', '4th of july party', 'independence day party', 'patriotic invitation'],
+    searches: 140000,
+    templates: [
+      { id: 'july-stars', name: 'Stars & Stripes', bg: 'linear-gradient(135deg,#1d4ed8,#2563eb,#dc2626)', pattern: STAR_PATTERN, textColor: '#eff6ff', accentColor: '#fbbf24', defaultHeading: 'Fourth of July Party', defaultBody: 'Join us for food, fireworks,\nand summer fun', defaultFooter: 'Bring a lawn chair and festive spirit', defaultDate: 'July 4, [Year]', defaultTime: '5:00 PM', defaultVenue: '[Address]' },
+      { id: 'july-bbq', name: 'Backyard BBQ', bg: 'linear-gradient(135deg,#fff7ed,#ffedd5,#dbeafe)', pattern: STRIPE_H, textColor: '#7c2d12', accentColor: '#dc2626', defaultHeading: "You're Invited", defaultBody: 'Celebrate Independence Day\nwith a backyard BBQ', defaultFooter: 'RSVP by [Date]', defaultDate: 'July 4, [Year]', defaultTime: '3:00 PM', defaultVenue: '[Backyard / Park]' },
+      { id: 'july-night', name: 'Fireworks Night', bg: 'linear-gradient(135deg,#0f172a,#1e3a8a,#7f1d1d)', pattern: STAR_PATTERN, textColor: '#f8fafc', accentColor: '#f59e0b', defaultHeading: 'Fireworks & Friends', defaultBody: 'Come celebrate the Fourth\nunder the night sky', defaultFooter: 'Snacks, sparklers, and good company', defaultDate: 'July 4, [Year]', defaultTime: '8:00 PM', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- THANKSGIVING ---------------------------------------------------------
+  {
+    id: 'thanksgiving',
+    name: 'Thanksgiving',
+    emoji: '🦃',
+    slug: 'thanksgiving',
+    description: 'Warm Thanksgiving invitations for Friendsgiving dinners, family meals, and autumn gatherings.',
+    color: 'from-orange-600', color2: 'to-amber-500',
+    tags: ['thanksgiving invitation', 'friendsgiving invite', 'thanksgiving dinner invitation', 'fall party invitation'],
+    searches: 165000,
+    templates: [
+      { id: 'thanks-harvest', name: 'Harvest Table', bg: 'linear-gradient(135deg,#7c2d12,#b45309,#f59e0b)', pattern: DOT_PATTERN, textColor: '#fffbeb', accentColor: '#fcd34d', defaultHeading: 'Thanksgiving Dinner', defaultBody: 'Gather with us for a cozy\nevening of gratitude', defaultFooter: 'Please RSVP by [Date]', defaultDate: '[Date]', defaultTime: '6:00 PM', defaultVenue: '[Home Address]' },
+      { id: 'thanks-friendsgiving', name: 'Friendsgiving', bg: 'linear-gradient(135deg,#fff7ed,#ffedd5,#fef3c7)', pattern: STRIPE_D, textColor: '#7c2d12', accentColor: '#d97706', defaultHeading: 'Friendsgiving Feast', defaultBody: 'Good food, great people,\nand a table full of thanks', defaultFooter: 'Bring your favorite dish if you like', defaultDate: '[Date]', defaultTime: '7:00 PM', defaultVenue: '[Location]' },
+      { id: 'thanks-modern', name: 'Modern Autumn', bg: 'linear-gradient(135deg,#f8fafc,#fef3c7,#fed7aa)', textColor: '#431407', accentColor: '#ea580c', defaultHeading: 'Give Thanks Together', defaultBody: 'You are invited to a\nThanksgiving celebration', defaultFooter: 'Family dinner and dessert to follow', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- EASTER ---------------------------------------------------------------
+  {
+    id: 'easter',
+    name: 'Easter',
+    emoji: '🐣',
+    slug: 'easter',
+    description: 'Bright Easter invitations for brunches, egg hunts, spring lunches, and family celebrations.',
+    color: 'from-pink-400', color2: 'to-yellow-300',
+    tags: ['easter invitation', 'easter brunch invitation', 'easter egg hunt invite', 'spring celebration invitation'],
+    searches: 150000,
+    templates: [
+      { id: 'easter-pastel', name: 'Pastel Garden', bg: 'linear-gradient(135deg,#fdf2f8,#fef9c3,#d1fae5)', pattern: DOT_PATTERN, textColor: '#9d174d', accentColor: '#16a34a', defaultHeading: 'Happy Easter', defaultBody: 'Join us for an Easter\ncelebration with family and friends', defaultFooter: 'Brunch, treats, and egg hunt fun', defaultDate: '[Date]', defaultTime: '11:00 AM', defaultVenue: '[Venue]' },
+      { id: 'easter-brunch', name: 'Spring Brunch', bg: 'linear-gradient(135deg,#ecfeff,#e0f2fe,#fef3c7)', pattern: STRIPE_H, textColor: '#155e75', accentColor: '#f59e0b', defaultHeading: 'Easter Brunch', defaultBody: 'Celebrate spring with us\nat our Easter table', defaultFooter: 'RSVP to [Contact]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Home / Cafe]' },
+      { id: 'easter-kids', name: 'Egg Hunt', bg: 'linear-gradient(135deg,#dbeafe,#fae8ff,#fef9c3)', pattern: DOT_PATTERN, textColor: '#1e3a8a', accentColor: '#9333ea', defaultHeading: 'Easter Egg Hunt', defaultBody: 'Baskets ready.\nLet the hunt begin', defaultFooter: 'Fun for kids and families', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Park / Garden]' },
+    ],
+  },
+
+  // -- MOTHER'S DAY ---------------------------------------------------------
+  {
+    id: 'mothers-day',
+    name: "Mother's Day",
+    emoji: '🌷',
+    slug: 'mothers-day',
+    description: "Thoughtful Mother's Day cards and invitations for brunches, lunches, and family celebrations.",
+    color: 'from-rose-400', color2: 'to-pink-400',
+    tags: ["mother's day card", "mother's day invitation", 'mothers day brunch invite', 'family lunch invitation'],
+    searches: 210000,
+    templates: [
+      { id: 'mothers-floral', name: 'Floral Brunch', bg: 'linear-gradient(135deg,#fff1f2,#fce7f3,#fdf2f8)', pattern: DOT_PATTERN, textColor: '#9f1239', accentColor: '#ec4899', defaultHeading: "Mother's Day Brunch", defaultBody: 'Celebrate the amazing moms\nwho make every day brighter', defaultFooter: 'Please join us with love', defaultDate: '[Date]', defaultTime: '11:30 AM', defaultVenue: '[Venue]' },
+      { id: 'mothers-garden', name: 'Garden Lunch', bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7,#fee2e2)', pattern: STRIPE_H, textColor: '#166534', accentColor: '#f43f5e', defaultHeading: 'With Love for Mom', defaultBody: 'Join us for a warm family\nMother\'s Day gathering', defaultFooter: 'RSVP by [Date]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Home / Garden]' },
+      { id: 'mothers-photo', name: 'Elegant Tribute', bg: '#fffafc', textColor: '#4c1d95', accentColor: '#db2777', defaultHeading: 'Celebrating Mom', defaultBody: 'A special day for the heart\nof our family', defaultFooter: 'Date · Time · Venue', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- FATHER'S DAY ---------------------------------------------------------
+  {
+    id: 'fathers-day',
+    name: "Father's Day",
+    emoji: '🛠️',
+    slug: 'fathers-day',
+    description: "Father's Day cards and invitations for BBQs, lunches, game nights, and family get-togethers.",
+    color: 'from-slate-600', color2: 'to-blue-500',
+    tags: ["father's day card", "father's day invitation", 'fathers day bbq invite', 'family gathering invitation'],
+    searches: 170000,
+    templates: [
+      { id: 'fathers-bbq', name: 'Dad BBQ', bg: 'linear-gradient(135deg,#1f2937,#374151,#1d4ed8)', pattern: STRIPE_D, textColor: '#f8fafc', accentColor: '#f59e0b', defaultHeading: "Father's Day BBQ", defaultBody: 'Fire up the grill.\nLet\'s celebrate Dad together', defaultFooter: 'Food, laughs, and family time', defaultDate: '[Date]', defaultTime: '2:00 PM', defaultVenue: '[Backyard]' },
+      { id: 'fathers-classic', name: 'Classic Gathering', bg: 'linear-gradient(135deg,#eff6ff,#dbeafe,#e2e8f0)', pattern: DOT_PATTERN, textColor: '#1e3a8a', accentColor: '#475569', defaultHeading: 'Celebrating Dad', defaultBody: 'Please join us for a\nFather\'s Day celebration', defaultFooter: 'RSVP to [Contact]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+      { id: 'fathers-sports', name: 'Game Day', bg: 'linear-gradient(135deg,#052e16,#166534,#15803d)', pattern: STRIPE_H, textColor: '#ecfdf5', accentColor: '#facc15', defaultHeading: 'Dad\'s Day Out', defaultBody: 'Join us for food, games,\nand a laid-back celebration', defaultFooter: 'Bring your team spirit', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- BONFIRE NIGHT --------------------------------------------------------
+  {
+    id: 'bonfire-night',
+    name: 'Bonfire Night',
+    emoji: '🎆',
+    slug: 'bonfire-night',
+    description: 'Bonfire Night invitations for fireworks parties, community gatherings, and cozy autumn celebrations.',
+    color: 'from-orange-500', color2: 'to-red-500',
+    tags: ['bonfire night invitation', 'guy fawkes night invite', 'fireworks party invitation', 'autumn event invitation'],
+    searches: 35000,
+    templates: [
+      { id: 'bonfire-fireworks', name: 'Fireworks Glow', bg: 'linear-gradient(135deg,#111827,#1e3a8a,#7f1d1d)', pattern: STAR_PATTERN, textColor: '#f8fafc', accentColor: '#f59e0b', defaultHeading: 'Bonfire Night', defaultBody: 'Wrap up warm and join us\nfor fireworks and bonfire fun', defaultFooter: 'Hot drinks and snacks provided', defaultDate: 'November 5, [Year]', defaultTime: '6:30 PM', defaultVenue: '[Venue]' },
+      { id: 'bonfire-cozy', name: 'Cozy Autumn', bg: 'linear-gradient(135deg,#fff7ed,#fed7aa,#fecaca)', pattern: DOT_PATTERN, textColor: '#7c2d12', accentColor: '#dc2626', defaultHeading: 'Fireworks Gathering', defaultBody: 'A crisp evening of sparks,\nstories, and celebration', defaultFooter: 'RSVP by [Date]', defaultDate: 'November 5, [Year]', defaultTime: '[Time]', defaultVenue: '[Location]' },
+      { id: 'bonfire-community', name: 'Community Night', bg: 'linear-gradient(135deg,#312e81,#1e293b,#ea580c)', pattern: STAR_PATTERN, textColor: '#eef2ff', accentColor: '#fb7185', defaultHeading: 'Join Our Bonfire Night', defaultBody: 'Celebrate Bonfire Night\nwith neighbors, friends, and family', defaultFooter: 'Please arrive before the fireworks', defaultDate: 'November 5, [Year]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- OKTOBERFEST ----------------------------------------------------------
+  {
+    id: 'oktoberfest',
+    name: 'Oktoberfest',
+    emoji: '🍺',
+    slug: 'oktoberfest',
+    description: 'Festive Oktoberfest invitations for beer nights, themed dinners, and autumn parties.',
+    color: 'from-blue-600', color2: 'to-amber-500',
+    tags: ['oktoberfest invitation', 'beer festival invite', 'oktoberfest party invitation', 'autumn party invite'],
+    searches: 48000,
+    templates: [
+      { id: 'oktoberfest-bavarian', name: 'Bavarian Blue', bg: 'linear-gradient(135deg,#1d4ed8,#2563eb,#f8fafc)', pattern: CROSS, textColor: '#eff6ff', accentColor: '#f59e0b', defaultHeading: 'Oktoberfest Party', defaultBody: 'Raise a glass and join us\nfor an Oktoberfest celebration', defaultFooter: 'Food, music, and festive cheer', defaultDate: '[Date]', defaultTime: '7:00 PM', defaultVenue: '[Venue]' },
+      { id: 'oktoberfest-tavern', name: 'Tavern Night', bg: 'linear-gradient(135deg,#78350f,#92400e,#f59e0b)', pattern: STRIPE_D, textColor: '#fffbeb', accentColor: '#60a5fa', defaultHeading: 'Prost!', defaultBody: 'Come celebrate with brews,\nbites, and good company', defaultFooter: 'Traditional dress welcome', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Hall / Garden]' },
+      { id: 'oktoberfest-modern', name: 'Modern Fest', bg: 'linear-gradient(135deg,#eff6ff,#dbeafe,#fef3c7)', textColor: '#1e3a8a', accentColor: '#d97706', defaultHeading: 'Oktoberfest Gathering', defaultBody: 'You are invited to an\nautumn party with Oktoberfest flair', defaultFooter: 'RSVP to [Contact]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- MIDSUMMER ------------------------------------------------------------
+  {
+    id: 'midsummer',
+    name: 'Midsummer',
+    emoji: '🌼',
+    slug: 'midsummer',
+    description: 'Light-filled Midsummer invitations for garden parties, picnics, and summer gatherings across Europe.',
+    color: 'from-yellow-400', color2: 'to-emerald-400',
+    tags: ['midsummer invitation', 'summer solstice party', 'garden party invitation', 'picnic invitation'],
+    searches: 22000,
+    templates: [
+      { id: 'midsummer-garden', name: 'Garden Light', bg: 'linear-gradient(135deg,#fef9c3,#d9f99d,#bbf7d0)', pattern: DOT_PATTERN, textColor: '#365314', accentColor: '#16a34a', defaultHeading: 'Midsummer Celebration', defaultBody: 'Join us for flowers, food,\nand a long summer evening', defaultFooter: 'Bring a blanket and your best stories', defaultDate: '[Date]', defaultTime: '5:30 PM', defaultVenue: '[Garden / Park]' },
+      { id: 'midsummer-picnic', name: 'Picnic Party', bg: 'linear-gradient(135deg,#ecfccb,#dcfce7,#e0f2fe)', pattern: STRIPE_H, textColor: '#166534', accentColor: '#0ea5e9', defaultHeading: 'Summer Solstice Picnic', defaultBody: 'Celebrate the season\nwith us outdoors', defaultFooter: 'RSVP by [Date]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Park / Lakeside]' },
+      { id: 'midsummer-evening', name: 'Evening Glow', bg: 'linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5)', pattern: DOT_PATTERN, textColor: '#7c2d12', accentColor: '#db2777', defaultHeading: 'Midsummer Night', defaultBody: 'An evening of music,\nflowers, and shared plates', defaultFooter: 'Friends and family welcome', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
 ];
 
 export function getOccasionBySlug(slug: string) {

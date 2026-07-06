@@ -126,6 +126,156 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
     ],
   },
+  'fourth-of-july': {
+    metaDescription:
+      'Create free Fourth of July invitations online, compare patriotic templates, make printable 4th of July invites, and share party details fast.',
+    intro:
+      'Create free Fourth of July invitations online, choose patriotic templates for BBQs or fireworks parties, and share printable or hosted invites in minutes.',
+    searchTerms: [
+      'fourth of july invitation',
+      '4th of july party invitations',
+      'independence day invitation template',
+      'printable fourth of july invitations',
+      'online fourth of july invite maker',
+    ],
+    highlights: [
+      'Choose from patriotic styles built for backyard BBQs, fireworks parties, neighborhood events, and summer celebrations.',
+      'Use printable formats for in-person gatherings or hosted invite pages when you need fast guest sharing and RSVP follow-up.',
+      'Personalize names, cookout timing, venue details, and dress notes without redesigning the whole card from scratch.',
+    ],
+    routeSuggestions: [
+      {
+        title: 'Fourth of July templates',
+        href: '/templates/fourth-of-july/',
+        description: 'Compare patriotic layouts before opening the editor for your party style and guest list.',
+      },
+      {
+        title: 'Printable Fourth of July invites',
+        href: '/invitations/fourth-of-july/printable/',
+        description: 'Focus on print-ready Independence Day invitations for BBQs, cookouts, and neighborhood parties.',
+      },
+      {
+        title: 'Fourth of July wording ideas',
+        href: '/wording/fourth-of-july/',
+        description: 'Use ready-made cookout, fireworks, and summer-hosting wording that is quick to customize.',
+      },
+      {
+        title: 'Fourth of July seasonal hub',
+        href: '/seasonal/fourth-of-july-invitations/',
+        description: 'Explore the broader summer and patriotic content cluster supporting Independence Day demand.',
+      },
+      {
+        title: 'Hosted RSVP invite pages',
+        href: '/features/rsvp-invitation-pages/',
+        description: 'See how a shareable invite page can simplify guest responses for a large holiday gathering.',
+      },
+      {
+        title: 'Photo card maker',
+        href: '/features/photo-card-maker/',
+        description: 'Add family or party photos when you want a more personal Fourth of July invitation.',
+      },
+    ],
+  },
+  thanksgiving: {
+    metaDescription:
+      'Make free Thanksgiving invitations online, compare Friendsgiving templates, and download printable dinner invites for autumn gatherings.',
+    intro:
+      'Make free Thanksgiving invitations online, personalize Friendsgiving or family-dinner details, and export printable or digital autumn invites fast.',
+    searchTerms: [
+      'thanksgiving invitation',
+      'friendsgiving invitations',
+      'thanksgiving dinner invitation template',
+      'printable thanksgiving invitations',
+      'online thanksgiving invite maker',
+    ],
+    highlights: [
+      'Choose warm autumn layouts for family dinners, Friendsgiving parties, hosted meals, and thankful-gathering events.',
+      'Keep the invitation practical by adding dish notes, arrival timing, RSVP details, and host information in one pass.',
+      'Use the same design for printable table-friendly invites or a faster digital share workflow when plans come together late.',
+    ],
+    routeSuggestions: [
+      {
+        title: 'Thanksgiving templates',
+        href: '/templates/thanksgiving/',
+        description: 'Compare harvest, dinner, and Friendsgiving invitation layouts before you customize one.',
+      },
+      {
+        title: 'Printable Thanksgiving invites',
+        href: '/invitations/thanksgiving/printable/',
+        description: 'Open the print-focused route for formal meal invitations and autumn gathering cards.',
+      },
+      {
+        title: 'Thanksgiving wording ideas',
+        href: '/wording/thanksgiving/',
+        description: 'Use family-dinner, Friendsgiving, and hosted-meal wording examples that feel natural and warm.',
+      },
+      {
+        title: 'Thanksgiving seasonal hub',
+        href: '/seasonal/thanksgiving-invitations/',
+        description: 'Stay inside the autumn dinner cluster built for Thanksgiving and Friendsgiving search demand.',
+      },
+      {
+        title: 'Online card maker',
+        href: '/features/online-card-maker/',
+        description: 'See the broader product route for free online invitation creation without design software.',
+      },
+      {
+        title: 'Last-minute invitation ideas',
+        href: '/invitations/thanksgiving/last-minute/',
+        description: 'Open the fast-turnaround route when the guest list comes together close to the event date.',
+      },
+    ],
+  },
+  easter: {
+    metaDescription:
+      'Create free Easter invitations online, compare spring templates, make printable Easter brunch invites, and share egg-hunt details quickly.',
+    intro:
+      'Create free Easter invitations online, choose a bright spring template, and send printable or digital invites for brunches, egg hunts, and family gatherings.',
+    searchTerms: [
+      'easter invitation',
+      'easter brunch invitation',
+      'easter egg hunt invitation',
+      'printable easter invitations',
+      'online easter invite maker',
+    ],
+    highlights: [
+      'Use spring-ready templates for Easter brunches, family lunches, church events, and outdoor egg hunts.',
+      'Keep the message clear by adding timing, host notes, dress guidance, and child-friendly activity details in a few quick edits.',
+      'Switch between printable invites, WhatsApp sharing, and hosted event pages depending on how your guests usually respond.',
+    ],
+    routeSuggestions: [
+      {
+        title: 'Easter templates',
+        href: '/templates/easter/',
+        description: 'Compare pastel, brunch, and egg-hunt layouts before opening the editor.',
+      },
+      {
+        title: 'Printable Easter invites',
+        href: '/invitations/easter/printable/',
+        description: 'Focus on print-friendly Easter invitation formats for family gatherings and event handouts.',
+      },
+      {
+        title: 'Easter wording ideas',
+        href: '/wording/easter/',
+        description: 'Use brunch, celebration, and family-event wording examples that are easy to personalize.',
+      },
+      {
+        title: 'Spring seasonal hub',
+        href: '/seasonal/spring-celebration-invitations/',
+        description: 'Move into the broader spring celebration cluster that connects Easter to related demand.',
+      },
+      {
+        title: 'Photo card maker',
+        href: '/features/photo-card-maker/',
+        description: 'Add a family or kids photo when you want a more personal spring invitation or card.',
+      },
+      {
+        title: 'Hosted RSVP invite pages',
+        href: '/features/rsvp-invitation-pages/',
+        description: 'Use a hosted page when you need easy replies for an egg hunt, brunch, or larger family event.',
+      },
+    ],
+  },
 };
 
 function getIndefiniteArticle(value: string) {

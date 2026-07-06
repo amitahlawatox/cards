@@ -95,6 +95,41 @@ export const MODIFIER_DEFINITIONS: ModifierDefinition[] = [
 
 export const SEASONAL_HUBS: SeasonalHub[] = [
   {
+    slug: 'fourth-of-july-invitations',
+    title: 'Fourth of July Invitation Hub',
+    description: 'Patriotic invitation templates, BBQ wording, and printable party ideas for Fourth of July and Independence Day searches.',
+    occasionSlugs: ['fourth-of-july', 'birthday', 'graduation', 'corporate'],
+    highlights: ['backyard BBQ invites', 'fireworks party wording', 'summer hosted invite ideas'],
+  },
+  {
+    slug: 'thanksgiving-invitations',
+    title: 'Thanksgiving Invitation Hub',
+    description: 'Thanksgiving and Friendsgiving templates, dinner wording, and autumn gathering ideas for family and hosted-meal traffic.',
+    occasionSlugs: ['thanksgiving', 'anniversary', 'housewarming', 'corporate'],
+    highlights: ['friendsgiving templates', 'family dinner wording', 'printable autumn invites'],
+  },
+  {
+    slug: 'spring-celebration-invitations',
+    title: 'Spring Celebration Invitation Hub',
+    description: 'Spring invitation ideas for Easter, brunches, family gatherings, baby showers, and light seasonal celebrations.',
+    occasionSlugs: ['easter', 'baby-shower', 'mothers-day', 'kids-party'],
+    highlights: ['easter brunch invites', 'garden gathering wording', 'family-friendly spring templates'],
+  },
+  {
+    slug: 'family-appreciation-invitations',
+    title: 'Mother\'s Day and Father\'s Day Hub',
+    description: 'Family celebration templates and hosted invite ideas for Mother\'s Day brunches, Father\'s Day BBQs, and appreciation events.',
+    occasionSlugs: ['mothers-day', 'fathers-day', 'anniversary', 'birthday'],
+    highlights: ['parent appreciation cards', 'family lunch invitations', 'BBQ and brunch wording'],
+  },
+  {
+    slug: 'europe-festival-invitations',
+    title: 'Europe Festival Invitation Hub',
+    description: 'European celebration templates for Bonfire Night, Oktoberfest, Midsummer, and other seasonal gathering searches.',
+    occasionSlugs: ['bonfire-night', 'oktoberfest', 'midsummer', 'christmas'],
+    highlights: ['community celebration invites', 'autumn festival wording', 'summer garden-party ideas'],
+  },
+  {
     slug: 'diwali-invitations',
     title: 'Diwali Invitation Hub',
     description: 'Templates, wording, family-event ideas, and festive invitation flows for Diwali and Deepawali celebrations.',
