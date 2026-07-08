@@ -276,6 +276,156 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
     ],
   },
+  'canada-day': {
+    metaDescription:
+      'Create free Canada Day invitations online, compare July 1 party templates, and make printable Canada Day BBQ or fireworks invites fast.',
+    intro:
+      'Create free Canada Day invitations online, choose a red-and-white party template, and send printable or digital invites for BBQs, fireworks, and holiday gatherings.',
+    searchTerms: [
+      'canada day invitation',
+      'canada day party invitation',
+      'july 1 invitation template',
+      'printable canada day invitations',
+      'online canada day invite maker',
+    ],
+    highlights: [
+      'Use patriotic layouts for backyard parties, fireworks nights, family cookouts, and neighborhood Canada Day events.',
+      'Keep guest planning simple by adding timing, address details, what-to-bring notes, and RSVP instructions in one quick edit.',
+      'Choose between printable invitations, WhatsApp-friendly sharing, and hosted event pages depending on how your guests usually reply.',
+    ],
+    routeSuggestions: [
+      {
+        title: 'Canada Day templates',
+        href: '/templates/canada-day/',
+        description: 'Compare July 1 invitation layouts before you open the editor and personalize one.',
+      },
+      {
+        title: 'Printable Canada Day invites',
+        href: '/invitations/canada-day/printable/',
+        description: 'Focus on print-friendly Canada Day invitations for BBQs, fireworks, and holiday handouts.',
+      },
+      {
+        title: 'Canada Day wording ideas',
+        href: '/wording/canada-day/',
+        description: 'Use ready-made Canada Day party wording for family, neighborhood, and holiday-hosting events.',
+      },
+      {
+        title: 'Canada holiday hub',
+        href: '/seasonal/canada-holiday-invitations/',
+        description: 'Stay inside the Canada-focused seasonal cluster built for holiday-hosting searches.',
+      },
+      {
+        title: 'Hosted RSVP invite pages',
+        href: '/features/rsvp-invitation-pages/',
+        description: 'Use a hosted page when you want easy guest replies for a larger Canada Day gathering.',
+      },
+      {
+        title: 'Photo card maker',
+        href: '/features/photo-card-maker/',
+        description: 'Add a family or host photo if you want a more personal holiday invitation.',
+      },
+    ],
+  },
+  'hen-party': {
+    metaDescription:
+      'Make free hen party invitations online, compare glam and weekend-away templates, and send printable or digital hen do invites quickly.',
+    intro:
+      'Make free hen party invitations online, choose the right mood for a brunch, dinner, spa day, or weekend away, and send polished invites in minutes.',
+    searchTerms: [
+      'hen party invitation',
+      'hen do invite',
+      'hen weekend invitation',
+      'printable hen party invitations',
+      'online hen party invite maker',
+    ],
+    highlights: [
+      'Choose layouts for glam nights, brunches, spa days, and destination hen weekends without starting from a blank card.',
+      'Add itinerary details, dress themes, RSVP notes, and payment reminders while keeping the invite stylish and easy to scan.',
+      'Use a hosted invite page when the guest list needs one place for updates, schedule notes, and quick response tracking.',
+    ],
+    routeSuggestions: [
+      {
+        title: 'Hen party templates',
+        href: '/templates/hen-party/',
+        description: 'Compare glam, weekend-away, and brunch-ready hen party invitation designs.',
+      },
+      {
+        title: 'Printable hen party invites',
+        href: '/invitations/hen-party/printable/',
+        description: 'Focus on print-friendly hen party formats for gift bags, handouts, or keepsakes.',
+      },
+      {
+        title: 'Hen party wording ideas',
+        href: '/wording/hen-party/',
+        description: 'Use quick wording examples for hen dos, bridal weekends, and pre-wedding party plans.',
+      },
+      {
+        title: 'UK party hub',
+        href: '/seasonal/uk-party-invitations/',
+        description: 'Explore the broader UK social-event cluster that connects hen parties to related demand.',
+      },
+      {
+        title: 'Hosted RSVP invite pages',
+        href: '/features/rsvp-invitation-pages/',
+        description: 'Use a shareable event page when you need RSVPs, updates, or weekend itinerary details in one place.',
+      },
+      {
+        title: 'Online card maker',
+        href: '/features/online-card-maker/',
+        description: 'See the broader route for fast invite creation without extra design tools.',
+      },
+    ],
+  },
+  christening: {
+    metaDescription:
+      'Create free christening invitations online, compare elegant baptism templates, and make printable christening cards with wording included.',
+    intro:
+      'Create free christening invitations online, personalize names, church details, and family reception information, and send elegant invites without design software.',
+    searchTerms: [
+      'christening invitation',
+      'baptism invitation',
+      'christening invitation template',
+      'printable christening invitations',
+      'online christening invite maker',
+    ],
+    highlights: [
+      'Choose calm, family-friendly layouts for christenings, baptisms, naming celebrations, and baby dedication events.',
+      'Add ceremony timing, church details, reception notes, and RSVP guidance while keeping the invitation graceful and easy to read.',
+      'Use printable formats for formal family sharing or a digital route when you need faster guest communication.',
+    ],
+    routeSuggestions: [
+      {
+        title: 'Christening templates',
+        href: '/templates/christening/',
+        description: 'Compare classic, soft, and elegant christening invitation designs before customizing one.',
+      },
+      {
+        title: 'Printable christening invites',
+        href: '/invitations/christening/printable/',
+        description: 'Focus on print-ready christening invitation formats for family events and church gatherings.',
+      },
+      {
+        title: 'Christening wording ideas',
+        href: '/wording/christening/',
+        description: 'Use polished ceremony and reception wording that is easy to adapt for your family.',
+      },
+      {
+        title: 'UK party hub',
+        href: '/seasonal/uk-party-invitations/',
+        description: 'Stay within the wider UK invitation cluster that connects christenings to related family-event demand.',
+      },
+      {
+        title: 'Printable invitation maker',
+        href: '/features/printable-invitation-maker/',
+        description: 'See the product route built around print-friendly invitations and export workflows.',
+      },
+      {
+        title: 'Venue and address wording',
+        href: '/guides/venue-and-address-wording/',
+        description: 'Use clearer wording for church locations, family halls, and reception details.',
+      },
+    ],
+  },
 };
 
 function getIndefiniteArticle(value: string) {

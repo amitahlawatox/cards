@@ -539,6 +539,142 @@ export const OCCASIONS: Occasion[] = [
       { id: 'midsummer-evening', name: 'Evening Glow', bg: 'linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5)', pattern: DOT_PATTERN, textColor: '#7c2d12', accentColor: '#db2777', defaultHeading: 'Midsummer Night', defaultBody: 'An evening of music,\nflowers, and shared plates', defaultFooter: 'Friends and family welcome', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
     ],
   },
+
+  // -- CANADA DAY -----------------------------------------------------------
+  {
+    id: 'canada-day',
+    name: 'Canada Day',
+    emoji: '🇨🇦',
+    slug: 'canada-day',
+    description: 'Canada Day invitations for backyard parties, fireworks nights, and red-and-white summer celebrations.',
+    color: 'from-red-600', color2: 'to-rose-500',
+    tags: ['canada day invitation', 'canada day party invite', 'july 1 party invitation', 'canadian celebration invitation'],
+    searches: 32000,
+    templates: [
+      { id: 'canada-flag', name: 'Flag Party', bg: 'linear-gradient(135deg,#dc2626,#ef4444,#fff7ed)', pattern: STRIPE_H, textColor: '#fff7ed', accentColor: '#fecaca', defaultHeading: 'Canada Day Party', defaultBody: 'Celebrate July 1 with food,\nfireworks, and summer fun', defaultFooter: 'Wear your red and white', defaultDate: 'July 1, [Year]', defaultTime: '4:00 PM', defaultVenue: '[Address]' },
+      { id: 'canada-bbq', name: 'Backyard BBQ', bg: 'linear-gradient(135deg,#fff7ed,#fee2e2,#fecdd3)', pattern: DOT_PATTERN, textColor: '#7f1d1d', accentColor: '#dc2626', defaultHeading: "You're Invited", defaultBody: 'Join us for a Canada Day\nBBQ and celebration', defaultFooter: 'RSVP by [Date]', defaultDate: 'July 1, [Year]', defaultTime: '[Time]', defaultVenue: '[Backyard / Park]' },
+      { id: 'canada-night', name: 'Fireworks Night', bg: 'linear-gradient(135deg,#1f2937,#7f1d1d,#dc2626)', pattern: STAR_PATTERN, textColor: '#f9fafb', accentColor: '#fca5a5', defaultHeading: 'Canada Day Fireworks', defaultBody: 'Come celebrate with friends,\nsnacks, and a sky full of colour', defaultFooter: 'Bring a chair or picnic blanket', defaultDate: 'July 1, [Year]', defaultTime: '8:30 PM', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- VICTORIA DAY ---------------------------------------------------------
+  {
+    id: 'victoria-day',
+    name: 'Victoria Day',
+    emoji: '🎇',
+    slug: 'victoria-day',
+    description: 'Victoria Day invitations for long-weekend parties, cottage getaways, and early-summer gatherings in Canada.',
+    color: 'from-indigo-600', color2: 'to-pink-500',
+    tags: ['victoria day invitation', 'may long weekend party invite', 'canada long weekend invitation', 'fireworks party invitation'],
+    searches: 12000,
+    templates: [
+      { id: 'victoria-weekend', name: 'Long Weekend', bg: 'linear-gradient(135deg,#312e81,#4338ca,#ec4899)', pattern: STAR_PATTERN, textColor: '#eef2ff', accentColor: '#f9a8d4', defaultHeading: 'Victoria Day Weekend', defaultBody: 'Join us for a long-weekend\ncelebration', defaultFooter: 'Food, drinks, and holiday fun', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+      { id: 'victoria-cottage', name: 'Cottage Escape', bg: 'linear-gradient(135deg,#dbeafe,#bfdbfe,#e0f2fe)', pattern: STRIPE_H, textColor: '#1e3a8a', accentColor: '#0ea5e9', defaultHeading: 'May Long Weekend', defaultBody: 'Pack your overnight bag\nand come celebrate with us', defaultFooter: 'RSVP to [Contact]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Lake / Cottage]' },
+      { id: 'victoria-fireworks', name: 'Holiday Night', bg: 'linear-gradient(135deg,#0f172a,#312e81,#be123c)', pattern: STAR_PATTERN, textColor: '#f8fafc', accentColor: '#fde68a', defaultHeading: 'Victoria Day Gathering', defaultBody: 'A festive evening for friends,\nfamily, and fireworks', defaultFooter: 'Please arrive before sunset', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- BOXING DAY -----------------------------------------------------------
+  {
+    id: 'boxing-day',
+    name: 'Boxing Day',
+    emoji: '🎁',
+    slug: 'boxing-day',
+    description: 'Boxing Day invitations for after-Christmas brunches, open houses, and relaxed holiday get-togethers.',
+    color: 'from-red-500', color2: 'to-green-500',
+    tags: ['boxing day invitation', 'boxing day brunch invite', 'after christmas party invitation', 'holiday open house invitation'],
+    searches: 18000,
+    templates: [
+      { id: 'boxing-brunch', name: 'Holiday Brunch', bg: 'linear-gradient(135deg,#fef2f2,#dcfce7,#dbeafe)', pattern: DOT_PATTERN, textColor: '#7f1d1d', accentColor: '#16a34a', defaultHeading: 'Boxing Day Brunch', defaultBody: 'Join us for a cozy\npost-Christmas catch-up', defaultFooter: 'Coffee, brunch, and leftovers welcome', defaultDate: 'December 26, [Year]', defaultTime: '11:00 AM', defaultVenue: '[Home / Cafe]' },
+      { id: 'boxing-open-house', name: 'Open House', bg: 'linear-gradient(135deg,#fff7ed,#fef3c7,#dcfce7)', pattern: STRIPE_H, textColor: '#78350f', accentColor: '#dc2626', defaultHeading: 'Boxing Day Open House', defaultBody: 'Drop in for festive bites,\ndrinks, and a little holiday cheer', defaultFooter: 'Come anytime between [Time] and [Time]', defaultDate: 'December 26, [Year]', defaultTime: '[Time]', defaultVenue: '[Address]' },
+      { id: 'boxing-evening', name: 'Holiday Evening', bg: 'linear-gradient(135deg,#14532d,#166534,#991b1b)', pattern: STAR_PATTERN, textColor: '#fefce8', accentColor: '#fca5a5', defaultHeading: 'See You on Boxing Day', defaultBody: 'Unwind with us after Christmas\nfor a warm, easygoing gathering', defaultFooter: 'RSVP if you can make it', defaultDate: 'December 26, [Year]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- HEN PARTY ------------------------------------------------------------
+  {
+    id: 'hen-party',
+    name: 'Hen Party',
+    emoji: '🥂',
+    slug: 'hen-party',
+    description: 'Hen party invitations for weekend getaways, dinners, spa days, and pre-wedding celebrations.',
+    color: 'from-fuchsia-500', color2: 'to-rose-400',
+    tags: ['hen party invitation', 'hen do invite', 'bachelorette weekend invitation', 'bridal party invitation'],
+    searches: 28000,
+    templates: [
+      { id: 'hen-glam', name: 'Glam Night', bg: 'linear-gradient(135deg,#831843,#be185d,#ec4899)', pattern: STAR_PATTERN, textColor: '#fdf2f8', accentColor: '#fbcfe8', defaultHeading: 'Hen Party', defaultBody: 'Let\'s celebrate the bride-to-be\nin style', defaultFooter: 'Drinks, dancing, and unforgettable memories', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+      { id: 'hen-weekend', name: 'Weekend Away', bg: 'linear-gradient(135deg,#fdf2f8,#fae8ff,#ffe4e6)', pattern: DOT_PATTERN, textColor: '#9d174d', accentColor: '#c026d3', defaultHeading: 'Bride\'s Weekend', defaultBody: 'Pack your bags.\nWe\'re off for a hen weekend', defaultFooter: 'Full itinerary to follow', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Destination]' },
+      { id: 'hen-spa', name: 'Spa & Brunch', bg: 'linear-gradient(135deg,#f5f3ff,#ede9fe,#fce7f3)', textColor: '#5b21b6', accentColor: '#ec4899', defaultHeading: 'Hen Party Brunch', defaultBody: 'Join us for bubbles,\nbrunch, and bride energy', defaultFooter: 'RSVP by [Date]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- STAG PARTY -----------------------------------------------------------
+  {
+    id: 'stag-party',
+    name: 'Stag Party',
+    emoji: '🍻',
+    slug: 'stag-party',
+    description: 'Stag party invitations for golf weekends, pub nights, game days, and pre-wedding celebrations.',
+    color: 'from-slate-700', color2: 'to-amber-500',
+    tags: ['stag party invitation', 'stag do invite', 'bachelor weekend invitation', 'groomsmen party invitation'],
+    searches: 22000,
+    templates: [
+      { id: 'stag-pub', name: 'Pub Night', bg: 'linear-gradient(135deg,#1f2937,#374151,#b45309)', pattern: STRIPE_D, textColor: '#f9fafb', accentColor: '#fbbf24', defaultHeading: 'Stag Party', defaultBody: 'Join us for a proper send-off\nbefore the big day', defaultFooter: 'Pints, laughs, and late stories', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Pub / Venue]' },
+      { id: 'stag-weekend', name: 'Weekend Trip', bg: 'linear-gradient(135deg,#dbeafe,#bfdbfe,#e5e7eb)', pattern: STRIPE_H, textColor: '#1e3a8a', accentColor: '#475569', defaultHeading: 'Stag Weekend', defaultBody: 'We\'re heading out for a\nlegendary weekend away', defaultFooter: 'Travel details inside', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Destination]' },
+      { id: 'stag-sports', name: 'Game Day', bg: 'linear-gradient(135deg,#052e16,#166534,#365314)', pattern: DOT_PATTERN, textColor: '#ecfdf5', accentColor: '#facc15', defaultHeading: 'Lads\' Night Out', defaultBody: 'Come celebrate with the groom\nbefore the wedding', defaultFooter: 'RSVP to [Contact]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- CHRISTENING ----------------------------------------------------------
+  {
+    id: 'christening',
+    name: 'Christening',
+    emoji: '🕊️',
+    slug: 'christening',
+    description: 'Elegant christening invitations for baptisms, naming celebrations, and family gatherings.',
+    color: 'from-sky-300', color2: 'to-blue-300',
+    tags: ['christening invitation', 'baptism invitation', 'naming day invitation', 'baby dedication invitation'],
+    searches: 26000,
+    templates: [
+      { id: 'christening-classic', name: 'Classic White', bg: 'linear-gradient(135deg,#f8fafc,#eff6ff,#f0fdf4)', pattern: DOT_PATTERN, textColor: '#1e3a8a', accentColor: '#0ea5e9', defaultHeading: 'Christening Invitation', defaultBody: 'Please join us as we celebrate\nthe christening of [Name]', defaultFooter: 'Reception to follow', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Church / Venue]' },
+      { id: 'christening-soft', name: 'Soft Blue', bg: 'linear-gradient(135deg,#e0f2fe,#dbeafe,#f5f3ff)', pattern: STRIPE_H, textColor: '#155e75', accentColor: '#6366f1', defaultHeading: 'With Love and Blessings', defaultBody: 'You are invited to [Name]\'s\nspecial day', defaultFooter: 'Hosted by [Family Name]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+      { id: 'christening-elegant', name: 'Elegant Gold', bg: 'linear-gradient(135deg,#fffaf0,#fef3c7,#f8fafc)', textColor: '#78350f', accentColor: '#b45309', defaultHeading: 'A Christening Celebration', defaultBody: 'We would be honoured by your\npresence at the christening of [Name]', defaultFooter: 'RSVP by [Date]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Church / Hall]' },
+    ],
+  },
+
+  // -- GARDEN PARTY ---------------------------------------------------------
+  {
+    id: 'garden-party',
+    name: 'Garden Party',
+    emoji: '🌿',
+    slug: 'garden-party',
+    description: 'Garden party invitations for summer lunches, afternoon teas, birthdays, and elegant outdoor gatherings.',
+    color: 'from-emerald-500', color2: 'to-lime-400',
+    tags: ['garden party invitation', 'summer garden party invite', 'outdoor lunch invitation', 'afternoon tea invitation'],
+    searches: 34000,
+    templates: [
+      { id: 'garden-floral', name: 'Floral Garden', bg: 'linear-gradient(135deg,#f0fdf4,#dcfce7,#fdf2f8)', pattern: DOT_PATTERN, textColor: '#166534', accentColor: '#ec4899', defaultHeading: 'Garden Party', defaultBody: 'Join us outdoors for a\nbeautiful afternoon together', defaultFooter: 'Tea, treats, and sunshine', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Garden / Venue]' },
+      { id: 'garden-lunch', name: 'Summer Lunch', bg: 'linear-gradient(135deg,#ecfccb,#d9f99d,#fef3c7)', pattern: STRIPE_H, textColor: '#365314', accentColor: '#ca8a04', defaultHeading: 'Summer Garden Lunch', defaultBody: 'You are invited to a relaxed\noutdoor gathering', defaultFooter: 'Please RSVP by [Date]', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Address]' },
+      { id: 'garden-elegant', name: 'Elegant Tea', bg: 'linear-gradient(135deg,#faf5ff,#f5f3ff,#f0fdf4)', textColor: '#6b21a8', accentColor: '#16a34a', defaultHeading: 'Afternoon in the Garden', defaultBody: 'Flowers, conversation,\nand something sparkling', defaultFooter: 'Dress: summer chic', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
+
+  // -- SUMMER FETE ----------------------------------------------------------
+  {
+    id: 'summer-fete',
+    name: 'Summer Fete',
+    emoji: '🎪',
+    slug: 'summer-fete',
+    description: 'Summer fete invitations for school events, village fairs, fundraising days, and community celebrations.',
+    color: 'from-yellow-500', color2: 'to-orange-400',
+    tags: ['summer fete invitation', 'school fair invitation', 'village fete invite', 'community event invitation'],
+    searches: 9000,
+    templates: [
+      { id: 'fete-school', name: 'School Fair', bg: 'linear-gradient(135deg,#fef9c3,#fde68a,#bfdbfe)', pattern: DOT_PATTERN, textColor: '#854d0e', accentColor: '#2563eb', defaultHeading: 'Summer Fete', defaultBody: 'Join us for games, stalls,\nand community fun', defaultFooter: 'Everyone welcome', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[School / Grounds]' },
+      { id: 'fete-village', name: 'Village Fete', bg: 'linear-gradient(135deg,#ecfccb,#d9f99d,#fef3c7)', pattern: STRIPE_H, textColor: '#3f6212', accentColor: '#ca8a04', defaultHeading: 'Village Summer Fete', defaultBody: 'A day of music, food,\nand local celebration', defaultFooter: 'Bring family and friends', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Village Green]' },
+      { id: 'fete-charity', name: 'Charity Day', bg: 'linear-gradient(135deg,#fff7ed,#fed7aa,#fef9c3)', textColor: '#9a3412', accentColor: '#f59e0b', defaultHeading: 'Community Fete', defaultBody: 'Come support a brilliant day\nfor a great cause', defaultFooter: 'Stalls, raffles, and refreshments', defaultDate: '[Date]', defaultTime: '[Time]', defaultVenue: '[Venue]' },
+    ],
+  },
 ];
 
 export function getOccasionBySlug(slug: string) {

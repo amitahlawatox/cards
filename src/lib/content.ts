@@ -95,6 +95,34 @@ export const MODIFIER_DEFINITIONS: ModifierDefinition[] = [
 
 export const SEASONAL_HUBS: SeasonalHub[] = [
   {
+    slug: 'canada-holiday-invitations',
+    title: 'Canada Holiday Invitation Hub',
+    description: 'Canadian invitation ideas for Canada Day, Victoria Day, family gatherings, and holiday-hosting searches.',
+    occasionSlugs: ['canada-day', 'victoria-day', 'thanksgiving', 'christmas'],
+    highlights: ['Canada Day BBQ invites', 'Victoria Day weekend wording', 'holiday gathering templates'],
+  },
+  {
+    slug: 'uk-party-invitations',
+    title: 'UK Party Invitation Hub',
+    description: 'UK-focused invitation ideas for hen parties, stag parties, christenings, and elegant social gatherings.',
+    occasionSlugs: ['hen-party', 'stag-party', 'christening', 'garden-party'],
+    highlights: ['hen and stag invite templates', 'christening wording', 'hosted social-event ideas'],
+  },
+  {
+    slug: 'british-summer-invitations',
+    title: 'British Summer Invitation Hub',
+    description: 'Summer invitation ideas for garden parties, summer fetes, school fairs, and community events across the UK.',
+    occasionSlugs: ['garden-party', 'summer-fete', 'birthday', 'corporate'],
+    highlights: ['garden lunch invites', 'school-fair wording', 'community event templates'],
+  },
+  {
+    slug: 'boxing-day-invitations',
+    title: 'Boxing Day Invitation Hub',
+    description: 'Boxing Day invite templates, post-Christmas brunch ideas, and relaxed holiday gathering wording for UK and Commonwealth searches.',
+    occasionSlugs: ['boxing-day', 'christmas', 'new-year', 'housewarming'],
+    highlights: ['post-Christmas brunch invites', 'holiday open-house wording', 'between-Christmas-and-New-Year hosting ideas'],
+  },
+  {
     slug: 'fourth-of-july-invitations',
     title: 'Fourth of July Invitation Hub',
     description: 'Patriotic invitation templates, BBQ wording, and printable party ideas for Fourth of July and Independence Day searches.',
