@@ -4,7 +4,6 @@ import {
   FEATURED_EVENT_MICROSITES,
   GUIDE_PAGES,
   MARKET_CLUSTERS,
-  MODIFIER_DEFINITIONS,
   PHOTO_FOCUSED_OCCASIONS,
   PRODUCT_FEATURE_PAGES,
   SEASONAL_HUBS,
@@ -15,6 +14,8 @@ import { absoluteUrl } from '../lib/site';
 const staticPaths = [
   '/',
   '/about/',
+  '/contact/',
+  '/content-standards/',
   '/occasions/',
   '/templates/',
   '/invitations/',
@@ -41,12 +42,6 @@ function buildSitemapXml() {
   const urls = [
     ...staticPaths,
     ...OCCASIONS.flatMap((occasion) => familyBuilders.map((builder) => builder(occasion.slug))),
-    ...OCCASIONS.flatMap((occasion) =>
-      MODIFIER_DEFINITIONS.map((modifier) => `/invitations/${occasion.slug}/${modifier.slug}/`),
-    ),
-    ...OCCASIONS.flatMap((occasion) =>
-      occasion.templates.map((template) => `/template/${occasion.slug}/${template.id}/`),
-    ),
     ...PRODUCT_FEATURE_PAGES.map((feature) => `/features/${feature.slug}/`),
     ...PHOTO_FOCUSED_OCCASIONS.map((slug) => `/photo/${slug}/`),
     ...SEASONAL_HUBS.map((hub) => `/seasonal/${hub.slug}/`),

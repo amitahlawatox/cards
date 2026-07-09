@@ -41,7 +41,7 @@ const schema = [
 ];
 ---
 
-<Layout title={`${template.name} ${occasion.name} Template | ${SITE.name}`} description={description} canonical={absoluteUrl(path)} schema={schema}>
+<Layout title={`${template.name} ${occasion.name} Template | ${SITE.name}`} description={description} canonical={absoluteUrl(path)} schema={schema} noIndex={true}>
   <Header />
   <main id="main-content" class="mx-auto max-w-6xl px-6 py-12">
     <div class="grid gap-8 lg:grid-cols-[0.7fr_0.9fr] lg:items-start">

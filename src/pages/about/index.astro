@@ -68,8 +68,8 @@ const totalTemplates = OCCASIONS.reduce((sum, occasion) => sum + occasion.templa
           <h2 class="mb-4 text-2xl font-black" style="color:var(--color-text);">What we offer</h2>
           <ul class="space-y-3">
             {[
-              ['21+ occasions', 'From birthdays and weddings to Diwali, Eid, Halloween, and corporate events.'],
-              ['100+ templates', 'A growing library of styles for different tones, seasons, and audiences.'],
+              [`${OCCASIONS.length}+ occasions`, 'From birthdays and weddings to seasonal holidays, family events, and community celebrations.'],
+              [`${totalTemplates}+ templates`, 'A growing library of styles for different tones, seasons, and audiences.'],
               ['Real-time preview', 'Update your text and see your card design change immediately.'],
               ['High-resolution downloads', 'Export finished cards as PNG files for digital sharing or printing.'],
               ['No account required', 'Open the site, make your card, and download it directly.'],
@@ -92,6 +92,21 @@ const totalTemplates = OCCASIONS.reduce((sum, occasion) => sum + occasion.templa
           <p class="leading-relaxed" style="color:var(--color-text-muted);">
             The editor is intended to work client-side so visitors can create personal invitations with as little friction and data collection as possible.
           </p>
+        </div>
+
+        <div class="rounded-2xl p-8" style="background:var(--color-surface);border:1px solid var(--color-border);">
+          <h2 class="mb-4 text-2xl font-black" style="color:var(--color-text);">How we publish content</h2>
+          <p class="leading-relaxed" style="color:var(--color-text-muted);">
+            We create invitation templates, occasion pages, wording guides, and product help content to help visitors finish a real task faster. When a page is too repetitive or does not add enough value, we improve it, merge it, or remove it from search indexing.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href="/content-standards/" class="rounded-full px-5 py-3 text-sm font-bold text-white" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);">
+              Read our content standards
+            </a>
+            <a href="/contact/" class="rounded-full px-5 py-3 text-sm font-bold" style="background:var(--color-surface-2);color:var(--color-text);border:1px solid var(--color-border);">
+              Contact the team
+            </a>
+          </div>
         </div>
       </div>
 

@@ -17,6 +17,14 @@ export function organizationSchema() {
     name: SITE.name,
     url: SITE.domain,
     email: SITE.email,
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        email: SITE.email,
+        availableLanguage: ['English'],
+      },
+    ],
   };
 }
 

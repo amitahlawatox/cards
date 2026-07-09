@@ -1,0 +1,78 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+
+const path = '/content-standards/';
+const title = `${SITE.name} Content Standards`;
+const description = `How ${SITE.name} creates invitation templates, wording guides, occasion pages, and product help content for users.`;
+const schema = [
+  articleSchema({ title, description, path }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Content Standards', path },
+  ]),
+];
+---
+
+<Layout title={title} description={description} canonical={absoluteUrl(path)} schema={schema}>
+  <Header />
+
+  <main id="main-content" class="mx-auto max-w-5xl px-6 py-12">
+    <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#eef2ff,#fff7ed);border-color:#C4B5FD;">
+      <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#7C3AED;">Content standards</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:#1A1340;">How {SITE.name} builds useful invitation content</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed" style="color:#6B63A3;">
+        We want our invitation pages to help people complete a real task: choose a design, write the message, share the invite, and avoid last-minute confusion. This page explains how we create and improve the content on the site.
+      </p>
+    </div>
+
+    <section class="mt-10 grid gap-6" data-scroll>
+      {[
+        [
+          'Original templates and page copy',
+          'We publish our own template collections, wording examples, comparison summaries, and feature descriptions. We do not republish scraped articles or copied invitation text libraries from other sites.',
+        ],
+        [
+          'Pages must help a real user task',
+          'Each indexable page should help with at least one clear task such as picking a template, writing invitation wording, planning the event details, or comparing sharing options. Pages that are too repetitive or low-signal are candidates for consolidation or removal from search indexing.',
+        ],
+        [
+          'Regular updates based on user demand',
+          'We review search demand, occasion trends, and feature requests to decide which invitation routes, seasonal hubs, and wording guides to expand next.',
+        ],
+        [
+          'Human review of structure and usefulness',
+          'Before major rollouts, we review page structure, internal linking, readability, and whether the page adds value beyond simple keyword variations.',
+        ],
+        [
+          'Clarity over filler',
+          'We aim to keep pages practical and scannable. If a page needs more depth, we add specific examples, checklists, or route guidance rather than generic filler paragraphs.',
+        ],
+        [
+          'Transparent product-focused publishing',
+          'Bespoke Card Studio is a product site first. Our editorial pages exist to help visitors use the card maker, understand invitation wording, and make better event-planning decisions.',
+        ],
+      ].map(([title, body]) => (
+        <article class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">{title}</h2>
+          <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{body}</p>
+        </article>
+      ))}
+    </section>
+
+    <section class="mt-10 rounded-3xl border p-6" data-scroll style="background:var(--color-surface);border-color:var(--color-border);">
+      <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">What we improve when a page is weak</h2>
+      <ul class="mt-4 space-y-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+        <li>We add unique use cases, planning steps, or wording help that makes the page more useful.</li>
+        <li>We merge or de-index pages that are too similar to stronger pages elsewhere on the site.</li>
+        <li>We fix broken links, missing routes, misleading titles, or navigation that makes the site harder to use.</li>
+        <li>We expand important occasion hubs when search data shows stronger user interest.</li>
+      </ul>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
