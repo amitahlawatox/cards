@@ -27,8 +27,6 @@ const staticPaths = [
   '/seasonal/',
   '/events/',
   '/indian/',
-  '/privacy/',
-  '/terms/',
 ];
 
 const familyBuilders = [

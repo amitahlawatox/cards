@@ -44,6 +44,21 @@ const schema = [
     </section>
 
     <section class="mx-auto py-10" data-scroll>
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">How to use this guide well</h2>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          This guide is meant to remove one specific point of friction in the invitation process. Most visitors already know the event type, but they still need help with the exact wording, planning sequence, or guest-facing detail that makes the finished invite feel clear and complete.
+        </p>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          The fastest workflow is usually to borrow one structure from the examples, adapt it to your event, and then move into the matching occasion or feature page. That keeps the guide useful without forcing you to write the whole message from scratch.
+        </p>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          If the card starts to feel crowded, use the guide to decide what belongs on the invitation itself and what should move into a hosted invite page, follow-up message, or RSVP note.
+        </p>
+      </div>
+    </section>
+
+    <section class="mx-auto py-10" data-scroll>
       <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Example lines</h2>
       <div class="grid gap-4 md:grid-cols-3">
         {examples.map((example) => (
@@ -80,6 +95,18 @@ const schema = [
         </div>
       </section>
     )}
+
+    <section class="mx-auto py-4" data-scroll>
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Common mistakes this guide helps avoid</h2>
+        <ul class="mt-4 space-y-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          <li>Using wording that sounds polished but still leaves out one practical guest detail.</li>
+          <li>Copying a format that does not match the tone, venue, or audience for the event.</li>
+          <li>Trying to fit schedule, dress code, and long directions into a card that should stay concise.</li>
+          <li>Switching to the editor before the message structure and guest information are clear.</li>
+        </ul>
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>

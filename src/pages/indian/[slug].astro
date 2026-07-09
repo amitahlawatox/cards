@@ -13,6 +13,7 @@ export function getStaticPaths() {
 const { cluster } = Astro.props;
 const occasions = getOccasionsBySlugs(cluster.occasionSlugs);
 const path = `/indian/${cluster.slug}/`;
+const occasionNames = occasions.map((occasion) => occasion.name).join(', ');
 const schema = [
   articleSchema({ title: `${cluster.title} | ${SITE.name}`, description: cluster.description, path }),
   breadcrumbSchema([
@@ -38,6 +39,29 @@ const schema = [
           <p class="text-sm leading-relaxed" style="color:var(--color-text-muted);">{highlight}</p>
         </div>
       ))}
+    </section>
+
+    <section class="mx-auto py-10" data-scroll>
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Why this market cluster matters</h2>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            Indian invitation demand often combines cultural tone, family-hosted events, practical schedule details, and sharing preferences like WhatsApp in a single search journey. That makes these pages more useful when they connect related event types instead of forcing each page to stand alone.
+          </p>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            This cluster brings together {occasionNames.toLowerCase()} so visitors can move between festive events, family celebrations, and more formal invitation needs without losing the cultural or guest-sharing context that matters.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Best way to use this cluster</h2>
+          <ul class="mt-4 space-y-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            <li>Start with the event type closest to your actual ceremony, family gathering, or festive host plan.</li>
+            <li>Use the Indian-specific route when tone, family naming, or sharing format matters more than generic template style.</li>
+            <li>Move to wording or hosted invite help when one card cannot carry all the guest details comfortably.</li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <section class="mx-auto py-10" data-scroll>

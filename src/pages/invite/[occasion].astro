@@ -42,6 +42,22 @@ const schema = [
     </div>
 
     <InvitationViewer client:load occasionName={occasion.name} />
+
+    <section class="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr]" data-scroll>
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">What a hosted invite should help a guest do</h2>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          A useful hosted invitation does more than show a design. It should help guests understand the event, confirm the date and time quickly, check location details, and respond without jumping between multiple apps or long message threads.
+        </p>
+      </div>
+
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Why this route stays out of search</h2>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          Hosted invitation pages are built for sharing after a card has been created, not for ranking as stand-alone search results. We keep them out of the index so search traffic lands on stronger editorial and template pages while hosts still get a clean shareable event page.
+        </p>
+      </div>
+    </section>
   </main>
 
   <Footer />

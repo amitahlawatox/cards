@@ -32,6 +32,22 @@ const schema = [
     <section class="mt-10" data-scroll>
       <RecentDrafts client:load />
     </section>
+
+    <section class="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr]" data-scroll>
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">How draft recovery works</h2>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          Draft recovery is designed for speed. When a visitor leaves the editor before finishing, the latest version stays stored in the same browser so they can return to the project, continue editing, and export without starting again from the first step.
+        </p>
+      </div>
+
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Why this page is private to the browser</h2>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          This route is intentionally not indexed because it is a utility page, not a search landing page. Its job is to improve the product experience for returning users while keeping public search results focused on richer occasion, wording, and template content.
+        </p>
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>

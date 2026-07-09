@@ -14,6 +14,7 @@ const { hub } = Astro.props;
 const occasions = getOccasionsBySlugs(hub.occasionSlugs);
 const description = getSeasonalHubIntro(hub);
 const path = `/seasonal/${hub.slug}/`;
+const occasionNames = occasions.map((occasion) => occasion.name).join(', ');
 const schema = [
   articleSchema({ title: `${hub.title} | ${SITE.name}`, description, path }),
   breadcrumbSchema([
@@ -42,6 +43,33 @@ const schema = [
     </section>
 
     <section class="mx-auto py-10" data-scroll>
+      <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Why this seasonal cluster exists</h2>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            Seasonal invitation demand behaves differently from evergreen invitation searches. During a narrow demand window, users often need to move from inspiration to a finished invite quickly, which means they look for templates, wording, sharing formats, and last-minute planning help in the same session.
+          </p>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            This hub keeps those related journeys together. Instead of treating {occasionNames.toLowerCase()} as isolated pages, we group them so guests can compare formats, choose a tone, and reach the editor faster without bouncing between unrelated routes.
+          </p>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            The goal is practical usefulness: help a visitor pick the right occasion page, find matching wording, and decide whether the event needs a printable invite, a hosted page, or a quick digital share.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">What people usually need next</h2>
+          <ul class="mt-4 space-y-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            <li>Choose the occasion page that best matches the event being hosted.</li>
+            <li>Compare template styles before opening the editor.</li>
+            <li>Find wording or RSVP help when the event details are still incomplete.</li>
+            <li>Pick a sharing format that fits the deadline, guest list, and device habits.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto py-10" data-scroll>
       <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Occasions in this seasonal cluster</h2>
       <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {occasions.map((occasion) => (
@@ -49,6 +77,18 @@ const schema = [
             <p class="text-3xl">{occasion.emoji}</p>
             <h3 class="mt-4 text-lg font-black" style="color:var(--color-text);">{occasion.name}</h3>
             <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">{occasion.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto py-10" data-scroll>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Strong next steps from this hub</h2>
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {occasions.map((occasion) => (
+          <a href={`/templates/${occasion.slug}/`} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+            <h3 class="text-lg font-black" style="color:var(--color-text);">{occasion.name} templates</h3>
+            <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">Compare editable designs, then move into the card maker with a clearer starting point.</p>
           </a>
         ))}
       </div>

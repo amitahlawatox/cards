@@ -37,7 +37,35 @@ const schema = [
           <h2 class="mt-4 text-xl font-black" style="color:var(--color-text);">{occasion.name}</h2>
           <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">{occasion.description}</p>
         </a>
-      ))}
+        ))}
+      </section>
+
+    <section class="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr]" data-scroll>
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">What makes a microsite useful</h2>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          Event microsites are meant for categories where the visitor usually needs more than a simple card gallery. Weddings, birthdays, baby showers, and corporate events often require wording help, planning prompts, template comparison, and a clearer path into hosted invite tools.
+        </p>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          Instead of forcing those users through disconnected pages, each microsite groups the strongest next actions into one route so they can move from search to template choice to editor use with less friction.
+        </p>
+      </div>
+
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">When to open a microsite instead of a normal occasion page</h2>
+        <ul class="mt-4 space-y-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          <li>When the event needs RSVP, schedule, or guest-planning help in addition to a design.</li>
+          <li>When the user is comparing workflows instead of only browsing templates.</li>
+          <li>When internal links need to keep a high-intent visitor inside one dense topic cluster.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mt-10 rounded-3xl border p-6" data-scroll style="background:var(--color-surface);border-color:var(--color-border);">
+      <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">How these pages fit the rest of the site</h2>
+      <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+        These event routes are meant to sit between broad occasion pages and the editor itself. A strong microsite gives Google and real visitors a denser topic page that connects templates, wording examples, RSVP help, schedule guidance, and hosted-invite tasks in one place instead of sending them through shallow disconnected paths.
+      </p>
     </section>
   </main>
   <Footer />

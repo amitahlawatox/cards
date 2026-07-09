@@ -15,6 +15,7 @@ const occasions = getOccasionsBySlugs(feature.occasionSlugs);
 const path = `/features/${feature.slug}/`;
 const isPhotoFeature = feature.slug === 'photo-card-maker';
 const photoOccasions = isPhotoFeature ? PHOTO_FOCUSED_OCCASIONS.map((slug) => getOccasionBySlug(slug)).filter(Boolean) : [];
+const bestFitNames = occasions.map((occasion) => occasion.name).join(', ');
 const schema = [
   articleSchema({ title: `${feature.title} | ${SITE.name}`, description: feature.description, path }),
   breadcrumbSchema([
@@ -72,6 +73,30 @@ const schema = [
             <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">{occasion.description}</p>
           </a>
         ))}
+      </div>
+    </section>
+
+    <section class="mx-auto py-10" data-scroll>
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">How this feature helps a real user task</h2>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            People landing on this page usually know the format they want before they know the occasion route they should open. That is why this feature page exists: it translates broad product intent into a smaller set of invitation flows that are actually ready to use.
+          </p>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            The best fits here are {bestFitNames.toLowerCase()}. Those routes already have stronger template context, cleaner wording hand-off, and a faster path from browsing to a finished design.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">What to do after opening the editor</h2>
+          <ul class="mt-4 space-y-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            <li>Pick the occasion route closest to the event instead of editing from a generic blank state.</li>
+            <li>Finish the event title, date, venue, and RSVP details before changing visual details.</li>
+            <li>Choose the delivery format early: printable PDF, PNG, hosted invite page, or mobile-first sharing.</li>
+            <li>Use the matching wording or guide pages if the message is still the main blocker.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
