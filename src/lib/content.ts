@@ -249,7 +249,7 @@ export const GUIDE_PAGES: GuidePage[] = [
   {
     slug: 'invitation-wording-examples',
     title: 'Invitation Wording Examples',
-    description: 'Short, formal, casual, and text-friendly invitation wording examples for dozens of event types.',
+    description: 'Short, formal, casual, and text-friendly invitation wording examples with ready-to-edit formats for birthdays, weddings, showers, and festive events.',
     intro: 'Wording examples are most useful when they give you a structure you can personalize quickly.',
     bullets: [
       'Keep the first line focused on the event or host.',
@@ -282,7 +282,7 @@ export const GUIDE_PAGES: GuidePage[] = [
   {
     slug: 'indian-wedding-invitation-wording',
     title: 'Indian Wedding Invitation Wording',
-    description: 'Traditional, modern, family-led, and WhatsApp-friendly Indian wedding invitation wording examples.',
+    description: 'Traditional, modern, family-led, and WhatsApp-friendly Indian wedding invitation wording examples for ceremonies, receptions, and multi-event schedules.',
     intro: 'Indian wedding invitation wording often balances family warmth, ceremonial detail, and practical guest information.',
     bullets: [
       'Lead with family or couple names depending on whether the tone is traditional or modern.',
@@ -367,11 +367,11 @@ export const PRODUCT_FEATURE_PAGES: ProductFeaturePage[] = [
   },
   {
     slug: 'whatsapp-invitation-maker',
-    title: 'WhatsApp Invitation Maker',
-    description: 'Create WhatsApp-friendly invitation cards and share them instantly with mobile-ready layouts, hosted invite links, and RSVP prompts.',
+    title: 'WhatsApp Invitation Card Maker',
+    description: 'Create WhatsApp-friendly invitation cards and share them instantly with mobile-ready layouts, hosted invite links, RSVP prompts, and fast family-event workflows.',
     intro: 'WhatsApp is a natural growth channel for family events, festive gatherings, and last-minute celebrations where speed matters more than formal print workflows.',
     highlights: ['Hosted invite links for sharing', 'Mobile-friendly layouts', 'Useful for Indian family events and festive invites'],
-    queryFocus: ['whatsapp invitation maker', 'online whatsapp invitations', 'diwali invitation card maker online'],
+    queryFocus: ['whatsapp invitation maker', 'whatsapp invitation card', 'online whatsapp invitations', 'diwali invitation card maker online'],
     occasionSlugs: ['diwali', 'housewarming', 'baby-shower', 'birthday'],
     ctaPath: '/make/diwali/',
     ctaLabel: 'Build a WhatsApp invite',

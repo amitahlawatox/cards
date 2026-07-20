@@ -29,7 +29,10 @@ const faqs = getOccasionFaqs(occasion);
 const checklist = getOccasionChecklist(occasion);
 const planningTips = getOccasionPlanningTips(occasion);
 const related = getOccasionRelated(occasion, 4);
-const title = `Free ${occasion.name} Invitations | ${SITE.name}`;
+const title =
+  occasion.slug === 'diwali'
+    ? `Free Diwali Invitation Templates | ${SITE.name}`
+    : `Free ${occasion.name} Invitations | ${SITE.name}`;
 const description = `${getOccasionSummary(occasion)} Browse templates, message ideas, and create your ${occasion.name.toLowerCase()} invitation online.`;
 const schema = [
   articleSchema({

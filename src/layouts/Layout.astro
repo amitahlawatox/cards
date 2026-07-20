@@ -45,7 +45,7 @@ const schemaNodes = [organizationSchema(), ...(Array.isArray(schema) ? schema : 
 
     <meta
       name="robots"
-      content={noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+      content={noIndex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
     />
     {schemaNodes.map((node) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(node)} />
