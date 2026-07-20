@@ -33,10 +33,16 @@ export interface SharedInviteMeta {
   hostName: string;
   hostEmail: string;
   hostPhone: string;
+  coHostName: string;
+  coHostEmail: string;
   rsvpBy: string;
   dressCode: string;
   schedule: string;
   notes: string;
+  guestQuestion: string;
+  guestOptions: string;
+  potluckItems: string;
+  reminderMessage: string;
 }
 
 export interface SharedInvitePayload {
@@ -58,10 +64,16 @@ export const EMPTY_SHARE_META: SharedInviteMeta = {
   hostName: '',
   hostEmail: '',
   hostPhone: '',
+  coHostName: '',
+  coHostEmail: '',
   rsvpBy: '',
   dressCode: '',
   schedule: '',
   notes: '',
+  guestQuestion: '',
+  guestOptions: '',
+  potluckItems: '',
+  reminderMessage: '',
 };
 
 export function normalizeShareMeta(meta?: Partial<SharedInviteMeta> | null): SharedInviteMeta {

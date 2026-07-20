@@ -16,7 +16,9 @@ export function organizationSchema() {
     '@type': 'Organization',
     name: SITE.name,
     url: SITE.domain,
+    logo: absoluteUrl(SITE.ogImage),
     email: SITE.email,
+    description: SITE.defaultDescription,
     contactPoint: [
       {
         '@type': 'ContactPoint',
@@ -66,6 +68,32 @@ export function faqSchema(faqs: FaqItem[]) {
         '@type': 'Answer',
         text: faq.answer,
       },
+    })),
+  };
+}
+
+export function howToSchema({
+  name,
+  description,
+  path,
+  steps,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  steps: string[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    description,
+    url: absoluteUrl(path),
+    step: steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step,
+      text: step,
     })),
   };
 }

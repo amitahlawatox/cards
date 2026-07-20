@@ -16,7 +16,7 @@ import {
   getOccasionRelated,
 } from '../../lib/landing';
 import { SITE, absoluteUrl } from '../../lib/site';
-import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/seo';
+import { articleSchema, breadcrumbSchema, faqSchema, howToSchema } from '../../lib/seo';
 
 export function getStaticPaths() {
   return OCCASIONS.map((occasion) => ({
@@ -46,6 +46,16 @@ const schema = [
     title: growthData.title,
     description: growthData.metaDescription,
     path: `/make/${occasion.slug}/`,
+  }),
+  howToSchema({
+    name: `How to make a ${occasion.name.toLowerCase()} invitation`,
+    description: growthData.metaDescription,
+    path: `/make/${occasion.slug}/`,
+    steps: [
+      `Choose a ${occasion.name.toLowerCase()} template that matches the event tone.`,
+      'Update the host, date, time, venue, and RSVP details first.',
+      'Customize the design and export it as a PNG, PDF, or hosted invite link.',
+    ],
   }),
   breadcrumbSchema([
     { name: 'Home', path: '/' },
@@ -129,7 +139,7 @@ const schema = [
 
     <section class="mt-10" data-scroll>
       <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
-        <h2 class="text-xl font-black" style="color:var(--color-text);">Searches this page is built to answer</h2>
+        <h2 class="text-xl font-black" style="color:var(--color-text);">Common searches behind this invitation maker</h2>
         <div class="mt-4 flex flex-wrap gap-2">
           {growthData.searchTerms.map((term) => (
             <span class="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--color-text-muted)]">
@@ -141,7 +151,7 @@ const schema = [
     </section>
 
     <section class="mt-10" data-scroll>
-      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Best next pages for this {occasion.name.toLowerCase()} invite</h2>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Best next pages after you start this invite</h2>
       <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {growthData.routeSuggestions.map((route) => (
           <a href={route.href} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">

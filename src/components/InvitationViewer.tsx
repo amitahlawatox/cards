@@ -116,6 +116,8 @@ export default function InvitationViewer({ occasionName }: Props) {
   const [guestName, setGuestName] = useState('');
   const [guestCount, setGuestCount] = useState('');
   const [guestMessage, setGuestMessage] = useState('');
+  const [guestAnswer, setGuestAnswer] = useState('');
+  const [guestContribution, setGuestContribution] = useState('');
   const [copyState, setCopyState] = useState<'idle' | 'copied'>('idle');
   const [eventCopyState, setEventCopyState] = useState<'idle' | 'copied'>('idle');
   const [calendarState, setCalendarState] = useState<'idle' | 'ready'>('idle');
@@ -132,6 +134,8 @@ export default function InvitationViewer({ occasionName }: Props) {
   const locationLabel = useMemo(() => buildLocation(meta), [meta]);
   const eventTitle = useMemo(() => buildEventTitle(meta, occasionName), [meta, occasionName]);
   const hasEventDetails = Boolean(meta.eventTitle || meta.venueName || meta.venueAddress || meta.startDateTime || meta.endDateTime);
+  const guestOptionList = useMemo(() => meta.guestOptions.split(',').map((item) => item.trim()).filter(Boolean), [meta.guestOptions]);
+  const potluckItems = useMemo(() => meta.potluckItems.split(',').map((item) => item.trim()).filter(Boolean), [meta.potluckItems]);
 
   const eventDetailsMessage = useMemo(() => {
     const lines = [
@@ -140,14 +144,16 @@ export default function InvitationViewer({ occasionName }: Props) {
       meta.endDateTime && eventEnd ? `Ends: ${formatDisplayDateTime(meta.endDateTime)}` : '',
       locationLabel ? `Where: ${locationLabel}` : '',
       meta.hostName ? `Host: ${meta.hostName}` : '',
+      meta.coHostName ? `Co-host: ${meta.coHostName}` : '',
       meta.rsvpBy ? `RSVP by: ${meta.rsvpBy}` : '',
       meta.dressCode ? `Dress code: ${meta.dressCode}` : '',
       meta.schedule ? `Schedule: ${meta.schedule}` : '',
       meta.notes ? `Notes: ${meta.notes}` : '',
+      meta.reminderMessage ? `Reminder: ${meta.reminderMessage}` : '',
     ].filter(Boolean);
 
     return lines.join('\n');
-  }, [eventEnd, eventStart, eventTitle, locationLabel, meta.dressCode, meta.endDateTime, meta.hostName, meta.notes, meta.rsvpBy, meta.schedule, meta.startDateTime]);
+  }, [eventEnd, eventStart, eventTitle, locationLabel, meta.coHostName, meta.dressCode, meta.endDateTime, meta.hostName, meta.notes, meta.reminderMessage, meta.rsvpBy, meta.schedule, meta.startDateTime]);
 
   const rsvpMessage = useMemo(() => {
     const greeting = meta.hostName ? `Hello ${meta.hostName},` : 'Hello,';
@@ -159,18 +165,21 @@ export default function InvitationViewer({ occasionName }: Props) {
       `Guest name: ${guestName.trim() || '[Your name]'}`,
       `Guest count: ${guestCount.trim() || '[Guest count]'}`,
       meta.rsvpBy ? `RSVP by: ${meta.rsvpBy}` : '',
+      meta.guestQuestion ? `${meta.guestQuestion}: ${guestAnswer.trim() || '[Your answer]'}` : '',
+      potluckItems.length > 0 ? `Contribution: ${guestContribution.trim() || '[Not specified]'}` : '',
       guestMessage.trim() ? `Message: ${guestMessage.trim()}` : '',
     ].filter(Boolean);
 
     return lines.join('\n');
-  }, [guestCount, guestMessage, guestName, meta.hostName, meta.rsvpBy, occasionName, response]);
+  }, [guestAnswer, guestContribution, guestCount, guestMessage, guestName, meta.guestQuestion, meta.hostName, meta.rsvpBy, occasionName, potluckItems.length, response]);
 
   const emailHref = useMemo(() => {
-    if (!meta.hostEmail) return '';
+    const targetEmail = meta.hostEmail || meta.coHostEmail;
+    if (!targetEmail) return '';
     const subject = encodeURIComponent(`${RSVP_RESPONSE_LABELS[response]} | ${occasionName} RSVP`);
     const body = encodeURIComponent(rsvpMessage);
-    return `mailto:${meta.hostEmail}?subject=${subject}&body=${body}`;
-  }, [meta.hostEmail, occasionName, response, rsvpMessage]);
+    return `mailto:${targetEmail}?subject=${subject}&body=${body}`;
+  }, [meta.coHostEmail, meta.hostEmail, occasionName, response, rsvpMessage]);
 
   const whatsappHref = useMemo(() => {
     if (!meta.hostPhone) return '';
@@ -295,6 +304,11 @@ export default function InvitationViewer({ occasionName }: Props) {
                 <strong style={{ color: 'var(--color-text)' }}>Host:</strong> {meta.hostName}
               </p>
             )}
+            {meta.coHostName && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>Co-host:</strong> {meta.coHostName}
+              </p>
+            )}
             {meta.rsvpBy && (
               <p>
                 <strong style={{ color: 'var(--color-text)' }}>RSVP by:</strong> {meta.rsvpBy}
@@ -315,7 +329,12 @@ export default function InvitationViewer({ occasionName }: Props) {
                 <strong style={{ color: 'var(--color-text)' }}>Notes:</strong> {meta.notes}
               </p>
             )}
-            {!hasEventDetails && !meta.hostName && !meta.rsvpBy && !meta.dressCode && !meta.schedule && !meta.notes && (
+            {meta.reminderMessage && (
+              <p>
+                <strong style={{ color: 'var(--color-text)' }}>Reminder:</strong> {meta.reminderMessage}
+              </p>
+            )}
+            {!hasEventDetails && !meta.hostName && !meta.coHostName && !meta.rsvpBy && !meta.dressCode && !meta.schedule && !meta.notes && !meta.reminderMessage && (
               <p>This hosted invitation is using only the shared card design right now. The host can add event details from the editor&apos;s Share panel.</p>
             )}
           </div>
@@ -359,6 +378,18 @@ export default function InvitationViewer({ occasionName }: Props) {
           <p className="mt-3 text-sm leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
             Choose a response, add your details, and send a structured RSVP to the host by email or WhatsApp.
           </p>
+
+          {(meta.guestQuestion || potluckItems.length > 0) && (
+            <div className="mt-5 rounded-3xl border p-4" style={{ background: 'rgba(236,72,153,0.04)', borderColor: 'rgba(236,72,153,0.16)' }}>
+              <p className="text-xs font-bold uppercase tracking-[0.22em]" style={{ color: '#DB2777' }}>
+                Guest planning
+              </p>
+              <div className="mt-3 space-y-2 text-sm" style={{ color: 'var(--color-text-muted)' }}>
+                {meta.guestQuestion && <p>{meta.guestQuestion}</p>}
+                {potluckItems.length > 0 && <p>Suggested bring-along ideas: {potluckItems.join(', ')}</p>}
+              </div>
+            </div>
+          )}
 
           <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
             {(Object.entries(RSVP_RESPONSE_LABELS) as Array<[RsvpResponse, string]>).map(([value, label]) => (
@@ -418,6 +449,58 @@ export default function InvitationViewer({ occasionName }: Props) {
                 placeholder="e.g. We are excited to celebrate with you."
               />
             </div>
+
+            {meta.guestQuestion && (
+              <div>
+                <label className="mb-2 block text-xs font-bold uppercase tracking-[0.22em]" style={{ color: 'var(--color-text-muted)' }}>
+                  Guest answer
+                </label>
+                {guestOptionList.length > 0 ? (
+                  <select
+                    value={guestAnswer}
+                    onChange={(event) => setGuestAnswer(event.target.value)}
+                    className="w-full rounded-2xl px-4 py-3 text-sm"
+                    style={{ background: 'var(--color-surface-2)', color: 'var(--color-text)', border: '1px solid var(--color-border)' }}
+                  >
+                    <option value="">Choose an option</option>
+                    {guestOptionList.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    value={guestAnswer}
+                    onChange={(event) => setGuestAnswer(event.target.value)}
+                    className="w-full rounded-2xl px-4 py-3 text-sm"
+                    style={{ background: 'var(--color-surface-2)', color: 'var(--color-text)', border: '1px solid var(--color-border)' }}
+                    placeholder="Type your answer"
+                  />
+                )}
+              </div>
+            )}
+
+            {potluckItems.length > 0 && (
+              <div>
+                <label className="mb-2 block text-xs font-bold uppercase tracking-[0.22em]" style={{ color: 'var(--color-text-muted)' }}>
+                  Bring-along item
+                </label>
+                <select
+                  value={guestContribution}
+                  onChange={(event) => setGuestContribution(event.target.value)}
+                  className="w-full rounded-2xl px-4 py-3 text-sm"
+                  style={{ background: 'var(--color-surface-2)', color: 'var(--color-text)', border: '1px solid var(--color-border)' }}
+                >
+                  <option value="">Not bringing an item</option>
+                  {potluckItems.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
 
           <div className="mt-5 rounded-3xl border p-4" style={{ background: 'rgba(79,70,229,0.04)', borderColor: 'rgba(79,70,229,0.16)' }}>

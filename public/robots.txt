@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /drafts/
+Disallow: /invite/
+Disallow: /*?design=*
 Sitemap: https://www.bespokecardstudio.com/sitemap.xml
 
 User-agent: GPTBot

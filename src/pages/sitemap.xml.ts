@@ -36,6 +36,20 @@ const familyBuilders = [
   (slug: string) => `/wording/${slug}/`,
 ];
 
+const buildDate = new Date().toISOString().split('T')[0];
+
+function getMeta(path: string) {
+  if (path === '/') return { changefreq: 'daily', priority: '1.0' };
+  if (path.startsWith('/make/')) return { changefreq: 'weekly', priority: '0.9' };
+  if (path.startsWith('/invitations/') || path.startsWith('/templates/')) return { changefreq: 'weekly', priority: '0.8' };
+  if (path.startsWith('/wording/') || path.startsWith('/guides/')) return { changefreq: 'monthly', priority: '0.7' };
+  if (path.startsWith('/compare/') || path.startsWith('/features/') || path.startsWith('/events/') || path.startsWith('/photo/')) {
+    return { changefreq: 'monthly', priority: '0.7' };
+  }
+  if (path.startsWith('/seasonal/') || path.startsWith('/indian/')) return { changefreq: 'weekly', priority: '0.8' };
+  return { changefreq: 'monthly', priority: '0.5' };
+}
+
 function buildSitemapXml() {
   const urls = [
     ...staticPaths,
@@ -50,7 +64,10 @@ function buildSitemapXml() {
   ];
 
   const body = urls
-    .map((path) => `<url><loc>${absoluteUrl(path)}</loc><changefreq>weekly</changefreq></url>`)
+    .map((path) => {
+      const meta = getMeta(path);
+      return `<url><loc>${absoluteUrl(path)}</loc><lastmod>${buildDate}</lastmod><changefreq>${meta.changefreq}</changefreq><priority>${meta.priority}</priority></url>`;
+    })
     .join('');
 
   return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${body}</urlset>`;

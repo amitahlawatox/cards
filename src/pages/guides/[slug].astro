@@ -4,7 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { GUIDE_PAGES, getGuideExamples, getGuideRouteSuggestions, getGuideSearchQueries } from '../../lib/content';
 import { SITE, absoluteUrl } from '../../lib/site';
-import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/seo';
 
 export function getStaticPaths() {
   return GUIDE_PAGES.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
@@ -15,6 +15,20 @@ const examples = getGuideExamples(guide);
 const queries = getGuideSearchQueries(guide);
 const routeSuggestions = getGuideRouteSuggestions(guide);
 const path = `/guides/${guide.slug}/`;
+const guideFaqs = [
+  {
+    question: `When should I use this ${guide.title.toLowerCase()} guide?`,
+    answer: 'Use it when the wording, timing, structure, or guest-facing detail is still the main blocker and you want to finish the invitation faster.',
+  },
+  {
+    question: 'Should every detail go on the invitation card itself?',
+    answer: 'No. A strong invitation keeps the essentials on the card and moves longer notes, schedules, dress guidance, or maps to a hosted invite page or follow-up message.',
+  },
+  {
+    question: 'What should I do after using the examples on this page?',
+    answer: 'Pick one structure, adapt it to your event, and then move into the matching occasion or feature page so the design and wording stay aligned.',
+  },
+];
 const schema = [
   articleSchema({ title: `${guide.title} | ${SITE.name}`, description: guide.description, path }),
   breadcrumbSchema([
@@ -22,6 +36,7 @@ const schema = [
     { name: 'Guides', path: '/guides/' },
     { name: guide.title, path },
   ]),
+  faqSchema(guideFaqs),
 ];
 ---
 
@@ -32,6 +47,10 @@ const schema = [
       <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Guide page</p>
       <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:#1A1340;">{guide.title}</h1>
       <p class="mt-4 text-lg leading-relaxed" style="color:#6B63A3;">{guide.intro}</p>
+      <div class="mt-5 flex flex-wrap gap-4 text-sm" style="color:#6B63A3;">
+        <span><strong>Reviewed by:</strong> Bespoke Card Studio editorial team</span>
+        <span><strong>Updated:</strong> July 20, 2026</span>
+      </div>
     </div>
 
     <section class="mt-10 grid gap-5 md:grid-cols-3" data-scroll>
@@ -71,7 +90,7 @@ const schema = [
 
     {queries.length > 0 && (
       <section class="mx-auto py-4" data-scroll>
-        <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Search intent this guide supports</h2>
+        <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Common searches behind this guide</h2>
         <div class="flex flex-wrap gap-3">
           {queries.map((query) => (
             <span class="rounded-full border px-4 py-2 text-sm font-semibold" style="background:var(--color-surface);border-color:var(--color-border);color:var(--color-text-muted);">
@@ -84,7 +103,7 @@ const schema = [
 
     {routeSuggestions.length > 0 && (
       <section class="mx-auto py-10" data-scroll>
-        <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Best next pages for this planning step</h2>
+        <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Best next pages after this guide</h2>
         <div class="grid gap-4 md:grid-cols-3">
           {routeSuggestions.map((route) => (
             <a href={route.href} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
@@ -105,6 +124,21 @@ const schema = [
           <li>Trying to fit schedule, dress code, and long directions into a card that should stay concise.</li>
           <li>Switching to the editor before the message structure and guest information are clear.</li>
         </ul>
+      </div>
+    </section>
+
+    <section class="mx-auto py-10" data-scroll>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Guide FAQ</h2>
+      <div class="space-y-3">
+        {guideFaqs.map((faq) => (
+          <details class="group rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-black" style="color:var(--color-text);">
+              {faq.question}
+              <span class="transition-transform group-open:rotate-45" style="color:#7C3AED;">+</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{faq.answer}</p>
+          </details>
+        ))}
       </div>
     </section>
   </main>

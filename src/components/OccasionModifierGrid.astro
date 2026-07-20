@@ -7,7 +7,7 @@ interface Props {
   title?: string;
 }
 
-const { occasion, title = `Popular modifier routes for ${occasion.name.toLowerCase()} invitations` } = Astro.props;
+const { occasion, title = `Popular ways to refine ${occasion.name.toLowerCase()} invitations` } = Astro.props;
 const links = getOccasionModifierLinks(occasion);
 ---
 

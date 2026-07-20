@@ -1015,6 +1015,12 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
               <Field label="RSVP Phone or WhatsApp">
                 <input value={shareMeta.hostPhone} onChange={(e) => updateShareMetaField('hostPhone', e.target.value)} className="editor-input" placeholder="e.g. +91 98xxxxxxx" />
               </Field>
+              <Field label="Co-Host Name">
+                <input value={shareMeta.coHostName} onChange={(e) => updateShareMetaField('coHostName', e.target.value)} className="editor-input" placeholder="e.g. Aarti Sharma" />
+              </Field>
+              <Field label="Co-Host Email">
+                <input value={shareMeta.coHostEmail} onChange={(e) => updateShareMetaField('coHostEmail', e.target.value)} className="editor-input" placeholder="e.g. aarti@example.com" />
+              </Field>
               <Field label="RSVP By">
                 <input value={shareMeta.rsvpBy} onChange={(e) => updateShareMetaField('rsvpBy', e.target.value)} className="editor-input" placeholder="e.g. RSVP by 12 July" />
               </Field>
@@ -1026,6 +1032,18 @@ export default function CanvasEditor({ templates, occasionName, occasionSlug }: 
               </Field>
               <Field label="Extra Notes">
                 <textarea value={shareMeta.notes} onChange={(e) => updateShareMetaField('notes', e.target.value)} className="editor-input min-h-[84px]" placeholder="e.g. Parking at rear gate, kids welcome, bring printed pass" />
+              </Field>
+              <Field label="Guest Question">
+                <input value={shareMeta.guestQuestion} onChange={(e) => updateShareMetaField('guestQuestion', e.target.value)} className="editor-input" placeholder="e.g. Any meal preference or accessibility note?" />
+              </Field>
+              <Field label="Guest Options (comma separated)">
+                <input value={shareMeta.guestOptions} onChange={(e) => updateShareMetaField('guestOptions', e.target.value)} className="editor-input" placeholder="e.g. Vegetarian, Vegan, Non-vegetarian" />
+              </Field>
+              <Field label="Potluck or Bring-Along Ideas">
+                <input value={shareMeta.potluckItems} onChange={(e) => updateShareMetaField('potluckItems', e.target.value)} className="editor-input" placeholder="e.g. Salad, Dessert, Drinks, Snacks" />
+              </Field>
+              <Field label="Reminder Note for Guests">
+                <textarea value={shareMeta.reminderMessage} onChange={(e) => updateShareMetaField('reminderMessage', e.target.value)} className="editor-input min-h-[72px]" placeholder="e.g. Please arrive 15 minutes early and use Gate 2 for entry." />
               </Field>
 
               <div className="grid gap-2">

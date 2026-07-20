@@ -4,7 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { PHOTO_FOCUSED_OCCASIONS, getOccasionBySlug, getOccasionsBySlugs, getProductFeatureStaticPaths } from '../../lib/content';
 import { SITE, absoluteUrl } from '../../lib/site';
-import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/seo';
 
 export function getStaticPaths() {
   return getProductFeatureStaticPaths();
@@ -16,6 +16,62 @@ const path = `/features/${feature.slug}/`;
 const isPhotoFeature = feature.slug === 'photo-card-maker';
 const photoOccasions = isPhotoFeature ? PHOTO_FOCUSED_OCCASIONS.map((slug) => getOccasionBySlug(slug)).filter(Boolean) : [];
 const bestFitNames = occasions.map((occasion) => occasion.name).join(', ');
+const featureCapabilities: Record<string, Array<{ title: string; description: string }>> = {
+  'online-card-maker': [
+    { title: 'Fast editor flow', description: 'Open an occasion-specific editor instead of starting from a blank generic design tool.' },
+    { title: 'Share or print', description: 'Move from draft to PNG, PDF, hosted invite page, or WhatsApp-friendly sharing without switching products.' },
+    { title: 'Invitation-first help', description: 'Use built-in wording, hosted pages, and occasion routes that are built around real invitation tasks.' },
+  ],
+  'photo-card-maker': [
+    { title: 'Photo-ready layouts', description: 'Use templates that leave enough room for a strong image plus the event details guests actually need.' },
+    { title: 'Quick image upload', description: 'Add a family, baby, graduation, or couple photo inside the editor without leaving the creation flow.' },
+    { title: 'Dual output', description: 'Turn one design into both a mobile share card and a print-ready export for later use.' },
+  ],
+  'printable-invitation-maker': [
+    { title: 'Print-ready export', description: 'Create a digital invitation and still leave with a clean PDF or high-resolution PNG for home printing.' },
+    { title: 'Clear detail hierarchy', description: 'Keep names, time, venue, and RSVP readable so a printed card still works without follow-up messages.' },
+    { title: 'Fast turnaround', description: 'Ideal for hosts who need something polished today, not a long approval or print ordering cycle.' },
+  ],
+  'whatsapp-invitation-maker': [
+    { title: 'Mobile-first sharing', description: 'Build invitations that read clearly on phones, then share them by link, image, or message in minutes.' },
+    { title: 'Family event speed', description: 'Useful for festive gatherings, housewarmings, baby showers, and last-minute parties where WhatsApp is the default channel.' },
+    { title: 'Hosted detail backup', description: 'Pair the image card with a hosted invite page when schedule, dress code, or RSVP details need more space.' },
+  ],
+  'rsvp-invitation-pages': [
+    { title: 'Hosted invite utility', description: 'Add maps, calendar actions, structured RSVP replies, guest questions, and host notes to one shareable page.' },
+    { title: 'Guest planning prompts', description: 'Collect practical details like headcount, meal preference, potluck items, or simple event questions without a backend form.' },
+    { title: 'Better host control', description: 'Keep the invitation card clean while moving longer notes, reminders, and follow-up details onto the hosted page.' },
+  ],
+};
+const featureFaqs: Record<string, Array<{ question: string; answer: string }>> = {
+  'online-card-maker': [
+    { question: 'Can I use this online card maker for invitations specifically?', answer: 'Yes. The route is built for invitation use cases first, including wording, occasion pages, downloads, and hosted invite support.' },
+    { question: 'Do I need an account to make a card online?', answer: 'No. You can open the editor, customize the card, and export it without creating an account.' },
+    { question: 'Can I switch from a digital card to a printable version later?', answer: 'Yes. The same design can be adapted for image sharing, PDF export, or a hosted invite page.' },
+  ],
+  'photo-card-maker': [
+    { question: 'What types of events work best with a photo card?', answer: 'Photo cards work especially well for birthdays, baby showers, anniversaries, graduations, and family events where recognition or emotion matters.' },
+    { question: 'Can I upload my own image?', answer: 'Yes. The editor supports image uploads so you can personalize the invitation with your own picture.' },
+    { question: 'Can I still print a photo invitation?', answer: 'Yes. You can use the finished design for digital sharing or export it for print workflows.' },
+  ],
+  'printable-invitation-maker': [
+    { question: 'Can I print these invitations at home?', answer: 'Yes. The printable route is built for high-resolution output that works for home or local print use.' },
+    { question: 'Do printable cards still work for digital sharing?', answer: 'Yes. Many hosts create one version for print and another for mobile sharing from the same editor workflow.' },
+    { question: 'What details matter most on a printable invite?', answer: 'A printable invitation should make the event title, date, time, venue, and RSVP information easy to scan quickly.' },
+  ],
+  'whatsapp-invitation-maker': [
+    { question: 'Can I send the invite directly on WhatsApp?', answer: 'You can create the card, copy the hosted link if needed, and send the result through WhatsApp or any other mobile messaging app.' },
+    { question: 'Why use a hosted page with a WhatsApp invite?', answer: 'A hosted page gives you more room for RSVP timing, dress code, schedule details, and map or calendar actions than the card image alone.' },
+    { question: 'Is this only for festive events?', answer: 'No. It is useful for birthdays, showers, housewarmings, family gatherings, and any event where mobile sharing is the fastest path.' },
+  ],
+  'rsvp-invitation-pages': [
+    { question: 'What can a hosted RSVP page include?', answer: 'A hosted page can carry event timing, venue details, dress code, schedule notes, guest questions, simple contribution prompts, and RSVP actions.' },
+    { question: 'Do guests need an account to reply?', answer: 'No. Guests can use the structured RSVP summary and send their response by email, WhatsApp, or manual copy without signing in.' },
+    { question: 'Why keep hosted invite pages out of search?', answer: 'They are designed for sharing after a card is created. Search traffic should land on stronger occasion, feature, and guide pages instead.' },
+  ],
+};
+const capabilities = featureCapabilities[feature.slug] ?? [];
+const faqs = featureFaqs[feature.slug] ?? [];
 const schema = [
   articleSchema({ title: `${feature.title} | ${SITE.name}`, description: feature.description, path }),
   breadcrumbSchema([
@@ -23,6 +79,7 @@ const schema = [
     { name: 'Features', path: '/features/' },
     { name: feature.title, path },
   ]),
+  ...(faqs.length > 0 ? [faqSchema(faqs)] : []),
 ];
 ---
 
@@ -53,7 +110,7 @@ const schema = [
     </section>
 
     <section class="mx-auto py-10" data-scroll>
-      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Searches this page is built to earn</h2>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Common searches behind this feature</h2>
       <div class="flex flex-wrap gap-3">
         {feature.queryFocus.map((query) => (
           <span class="rounded-full border px-4 py-2 text-sm font-semibold" style="background:var(--color-surface);border-color:var(--color-border);color:var(--color-text-muted);">
@@ -62,6 +119,20 @@ const schema = [
         ))}
       </div>
     </section>
+
+    {capabilities.length > 0 && (
+      <section class="mx-auto py-10" data-scroll>
+        <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">What this feature helps a host do</h2>
+        <div class="grid gap-4 md:grid-cols-3">
+          {capabilities.map((item) => (
+            <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+              <h3 class="text-lg font-black" style="color:var(--color-text);">{item.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
 
     <section class="mx-auto py-10" data-scroll>
       <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Best invitation journeys for this feature</h2>
@@ -110,6 +181,23 @@ const schema = [
               <h3 class="mt-4 text-lg font-black" style="color:var(--color-text);">{occasion.name} photo invitations</h3>
               <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">Open the photo-focused route for {occasion.name.toLowerCase()} card searches and jump into the upload flow faster.</p>
             </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {faqs.length > 0 && (
+      <section class="mx-auto py-10" data-scroll>
+        <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Feature FAQ</h2>
+        <div class="space-y-3">
+          {faqs.map((faq) => (
+            <details class="group rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-black" style="color:var(--color-text);">
+                {faq.question}
+                <span class="transition-transform group-open:rotate-45" style="color:#7C3AED;">+</span>
+              </summary>
+              <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{faq.answer}</p>
+            </details>
           ))}
         </div>
       </section>

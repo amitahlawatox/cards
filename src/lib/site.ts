@@ -3,10 +3,10 @@ export const SITE = {
   shortName: 'BespokeCardStudio',
   domain: 'https://www.bespokecardstudio.com',
   email: 'contact@bespokecardstudio.com',
-  ogImage: '/og-image.svg',
+  ogImage: '/og-image.png',
   defaultTitle: 'Free Invitation Maker | Bespoke Card Studio',
   defaultDescription:
-    'Create beautiful free invitations and greeting cards online. Customize text, download high-resolution PNG instantly, and design cards for birthdays, weddings, baby showers, graduations, and more.',
+    'Create free invitations online, customize fast, download print-ready cards, and share hosted RSVP invites for birthdays, weddings, showers, and more.',
 };
 
 export function absoluteUrl(path = '/') {
