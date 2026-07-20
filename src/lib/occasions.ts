@@ -342,7 +342,7 @@ export const OCCASIONS: Occasion[] = [
     name: 'Engagement Party',
     emoji: '💍',
     slug: 'engagement',
-    description: 'Celebrate your "yes!" with a stunning engagement party invitation.',
+    description: 'Celebrate your engagement with a beautiful party invitation.',
     color: 'from-rose-500', color2: 'to-pink-400',
     tags: ['engagement party', 'engagement invitation', 'engaged', 'proposal party'],
     searches: 240000,

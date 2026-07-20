@@ -39,6 +39,26 @@ import { SITE, absoluteUrl } from '../../lib/site';
     </section>
 
     <OccasionsGrid occasions={OCCASIONS} client:load />
+
+    <section class="mx-auto max-w-7xl px-6 py-12" data-scroll>
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">How to choose the right occasion route</h2>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            This page is meant to help users reach the right invitation journey quickly, not force them through broad category browsing. If the event is clearly tied to a holiday, milestone, family gathering, or work function, the best move is to open the occasion that matches the real event first. From there, users can compare templates, refine wording, pick a printable or hosted format, and finish the invitation in fewer steps.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">What makes this page useful instead of thin</h2>
+          <ul class="mt-4 space-y-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            <li>It acts as a navigation hub into real invitation workflows, not a placeholder list of keywords.</li>
+            <li>It supports global coverage across family events, holidays, festivals, and professional gatherings.</li>
+            <li>It gives searchers a clear next click into templates, editors, wording pages, and event-specific hubs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
 
   <Footer />

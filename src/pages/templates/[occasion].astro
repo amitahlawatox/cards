@@ -27,7 +27,7 @@ const faqs = getOccasionFaqs(occasion);
 const highlights = getOccasionTemplateHighlights(occasion);
 const related = getOccasionRelated(occasion, 4);
 const title = `Free ${occasion.name} Templates | ${SITE.name}`;
-const description = `Browse ${occasion.templates.length} editable ${occasion.name.toLowerCase()} templates, compare styles, and open the editor to customize your favorite design.`;
+const description = `Browse ${occasion.templates.length} editable ${occasion.name.toLowerCase()} templates with printable, wording-ready, and shareable invitation options you can customize fast.`;
 const schema = [
   articleSchema({
     title,
@@ -80,6 +80,30 @@ const schema = [
             <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">{highlight.description}</p>
           </div>
         ))}
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 py-10" data-scroll>
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">How to pick the right template faster</h2>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            A useful template page should help you narrow the field quickly, not just show a pile of similar cards. Start by deciding whether the event needs a more formal, playful, modern, family-friendly, or photo-led direction. Then check whether the layout leaves enough room for the names, date, venue, RSVP, and any extra detail the event requires. If a design looks attractive but cannot carry the information comfortably, it is usually the wrong starting point.
+          </p>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            These collections are built to connect style choice with the next step. Once you have a design direction, you can move into wording help, hosted invite routes, or the live editor without starting the search over again.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">What makes these pages more than a gallery</h2>
+          <ul class="mt-4 space-y-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            <li>Each route stays tied to a real invitation task instead of acting like a thin keyword variation.</li>
+            <li>The page links directly into editor flows, wording support, and modifier routes that reflect common user choices.</li>
+            <li>Template descriptions are meant to help visitors compare use cases, not just repeat the occasion name.</li>
+            <li>Related collections keep users moving inside the same topic cluster when they need a different tone or format.</li>
+          </ul>
+        </div>
       </div>
     </section>
 

@@ -205,7 +205,7 @@ export const GUIDE_PAGES: GuidePage[] = [
   {
     slug: 'rsvp-wording',
     title: 'RSVP Wording Examples',
-    description: 'Examples of RSVP wording for casual parties, formal events, family gatherings, and business invitations.',
+    description: 'Examples of RSVP wording for casual parties, formal events, family gatherings, and business invitations with reply deadlines and response options.',
     intro: 'RSVP wording should tell guests exactly how to respond, by when, and through which channel.',
     bullets: [
       'Use a deadline when seating, catering, or venue limits matter.',
@@ -227,7 +227,7 @@ export const GUIDE_PAGES: GuidePage[] = [
   {
     slug: 'party-schedule-examples',
     title: 'Party Schedule Examples',
-    description: 'Sample event schedules for birthdays, baby showers, graduations, office events, and festive gatherings.',
+    description: 'Sample event schedules for birthdays, baby showers, graduations, office events, and festive gatherings with timing ideas guests can scan quickly.',
     intro: 'A simple event schedule helps guests understand arrival time, key moments, and when the event wraps up.',
     bullets: [
       'List milestone moments like welcome drinks, games, speeches, dinner, and cake cutting.',
@@ -238,7 +238,7 @@ export const GUIDE_PAGES: GuidePage[] = [
   {
     slug: 'invitation-message-templates',
     title: 'Invitation Message Templates by Occasion',
-    description: 'Quick message templates for family invitations, business events, festive parties, and milestone celebrations.',
+    description: 'Quick invitation message templates for family events, business gatherings, festive parties, and milestone celebrations that are easy to personalize.',
     intro: 'Invitation message templates save time when you need wording that sounds polished but still feels personal.',
     bullets: [
       'Start with the occasion and the person being celebrated.',
@@ -304,7 +304,7 @@ export const GUIDE_PAGES: GuidePage[] = [
   {
     slug: 'baby-shower-rsvp-wording',
     title: 'Baby Shower RSVP Wording',
-    description: 'Warm, family-friendly RSVP wording examples for baby shower invites, hosted pages, and WhatsApp messages.',
+    description: 'Warm, family-friendly RSVP wording examples for baby shower invites, hosted pages, and WhatsApp messages with clear reply timing.',
     intro: 'Baby shower RSVP wording works best when it feels warm and easy to answer, especially for family groups and close friends.',
     bullets: [
       'Keep the RSVP ask simple and kind, especially if many replies will arrive by phone or WhatsApp.',
@@ -346,7 +346,7 @@ export const PRODUCT_FEATURE_PAGES: ProductFeaturePage[] = [
   {
     slug: 'photo-card-maker',
     title: 'Free Photo Card Maker',
-    description: 'Upload a picture, add text, and turn it into a personalized photo invitation or greeting card in minutes.',
+    description: 'Upload a picture, add text, and turn it into a personalized photo invitation or greeting card with download and sharing-ready output.',
     intro: 'Photo cards are high-intent because users already know the format they want. This landing page connects that demand to the image-upload flow inside the editor.',
     highlights: ['Image upload inside the editor', 'Great for baby showers, birthdays, and graduations', 'Export digital cards and print-ready PDFs'],
     queryFocus: ['free photo card maker', 'photo card maker free', 'online photo invitation maker'],
@@ -498,7 +498,7 @@ export const COMPARISON_PAGES: ComparisonPage[] = [
   {
     slug: 'online-invitation-with-rsvp',
     title: 'Online Invitation with RSVP',
-    description: 'Create an online invitation with RSVP details, hosted event notes, calendar actions, and guest reply prompts.',
+    description: 'Create an online invitation with RSVP details, hosted event notes, calendar actions, guest reply prompts, and cleaner follow-up flow.',
     intro: 'This query is highly commercial because the user already knows they want an online invitation with RSVP. The right page should show both the product utility and the event-ready guest experience.',
     highlights: [
       'Targets users who have moved beyond generic templates and want hosted invite functionality.',

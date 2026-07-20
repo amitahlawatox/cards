@@ -28,7 +28,7 @@ const wordingExamples = getOccasionWordingExamples(occasion);
 const checklist = getOccasionChecklist(occasion);
 const related = getOccasionRelated(occasion, 4);
 const title = `${occasion.name} Invitation Wording | ${SITE.name}`;
-const description = `Browse ${occasion.name.toLowerCase()} invitation wording examples, casual and formal message ideas, and a quick checklist for what to include.`;
+const description = `Browse ${occasion.name.toLowerCase()} invitation wording examples, guest-ready message ideas, RSVP prompts, and a clear checklist for what to include.`;
 const schema = [
   articleSchema({
     title,
@@ -92,6 +92,30 @@ const schema = [
             </li>
           ))}
         </ul>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 py-10" data-scroll>
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-xl font-black" style="color:var(--color-text);">How to adapt this wording so it sounds real</h2>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            The strongest invitation wording usually does three things well: it tells guests what is happening, it sounds natural for the relationship between host and guest, and it keeps the practical details easy to scan. That means you should not copy a sample word for word unless it already fits the tone of your event. Use the examples on this page as a structure, then swap in the real host names, the reason for gathering, and the level of formality your guests will expect.
+          </p>
+          <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            For example, family gatherings and festive invitations often benefit from warmer language, while weddings, office events, and venue-led dinners usually need clearer time, RSVP, and dress details. The page is meant to help you finish that wording job faster, not trap you in vague filler copy.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-xl font-black" style="color:var(--color-text);">When to move details off the card</h2>
+          <ul class="mt-4 space-y-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+            <li>Keep the card short when guests mainly need the event title, date, venue, and RSVP method.</li>
+            <li>Move longer schedule notes, parking details, apartment access, registry links, and map help onto a hosted invite page.</li>
+            <li>Use a follow-up message or RSVP page when the event has multiple sub-events, meal choices, or guest questions.</li>
+            <li>Choose wording that matches the final format so the invitation feels clear in print, on WhatsApp, or on a shareable hosted page.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
