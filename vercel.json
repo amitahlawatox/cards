@@ -10,6 +10,16 @@
       ],
       "destination": "https://www.bespokecardstudio.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/invitations/:occasion/:modifier",
+      "destination": "https://www.bespokecardstudio.com/invitations/:occasion",
+      "permanent": true
+    },
+    {
+      "source": "/template/:occasion/:template",
+      "destination": "https://www.bespokecardstudio.com/templates/:occasion",
+      "permanent": true
     }
   ],
   "headers": [

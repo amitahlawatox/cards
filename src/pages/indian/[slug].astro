@@ -68,10 +68,10 @@ const schema = [
       <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Pages in this cluster</h2>
       <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {occasions.map((occasion) => (
-          <a href={`/invitations/${occasion.slug}/indian/`} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
+          <a href={`/invitations/${occasion.slug}/`} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
             <p class="text-3xl">{occasion.emoji}</p>
-            <h3 class="mt-4 text-lg font-black" style="color:var(--color-text);">Indian {occasion.name} invites</h3>
-            <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">{occasion.description}</p>
+            <h3 class="mt-4 text-lg font-black" style="color:var(--color-text);">{occasion.name} invitation hub</h3>
+            <p class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">Browse templates, wording, sharing options, and planning help for {occasion.description.toLowerCase()}</p>
           </a>
         ))}
       </div>

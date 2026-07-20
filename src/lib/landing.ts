@@ -51,13 +51,13 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
       {
         title: 'Printable Diwali invitations',
-        href: '/invitations/diwali/printable/',
-        description: 'Focus on print-friendly Diwali card ideas and downloadable invite formats.',
+        href: '/features/printable-invitation-maker/',
+        description: 'Focus on print-friendly Diwali card ideas, downloadable invite formats, and export workflows.',
       },
       {
         title: 'WhatsApp Diwali invites',
-        href: '/invitations/diwali/whatsapp/',
-        description: 'Open the mobile-friendly route for quick Diwali sharing and RSVP follow-up.',
+        href: '/features/whatsapp-invitation-maker/',
+        description: 'Open the mobile-sharing feature route for quick Diwali delivery and guest follow-up.',
       },
       {
         title: 'Diwali wording ideas',
@@ -101,13 +101,13 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
       {
         title: 'Free anniversary invitations',
-        href: '/invitations/anniversary/free/',
-        description: 'Land on the cost-conscious route built for free anniversary invite searches.',
+        href: '/make/anniversary/',
+        description: 'Open the free editor route and personalize an anniversary invite without extra design software.',
       },
       {
         title: 'Printable anniversary invites',
-        href: '/invitations/anniversary/printable/',
-        description: 'Focus on printable anniversary invitation ideas and print-ready formats.',
+        href: '/features/printable-invitation-maker/',
+        description: 'Focus on printable anniversary invitation ideas and print-ready export workflows.',
       },
       {
         title: 'Anniversary wording ideas',
@@ -151,7 +151,7 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
       {
         title: 'Printable Fourth of July invites',
-        href: '/invitations/fourth-of-july/printable/',
+        href: '/features/printable-invitation-maker/',
         description: 'Focus on print-ready Independence Day invitations for BBQs, cookouts, and neighborhood parties.',
       },
       {
@@ -201,8 +201,8 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
       {
         title: 'Printable Thanksgiving invites',
-        href: '/invitations/thanksgiving/printable/',
-        description: 'Open the print-focused route for formal meal invitations and autumn gathering cards.',
+        href: '/features/printable-invitation-maker/',
+        description: 'Open the print-focused feature route for formal meal invitations and autumn gathering cards.',
       },
       {
         title: 'Thanksgiving wording ideas',
@@ -221,8 +221,8 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
       {
         title: 'Last-minute invitation ideas',
-        href: '/invitations/thanksgiving/last-minute/',
-        description: 'Open the fast-turnaround route when the guest list comes together close to the event date.',
+        href: '/make/thanksgiving/',
+        description: 'Open the editor when the guest list comes together close to the event date and you need to move quickly.',
       },
     ],
   },
@@ -251,7 +251,7 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
       {
         title: 'Printable Easter invites',
-        href: '/invitations/easter/printable/',
+        href: '/features/printable-invitation-maker/',
         description: 'Focus on print-friendly Easter invitation formats for family gatherings and event handouts.',
       },
       {
@@ -301,7 +301,7 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
       {
         title: 'Printable Canada Day invites',
-        href: '/invitations/canada-day/printable/',
+        href: '/features/printable-invitation-maker/',
         description: 'Focus on print-friendly Canada Day invitations for BBQs, fireworks, and holiday handouts.',
       },
       {
@@ -351,7 +351,7 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
       {
         title: 'Printable hen party invites',
-        href: '/invitations/hen-party/printable/',
+        href: '/features/printable-invitation-maker/',
         description: 'Focus on print-friendly hen party formats for gift bags, handouts, or keepsakes.',
       },
       {
@@ -401,7 +401,7 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       },
       {
         title: 'Printable christening invites',
-        href: '/invitations/christening/printable/',
+        href: '/features/printable-invitation-maker/',
         description: 'Focus on print-ready christening invitation formats for family events and church gatherings.',
       },
       {
@@ -602,10 +602,59 @@ export function getOccasionHubLinks(occasion: Occasion) {
 }
 
 export function getOccasionModifierLinks(occasion: Occasion): OccasionModifierLink[] {
+  const modifierDestinations: Record<string, { href: string; description: string }> = {
+    free: {
+      href: `/make/${occasion.slug}/`,
+      description: `Open the free editor flow for ${occasion.name.toLowerCase()} invitations and customize the card right away.`,
+    },
+    online: {
+      href: '/features/online-card-maker/',
+      description: `Use the online card maker route for browser-based ${occasion.name.toLowerCase()} invitation creation without extra software.`,
+    },
+    printable: {
+      href: '/features/printable-invitation-maker/',
+      description: `Use the print-focused route for ${occasion.name.toLowerCase()} invitation exports and print-ready workflows.`,
+    },
+    whatsapp: {
+      href: '/features/whatsapp-invitation-maker/',
+      description: `Open the mobile-sharing route for faster ${occasion.name.toLowerCase()} invite delivery and guest follow-up.`,
+    },
+    editable: {
+      href: `/make/${occasion.slug}/`,
+      description: `Jump into the editor to personalize ${occasion.name.toLowerCase()} invitation text, colors, and event details.`,
+    },
+    'for-kids': {
+      href: `/templates/${occasion.slug}/`,
+      description: `Browse playful ${occasion.name.toLowerCase()} template options suited to kid-friendly events and family sharing.`,
+    },
+    'for-office': {
+      href: `/invitations/${occasion.slug}/`,
+      description: `Explore the main ${occasion.name.toLowerCase()} invitation hub for cleaner wording, hosted links, and office-ready formats.`,
+    },
+    indian: {
+      href: `/invitations/${occasion.slug}/`,
+      description: `Use the main ${occasion.name.toLowerCase()} invitation hub to compare templates, wording, and sharing options without splitting authority.`,
+    },
+    elegant: {
+      href: `/templates/${occasion.slug}/`,
+      description: `Browse the main ${occasion.name.toLowerCase()} template gallery and choose the most elegant layout for your event.`,
+    },
+    modern: {
+      href: `/templates/${occasion.slug}/`,
+      description: `Browse the main ${occasion.name.toLowerCase()} template gallery and choose the most modern layout for your event.`,
+    },
+    'last-minute': {
+      href: `/make/${occasion.slug}/`,
+      description: `Open the editor for a fast-turnaround ${occasion.name.toLowerCase()} invitation when the event is coming up quickly.`,
+    },
+  };
+
   return MODIFIER_DEFINITIONS.map((modifier) => ({
     title: `${modifier.label} ${occasion.name} invitations`,
-    href: `/invitations/${occasion.slug}/${modifier.slug}/`,
-    description: `Open the ${modifier.label.toLowerCase()} route for ${occasion.name.toLowerCase()} invitation intent and related wording ideas.`,
+    href: modifierDestinations[modifier.slug]?.href ?? `/invitations/${occasion.slug}/`,
+    description:
+      modifierDestinations[modifier.slug]?.description ??
+      `Explore the main ${occasion.name.toLowerCase()} invitation hub for templates, wording, and editor access.`,
   }));
 }
 

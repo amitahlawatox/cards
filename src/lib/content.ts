@@ -637,28 +637,6 @@ export function getOccasionsBySlugs(slugs: string[]) {
   return slugs.map(getOccasionBySlug).filter(Boolean) as Occasion[];
 }
 
-export function getTemplateById(occasion: Occasion, templateId: string) {
-  return occasion.templates.find((template) => template.id === templateId);
-}
-
-export function getTemplateStaticPaths() {
-  return OCCASIONS.flatMap((occasion) =>
-    occasion.templates.map((template) => ({
-      params: { occasion: occasion.slug, template: template.id },
-      props: { occasion, template },
-    })),
-  );
-}
-
-export function getModifierStaticPaths() {
-  return OCCASIONS.flatMap((occasion) =>
-    MODIFIER_DEFINITIONS.map((modifier) => ({
-      params: { occasion: occasion.slug, modifier: modifier.slug },
-      props: { occasion, modifier },
-    })),
-  );
-}
-
 export function getProductFeatureStaticPaths() {
   return PRODUCT_FEATURE_PAGES.map((feature) => ({
     params: { slug: feature.slug },
@@ -685,18 +663,6 @@ export function getPhotoOccasionPaths() {
     const occasion = getOccasionBySlug(slug);
     return occasion ? { params: { occasion: occasion.slug }, props: { occasion } } : null;
   }).filter(Boolean) as Array<{ params: { occasion: string }; props: { occasion: Occasion } }>;
-}
-
-export function getModifierPageDescription(occasion: Occasion, modifier: ModifierDefinition) {
-  return `Explore ${modifier.searchPhrase} ${occasion.name.toLowerCase()} invitation ideas, templates, wording examples, and editor flows. This page ${modifier.angle}.`;
-}
-
-export function getModifierChecklist(occasion: Occasion, modifier: ModifierDefinition) {
-  return [
-    `Use a ${modifier.label.toLowerCase()} angle in the title and opening copy for stronger search relevance.`,
-    `Choose a ${occasion.name.toLowerCase()} template that matches the tone guests expect.`,
-    `Make the RSVP, venue, and timing details easy to scan on mobile.`,
-  ];
 }
 
 export function getSeasonalHubIntro(hub: SeasonalHub) {
@@ -955,11 +921,11 @@ export function getTemplateRouteSuggestions(occasion: Occasion, template: CardTe
         style === 'for-kids'
           ? `${occasion.name} templates for kids`
           : `${style.charAt(0).toUpperCase() + style.slice(1)} ${occasion.name} invites`,
-      href: `/invitations/${occasion.slug}/${style === 'for-kids' ? 'for-kids' : style}/`,
+      href: `/templates/${occasion.slug}/`,
       description:
         style === 'for-kids'
-          ? `See the playful route built for family-friendly ${lowerName} invitation searches.`
-          : `Explore the ${style}-focused route for guests searching by visual style as well as occasion.`,
+          ? `Browse playful ${lowerName} template options that fit family-friendly events without splitting traffic into thin pages.`
+          : `Browse the main ${lowerName} template gallery and choose the ${style}-leaning design that best fits your event.`,
     });
   } else if ((FEATURED_EVENT_MICROSITES as readonly string[]).includes(occasion.slug)) {
     links.push({
