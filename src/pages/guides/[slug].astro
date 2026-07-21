@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { GUIDE_PAGES, getGuideExamples, getGuideRouteSuggestions, getGuideSearchQueries } from '../../lib/content';
+import { EDITORIAL_DATES, EDITORIAL_TEAM, formatEditorialDate, getEditorialAuthorSchema } from '../../lib/editorial';
 import { SITE, absoluteUrl } from '../../lib/site';
 import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/seo';
 
@@ -15,6 +16,8 @@ const examples = getGuideExamples(guide);
 const queries = getGuideSearchQueries(guide);
 const routeSuggestions = getGuideRouteSuggestions(guide);
 const path = `/guides/${guide.slug}/`;
+const publishedLabel = formatEditorialDate(EDITORIAL_DATES.published);
+const modifiedLabel = formatEditorialDate(EDITORIAL_DATES.modified);
 const guideFaqs = [
   {
     question: `When should I use this ${guide.title.toLowerCase()} guide?`,
@@ -30,7 +33,15 @@ const guideFaqs = [
   },
 ];
 const schema = [
-  articleSchema({ title: `${guide.title} | ${SITE.name}`, description: guide.description, path }),
+  articleSchema({
+    title: `${guide.title} | ${SITE.name}`,
+    description: guide.description,
+    path,
+    type: 'BlogPosting',
+    datePublished: EDITORIAL_DATES.published,
+    dateModified: EDITORIAL_DATES.modified,
+    author: getEditorialAuthorSchema(),
+  }),
   breadcrumbSchema([
     { name: 'Home', path: '/' },
     { name: 'Guides', path: '/guides/' },
@@ -48,10 +59,30 @@ const schema = [
       <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:#1A1340;">{guide.title}</h1>
       <p class="mt-4 text-lg leading-relaxed" style="color:#6B63A3;">{guide.intro}</p>
       <div class="mt-5 flex flex-wrap gap-4 text-sm" style="color:#6B63A3;">
-        <span><strong>Reviewed by:</strong> Bespoke Card Studio editorial team</span>
-        <span><strong>Updated:</strong> July 20, 2026</span>
+        <span><strong>Published:</strong> {publishedLabel}</span>
+        <span><strong>Updated:</strong> {modifiedLabel}</span>
+        <span><strong>Reviewed by:</strong> {EDITORIAL_TEAM.name}</span>
       </div>
     </div>
+
+    <section class="mt-8" data-scroll>
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#ea580c;">Quick answer</p>
+        <p class="mt-3 text-base leading-relaxed" style="color:var(--color-text-muted);">
+          {guide.intro} Use one of the examples below as a starting structure, keep the card focused on the core event details, and move longer guest instructions to a hosted invite page or follow-up message when needed.
+        </p>
+        <dl class="mt-5 grid gap-4 md:grid-cols-2">
+          <div class="rounded-2xl p-4" style="background:var(--color-surface-2);">
+            <dt class="text-sm font-black" style="color:var(--color-text);">Best use</dt>
+            <dd class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">Open this guide when wording, timing, RSVP phrasing, or guest-facing clarity is the main blocker to finishing the invite.</dd>
+          </div>
+          <div class="rounded-2xl p-4" style="background:var(--color-surface-2);">
+            <dt class="text-sm font-black" style="color:var(--color-text);">Best next step</dt>
+            <dd class="mt-2 text-sm leading-relaxed" style="color:var(--color-text-muted);">After choosing the right message structure, move into a matching occasion, template, or RSVP flow so the wording and final format stay aligned.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
 
     <section class="mt-10 grid gap-5 md:grid-cols-3" data-scroll>
       {guide.bullets.map((bullet, index) => (
@@ -139,6 +170,30 @@ const schema = [
             <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{faq.answer}</p>
           </details>
         ))}
+      </div>
+    </section>
+
+    <section class="mx-auto py-4" data-scroll>
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#ea580c;">Editorial review</p>
+        <h2 class="mt-3 text-2xl font-black tracking-tight" style="color:var(--color-text);">{EDITORIAL_TEAM.name}</h2>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          {EDITORIAL_TEAM.bio}
+        </p>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          This page was published on {publishedLabel} and last reviewed on {modifiedLabel}. We update guide content when invitation workflows, product capabilities, or content-quality audits show that users need clearer help.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a href={EDITORIAL_TEAM.profilePath} class="rounded-full px-5 py-3 text-sm font-bold text-white" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);">
+            View team profile
+          </a>
+          <a href={EDITORIAL_TEAM.policyPath} class="rounded-full px-5 py-3 text-sm font-bold" style="background:var(--color-surface-2);color:var(--color-text);border:1px solid var(--color-border);">
+            Review content standards
+          </a>
+          <a href={EDITORIAL_TEAM.contactPath} class="rounded-full px-5 py-3 text-sm font-bold" style="background:var(--color-surface-2);color:var(--color-text);border:1px solid var(--color-border);">
+            Contact the team
+          </a>
+        </div>
       </div>
     </section>
   </main>

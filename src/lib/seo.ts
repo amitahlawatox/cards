@@ -102,24 +102,50 @@ export function articleSchema({
   title,
   description,
   path,
+  type = 'Article',
+  image,
+  datePublished,
+  dateModified,
+  author,
 }: {
   title: string;
   description: string;
   path: string;
+  type?: 'Article' | 'BlogPosting' | 'WebPage';
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  author?: Record<string, unknown>;
 }) {
-  return {
+  const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': type,
     headline: title,
     description,
     url: absoluteUrl(path),
-    author: {
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': absoluteUrl(path),
+    },
+    image: absoluteUrl(image ?? SITE.ogImage),
+    author: author ?? {
       '@type': 'Organization',
       name: SITE.name,
+      url: SITE.domain,
     },
     publisher: {
       '@type': 'Organization',
       name: SITE.name,
+      url: SITE.domain,
+      logo: {
+        '@type': 'ImageObject',
+        url: absoluteUrl(SITE.ogImage),
+      },
     },
   };
+
+  if (datePublished) schema.datePublished = datePublished;
+  if (dateModified) schema.dateModified = dateModified;
+
+  return schema;
 }

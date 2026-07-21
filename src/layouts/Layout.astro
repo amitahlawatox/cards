@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import { SITE, absoluteUrl } from '../lib/site';
-import { organizationSchema } from '../lib/seo';
+import { organizationSchema, websiteSchema } from '../lib/seo';
 
 interface Props {
   title: string;
@@ -15,7 +15,7 @@ interface Props {
 }
 const { title, description, canonical, ogImage = SITE.ogImage, schema, noIndex } = Astro.props;
 const resolvedOgImage = ogImage.startsWith('http') ? ogImage : absoluteUrl(ogImage);
-const schemaNodes = [organizationSchema(), ...(Array.isArray(schema) ? schema : schema ? [schema] : [])];
+const schemaNodes = [organizationSchema(), websiteSchema(), ...(Array.isArray(schema) ? schema : schema ? [schema] : [])];
 ---
 
 <!doctype html>
