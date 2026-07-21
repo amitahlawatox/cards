@@ -84,6 +84,7 @@ const featuredOccasions = OCCASIONS.slice(0, 9);
         <ul class="space-y-2.5">
           {[
             ['About', '/about/'],
+            ['Editorial Team', '/editorial-team/'],
             ['Contact', '/contact/'],
             ['Content Standards', '/content-standards/'],
             ['All Occasions', '/occasions/'],
@@ -106,6 +107,22 @@ const featuredOccasions = OCCASIONS.slice(0, 9);
             {SITE.email}
           </a>
         </div>
+      </div>
+    </div>
+
+    <div class="mb-8 rounded-3xl border p-6" style="background:rgba(255,255,255,0.02);border-color:rgba(255,255,255,0.08);">
+      <div class="grid gap-4 md:grid-cols-4">
+        {[
+          ['Visible team and contact pages', 'About, editorial team, contact, privacy, and content standards pages are linked sitewide.'],
+          ['Content review process', 'Editorial guides and content standards explain how invitation pages are reviewed and improved.'],
+          ['Product-first usefulness', 'Pages are meant to help users finish an invitation task, not just target keyword variations.'],
+          ['Quality updates', 'Weak pages are revised, merged, or removed when audits show they are not useful enough.'],
+        ].map(([title, body]) => (
+          <div>
+            <p class="text-sm font-bold" style="color:white;">{title}</p>
+            <p class="mt-2 text-xs leading-relaxed" style="color:rgba(255,255,255,0.45);">{body}</p>
+          </div>
+        ))}
       </div>
     </div>
 

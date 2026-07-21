@@ -1,0 +1,99 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { EDITORIAL_DATES, EDITORIAL_TEAM, formatEditorialDate } from '../../lib/editorial';
+import { SITE, absoluteUrl } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/seo';
+
+const path = '/editorial-team/';
+const title = `${SITE.name} Editorial Team`;
+const description = `Meet the ${SITE.name} editorial team and learn how we review invitation guides, occasion pages, product help, and quality updates.`;
+const schema = [
+  articleSchema({
+    title,
+    description,
+    path,
+    type: 'WebPage',
+    datePublished: EDITORIAL_DATES.published,
+    dateModified: EDITORIAL_DATES.modified,
+  }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Editorial Team', path },
+  ]),
+];
+---
+
+<Layout title={title} description={description} canonical={absoluteUrl(path)} schema={schema}>
+  <Header />
+
+  <main id="main-content" class="mx-auto max-w-6xl px-6 py-12">
+    <section class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#fff7f0,#eef2ff);border-color:#DDD6FE;">
+      <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#ea580c;">Editorial trust</p>
+      <h1 class="mt-3 text-4xl font-black tracking-tight" style="color:#1A1340;">Meet the team behind our invitation guidance</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed" style="color:#6B63A3;">
+        {EDITORIAL_TEAM.name} reviews the invitation guides, content standards, and user-help pages on {SITE.name} so they stay practical, accurate, and tied to real invitation tasks instead of filler content.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-4 text-sm" style="color:#6B63A3;">
+        <span><strong>Published:</strong> {formatEditorialDate(EDITORIAL_DATES.published)}</span>
+        <span><strong>Last reviewed:</strong> {formatEditorialDate(EDITORIAL_DATES.modified)}</span>
+      </div>
+    </section>
+
+    <section class="mt-10 grid gap-6 md:grid-cols-3" data-scroll>
+      {[
+        ['What we review', 'Invitation wording guides, occasion hubs, comparison pages, product-help routes, and content-quality updates across the site.'],
+        ['What we look for', 'Clear user value, practical next steps, original page purpose, strong internal linking, and accurate descriptions of how the product works.'],
+        ['How we improve pages', 'We revise, expand, merge, or remove weak pages when audits show that they are thin, repetitive, unclear, or not helping visitors complete the job.'],
+      ].map(([heading, body]) => (
+        <article class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+          <h2 class="text-xl font-black tracking-tight" style="color:var(--color-text);">{heading}</h2>
+          <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{body}</p>
+        </article>
+      ))}
+    </section>
+
+    <section class="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr]" data-scroll>
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">How our review process works</h2>
+        <ul class="mt-4 space-y-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          <li>We start with the real user task behind the page, such as wording help, RSVP clarity, template choice, or hosted invite setup.</li>
+          <li>We check whether the page adds unique value beyond a generic invitation summary.</li>
+          <li>We review metadata, internal links, structure, and crawlability so the page is easier for both users and search engines to understand.</li>
+          <li>We update or remove pages that do not meet that standard.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Why this matters for trust</h2>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          Strong E-E-A-T signals are not only about markup. Visitors should be able to see who is responsible for the content, how it is reviewed, where to contact the site, and what standards are used when a page is changed. This page exists to make that visible.
+        </p>
+        <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+          We are a product-led invitation site, so our editorial work is judged by whether it helps someone finish a better invitation, not by whether it pads the site with more generic content.
+        </p>
+      </div>
+    </section>
+
+    <section class="mt-10 rounded-3xl border p-6" data-scroll style="background:var(--color-surface);border-color:var(--color-border);">
+      <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">How to reach us about content quality</h2>
+      <p class="mt-4 text-sm leading-relaxed" style="color:var(--color-text-muted);">
+        If a guide is unclear, a comparison page feels weak, a template route is misleading, or a page no longer reflects how the product works, contact the team and include the page URL. We use those reports to improve the experience and keep low-value content from lingering on the site.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a href="/contact/" class="rounded-full px-5 py-3 text-sm font-bold text-white" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);">
+          Contact the team
+        </a>
+        <a href="/content-standards/" class="rounded-full px-5 py-3 text-sm font-bold" style="background:var(--color-surface-2);color:var(--color-text);border:1px solid var(--color-border);">
+          Read content standards
+        </a>
+        <a href="/about/" class="rounded-full px-5 py-3 text-sm font-bold" style="background:var(--color-surface-2);color:var(--color-text);border:1px solid var(--color-border);">
+          About the product
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
