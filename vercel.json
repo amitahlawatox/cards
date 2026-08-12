@@ -1,5 +1,41 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
+    {
+      "source": "/invitations/wedding/for-kids",
+      "destination": "https://www.bespokecardstudio.com/invitations/wedding/for-kids/",
+      "permanent": true
+    },
+    {
+      "source": "/invitations/:occasion/:modifier((?!for-kids)[^/]+)",
+      "destination": "https://www.bespokecardstudio.com/invitations/:occasion/",
+      "permanent": true
+    },
+    {
+      "source": "/invitations/:occasion/:modifier((?!for-kids)[^/]+)/",
+      "destination": "https://www.bespokecardstudio.com/invitations/:occasion/",
+      "permanent": true
+    },
+    {
+      "source": "/invitations/:occasion((?!wedding)[^/]+)/for-kids",
+      "destination": "https://www.bespokecardstudio.com/invitations/:occasion/",
+      "permanent": true
+    },
+    {
+      "source": "/invitations/:occasion((?!wedding)[^/]+)/for-kids/",
+      "destination": "https://www.bespokecardstudio.com/invitations/:occasion/",
+      "permanent": true
+    },
+    {
+      "source": "/template/:occasion/:template",
+      "destination": "https://www.bespokecardstudio.com/templates/:occasion/",
+      "permanent": true
+    },
+    {
+      "source": "/template/:occasion/:template/",
+      "destination": "https://www.bespokecardstudio.com/templates/:occasion/",
+      "permanent": true
+    },
     {
       "source": "/:path*",
       "has": [
@@ -10,25 +46,23 @@
       ],
       "destination": "https://www.bespokecardstudio.com/:path*",
       "permanent": true
-    },
-    {
-      "source": "/invitations/:occasion/:modifier",
-      "destination": "https://www.bespokecardstudio.com/invitations/:occasion",
-      "permanent": true
-    },
-    {
-      "source": "/template/:occasion/:template",
-      "destination": "https://www.bespokecardstudio.com/templates/:occasion",
-      "permanent": true
     }
   ],
   "headers": [
     {
-      "source": "/(.*)\\.html",
+      "source": "/",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" },
-        { "key": "Pragma", "value": "cache" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self' data: blob: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: blob: https:; connect-src 'self' https:; font-src 'self' data: https:; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https://vitals.vercel-insights.com; font-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; frame-src 'none'; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=()" }
+      ]
+    },
+    {
+      "source": "/:path((?!.*\\.[^/]+$).*)",
+      "headers": [
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https://vitals.vercel-insights.com; font-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; frame-src 'none'; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
@@ -38,13 +72,13 @@
     {
       "source": "/",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" },
-        { "key": "Pragma", "value": "cache" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self' data: blob: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: blob: https:; connect-src 'self' https:; font-src 'self' data: https:; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=()" }
+        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/:path((?!.*\\.[^/]+$).*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" }
       ]
     },
     {

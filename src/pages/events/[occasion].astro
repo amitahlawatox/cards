@@ -56,7 +56,7 @@ const schema = [
     </div>
 
     <section class="py-10" data-scroll>
-      <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Common searches behind this event microsite</h2>
+      <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">What guests need on the event page</h2>
       <div class="mt-5 flex flex-wrap gap-3">
         {growthData.searchTerms.map((term) => (
           <span class="rounded-full border px-4 py-2 text-sm font-semibold" style="background:var(--color-surface);border-color:var(--color-border);color:var(--color-text-muted);">
@@ -81,7 +81,7 @@ const schema = [
 
       <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
         <p class="text-xs font-bold uppercase tracking-[0.22em]" style="color:#ea580c;">Internal linking</p>
-        <h2 class="mt-3 text-2xl font-black tracking-tight" style="color:var(--color-text);">Best next pages for {occasion.name.toLowerCase()} searchers</h2>
+        <h2 class="mt-3 text-2xl font-black tracking-tight" style="color:var(--color-text);">More {occasion.name.toLowerCase()} planning help</h2>
         <div class="mt-5 grid gap-4 md:grid-cols-2">
           {growthData.routeSuggestions.map((link) => (
             <a href={link.href} class="rounded-3xl border p-5 transition-all hover:-translate-y-1" style="background:var(--color-surface-2);border-color:var(--color-border);">

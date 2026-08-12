@@ -61,8 +61,10 @@ const nav = [
 
       <button
         id="mobile-menu-btn"
-        class="rounded-xl p-2.5 transition-all md:hidden"
+        class="flex min-h-11 min-w-11 items-center justify-center rounded-xl p-2.5 transition-all md:hidden"
         aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
         style="color:rgba(255,255,255,0.6);"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -75,7 +77,7 @@ const nav = [
   </div>
 
   <div id="mobile-menu" class="hidden md:hidden" style="background:rgba(12,7,5,0.97);border-top:1px solid rgba(255,255,255,0.06);">
-    <nav class="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
+    <nav class="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4" aria-label="Mobile primary">
       {nav.map((link) => (
         <a href={link.href} class="rounded-xl px-4 py-3 text-sm font-semibold transition-all" style="color:rgba(255,255,255,0.7);">
           {link.label}
@@ -131,8 +133,26 @@ const nav = [
     var menuButton = document.getElementById('mobile-menu-btn');
     var menu = document.getElementById('mobile-menu');
     if (menuButton && menu) {
+      function setMenuOpen(open) {
+        menu.classList.toggle('hidden', !open);
+        menuButton.setAttribute('aria-expanded', String(open));
+        menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        if (open) {
+          var firstLink = menu.querySelector('a');
+          if (firstLink) firstLink.focus();
+        }
+      }
       menuButton.addEventListener('click', function () {
-        menu.classList.toggle('hidden');
+        setMenuOpen(menu.classList.contains('hidden'));
+      });
+      menu.addEventListener('click', function (event) {
+        if (event.target.closest('a')) setMenuOpen(false);
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && !menu.classList.contains('hidden')) {
+          setMenuOpen(false);
+          menuButton.focus();
+        }
       });
     }
   })();

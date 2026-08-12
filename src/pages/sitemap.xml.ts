@@ -16,6 +16,7 @@ const staticPaths = [
   '/about/',
   '/contact/',
   '/content-standards/',
+  '/editorial-team/',
   '/occasions/',
   '/templates/',
   '/invitations/',
@@ -27,6 +28,7 @@ const staticPaths = [
   '/seasonal/',
   '/events/',
   '/indian/',
+  '/invitations/wedding/for-kids/',
 ];
 
 const familyBuilders = [
@@ -35,8 +37,6 @@ const familyBuilders = [
   (slug: string) => `/templates/${slug}/`,
   (slug: string) => `/wording/${slug}/`,
 ];
-
-const buildDate = new Date().toISOString().split('T')[0];
 
 function getMeta(path: string) {
   if (path === '/') return { changefreq: 'daily', priority: '1.0' };
@@ -66,7 +66,7 @@ function buildSitemapXml() {
   const body = urls
     .map((path) => {
       const meta = getMeta(path);
-      return `<url><loc>${absoluteUrl(path)}</loc><lastmod>${buildDate}</lastmod><changefreq>${meta.changefreq}</changefreq><priority>${meta.priority}</priority></url>`;
+      return `<url><loc>${absoluteUrl(path)}</loc><changefreq>${meta.changefreq}</changefreq><priority>${meta.priority}</priority></url>`;
     })
     .join('');
 

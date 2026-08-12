@@ -4,13 +4,13 @@ const CARDS = [
   {
     bg: 'linear-gradient(160deg,#fce7f3,#fdf2f8,#f3e8ff)',
     accent: '#ec4899', textDark: '#831843', textMid: '#9d174d',
-    emoji: '🎂', title: "You're Invited!", sub: 'Join us to celebrate', footer: 'RSVP · June 2025',
+    emoji: '🎂', title: "You're Invited!", sub: 'Join us to celebrate', footer: 'RSVP · Saturday evening',
     rotate: -10, left: '4%', top: '5%',
   },
   {
     bg: 'linear-gradient(135deg,#fdf6e3,#fef9f0,#fffbeb)',
     accent: '#b45309', textDark: '#44403c', textMid: '#78716c',
-    emoji: '💍', title: 'Together Forever', sub: 'Sarah & James', footer: 'July 12, 2025 · 4 PM',
+    emoji: '💍', title: 'Together Forever', sub: 'Sarah & James', footer: '12 July · 4 PM',
     rotate: 7, left: '52%', top: '0%',
   },
   {
@@ -22,7 +22,7 @@ const CARDS = [
   {
     bg: 'linear-gradient(135deg,#1e3a8a,#1e40af)',
     accent: '#93c5fd', textDark: '#eff6ff', textMid: '#bfdbfe',
-    emoji: '🎓', title: 'Class of 2025', sub: 'Graduation Celebration', footer: 'May 20 · 6:00 PM',
+    emoji: '🎓', title: 'Graduation Day', sub: 'Celebrate the Class', footer: '20 May · 6:00 PM',
     rotate: 11, left: '70%', top: '38%',
   },
   {
@@ -77,7 +77,7 @@ export default function HeroSection() {
           {/* ── Text content ── */}
           <motion.div
             variants={container}
-            initial="hidden"
+            initial={false}
             animate="show"
             className="flex-1 text-center lg:text-left max-w-2xl"
           >
@@ -100,7 +100,7 @@ export default function HeroSection() {
               className="font-black leading-[0.88] tracking-tight text-white mb-8"
               style={{ fontSize: 'clamp(3.2rem, 8vw, 5.5rem)' }}
             >
-              Make cards<br />
+              Free invitation<br />
               <span style={{
                 background: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #ec4899 100%)',
                 backgroundSize: '200%',
@@ -109,7 +109,7 @@ export default function HeroSection() {
                 backgroundClip: 'text',
                 animation: 'gradient-x 5s ease infinite',
               }}>
-                worth sharing
+                & card maker
               </span>
             </motion.h1>
 

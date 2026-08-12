@@ -212,7 +212,7 @@ const MAKER_GROWTH_OVERRIDES: Record<string, Omit<OccasionMakerGrowthData, 'titl
       {
         title: 'Thanksgiving seasonal hub',
         href: '/seasonal/thanksgiving-invitations/',
-        description: 'Stay inside the autumn dinner cluster built for Thanksgiving and Friendsgiving search demand.',
+        description: 'Find more Thanksgiving and Friendsgiving ideas for an autumn dinner invitation.',
       },
       {
         title: 'Online card maker',

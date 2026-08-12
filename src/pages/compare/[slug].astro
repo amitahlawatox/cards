@@ -65,7 +65,7 @@ const schema = [
     </section>
 
     <section class="mx-auto py-10" data-scroll>
-      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Common searches behind this comparison</h2>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Questions to ask before you choose</h2>
       <div class="flex flex-wrap gap-3">
         {page.queryFocus.map((query) => (
           <span class="rounded-full border px-4 py-2 text-sm font-semibold" style="background:var(--color-surface);border-color:var(--color-border);color:var(--color-text-muted);">
@@ -100,7 +100,7 @@ const schema = [
     </section>
 
     <section class="mx-auto py-10" data-scroll>
-      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Strong next invitation journeys from this search intent</h2>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Invitation workflows to try next</h2>
       <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {occasions.map((occasion) => (
           <a href={`/make/${occasion.slug}/`} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">
@@ -113,7 +113,7 @@ const schema = [
     </section>
 
     <section class="mx-auto py-10" data-scroll>
-      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Best next pages from this decision stage</h2>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Ready to start making?</h2>
       <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {page.routeSuggestions.map((route) => (
           <a href={route.href} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">

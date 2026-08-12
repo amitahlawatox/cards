@@ -87,7 +87,7 @@ export const MODIFIER_DEFINITIONS: ModifierDefinition[] = [
   { slug: 'editable', label: 'Editable', searchPhrase: 'editable', angle: 'shows how easy it is to personalize names, dates, and details' },
   { slug: 'for-kids', label: 'For Kids', searchPhrase: 'for kids', angle: 'leans into playful, family-friendly styling and wording' },
   { slug: 'for-office', label: 'For Office', searchPhrase: 'for office', angle: 'adapts the invitation for workplace, school, or team use' },
-  { slug: 'indian', label: 'Indian', searchPhrase: 'Indian', angle: 'connects the page to Indian family-event and festive search intent' },
+  { slug: 'indian', label: 'Indian', searchPhrase: 'Indian', angle: 'supports Indian family events and festive invitation traditions' },
   { slug: 'elegant', label: 'Elegant', searchPhrase: 'elegant', angle: 'positions the page for formal and premium visual styles' },
   { slug: 'modern', label: 'Modern', searchPhrase: 'modern', angle: 'highlights clean layouts and contemporary templates' },
   { slug: 'last-minute', label: 'Last Minute', searchPhrase: 'last minute', angle: 'helps users who need a polished invite quickly' },
@@ -132,7 +132,7 @@ export const SEASONAL_HUBS: SeasonalHub[] = [
   {
     slug: 'thanksgiving-invitations',
     title: 'Thanksgiving Invitation Hub',
-    description: 'Thanksgiving and Friendsgiving templates, dinner wording, and autumn gathering ideas for family and hosted-meal traffic.',
+    description: 'Thanksgiving and Friendsgiving templates, dinner wording, and autumn gathering ideas for family meals and hosted celebrations.',
     occasionSlugs: ['thanksgiving', 'anniversary', 'housewarming', 'corporate'],
     highlights: ['friendsgiving templates', 'family dinner wording', 'printable autumn invites'],
   },
@@ -167,7 +167,7 @@ export const SEASONAL_HUBS: SeasonalHub[] = [
   {
     slug: 'christmas-party-invitations',
     title: 'Christmas Party Invitation Hub',
-    description: 'Holiday party templates, family gathering copy, and office event invite ideas for Christmas season traffic.',
+    description: 'Holiday party templates, family gathering copy, and office event invitation ideas for the Christmas season.',
     occasionSlugs: ['christmas', 'corporate', 'kids-party', 'new-year'],
     highlights: ['holiday party schedules', 'office celebration invites', 'printable holiday cards'],
   },
@@ -188,7 +188,7 @@ export const SEASONAL_HUBS: SeasonalHub[] = [
   {
     slug: 'wedding-season-invitations',
     title: 'Wedding Season Invitation Hub',
-    description: 'Wedding, bridal shower, engagement, and elegant event templates grouped for high-intent wedding season searches.',
+    description: 'Wedding, bridal shower, engagement, and elegant event templates grouped for easier wedding-season planning.',
     occasionSlugs: ['wedding', 'bridal-shower', 'engagement', 'anniversary'],
     highlights: ['elegant templates', 'formal RSVP wording', 'bridal and engagement flows'],
   },
@@ -347,7 +347,7 @@ export const PRODUCT_FEATURE_PAGES: ProductFeaturePage[] = [
     slug: 'photo-card-maker',
     title: 'Free Photo Card Maker',
     description: 'Upload a picture, add text, and turn it into a personalized photo invitation or greeting card with download and sharing-ready output.',
-    intro: 'Photo cards are high-intent because users already know the format they want. This landing page connects that demand to the image-upload flow inside the editor.',
+    intro: 'Photo cards are useful when you already know the picture you want to feature. This page connects that idea to the image-upload flow inside the editor.',
     highlights: ['Image upload inside the editor', 'Great for baby showers, birthdays, and graduations', 'Export digital cards and print-ready PDFs'],
     queryFocus: ['free photo card maker', 'photo card maker free', 'online photo invitation maker'],
     occasionSlugs: ['baby-shower', 'birthday', 'graduation', 'anniversary'],
@@ -398,7 +398,7 @@ export const COMPARISON_PAGES: ComparisonPage[] = [
     highlights: [
       'Owns the free-first angle with no-signup editing, printable output, and hosted invite options.',
       'Matches users who want invitations specifically, not a broad design suite with more steps.',
-      'Connects free card-maker demand to high-intent pages for printable, WhatsApp, photo, and RSVP workflows.',
+      'Connects the free card maker to printable, WhatsApp, photo, and RSVP workflows.',
     ],
     queryFocus: ['best free invitation maker', 'free invitation maker', 'best invitation maker online free', 'free card maker online'],
     occasionSlugs: ['birthday', 'wedding', 'baby-shower', 'diwali'],
@@ -417,7 +417,7 @@ export const COMPARISON_PAGES: ComparisonPage[] = [
       },
     ],
     routeSuggestions: [
-      { title: 'Free online card maker', href: '/features/online-card-maker/', description: 'Open the broad free-maker route built around invitation-specific search demand.' },
+      { title: 'Free online card maker', href: '/features/online-card-maker/', description: 'Open the free card maker and choose an invitation-specific workflow.' },
       { title: 'Printable invitation maker', href: '/features/printable-invitation-maker/', description: 'See the download-first route for users who plan to print or export immediately.' },
       { title: 'Hosted RSVP invite pages', href: '/features/rsvp-invitation-pages/', description: 'Compare the event-page flow for invitations that need guest replies.' },
       { title: 'Invitation timing guide', href: '/guides/when-to-send-invitations/', description: 'Support decision-stage users who are still finalizing send dates and RSVP timing.' },
@@ -487,7 +487,7 @@ export const COMPARISON_PAGES: ComparisonPage[] = [
       },
     ],
     routeSuggestions: [
-      { title: 'Hosted RSVP invitation pages', href: '/features/rsvp-invitation-pages/', description: 'Go straight to the hosted-invite product route built for RSVP search intent.' },
+      { title: 'Hosted RSVP invitation pages', href: '/features/rsvp-invitation-pages/', description: 'Go straight to the hosted invitation workflow for collecting guest replies.' },
       { title: 'Wedding event microsite', href: '/events/wedding/', description: 'Use a high-value event page to show richer guest-facing planning and invite flows.' },
       { title: 'Party schedule examples', href: '/guides/party-schedule-examples/', description: 'Support hosted-event users who still need practical schedule wording.' },
       { title: 'When to send invitations', href: '/guides/when-to-send-invitations/', description: 'Help decision-stage users who compare invitation platforms before sending.' },
@@ -524,7 +524,7 @@ export const COMPARISON_PAGES: ComparisonPage[] = [
     routeSuggestions: [
       { title: 'Hosted RSVP invitation pages', href: '/features/rsvp-invitation-pages/', description: 'Open the main product route for hosted invite pages and guest response actions.' },
       { title: 'Venue and address wording', href: '/guides/venue-and-address-wording/', description: 'Improve the location section so guests can find the event without follow-up messages.' },
-      { title: 'Wedding RSVP wording', href: '/guides/wedding-rsvp-wording/', description: 'Use a stronger RSVP copy pattern for formal and high-intent invitation types.' },
+      { title: 'Wedding RSVP wording', href: '/guides/wedding-rsvp-wording/', description: 'Use a clearer RSVP pattern for formal wedding invitations.' },
       { title: 'Corporate event microsite', href: '/events/corporate/', description: 'See how hosted invite pages fit professional and guest-managed event flows.' },
     ],
     ctaPath: '/features/rsvp-invitation-pages/',
@@ -536,9 +536,9 @@ export const COMPARISON_PAGES: ComparisonPage[] = [
     description: 'Printable Diwali invitation templates with festive wording ideas, family-event use cases, and print-ready export paths.',
     intro: 'Diwali is already the strongest early search cluster in current impressions. This page is designed to deepen that signal and match printable, free, online, and family-sharing intent more closely.',
     highlights: [
-      'Supports the current Diwali query cluster already visible in Google Search Console.',
+      'Brings Diwali design, printing, and sharing guidance into one practical workflow.',
       'Combines festive wording, printable output, and WhatsApp follow-up paths for Indian family-event use cases.',
-      'Turns a strong seasonal keyword theme into a fuller template and guide cluster with better internal linking.',
+      'Brings printable designs, wording help, and family-sharing guidance together for Diwali hosts.',
     ],
     queryFocus: ['printable diwali invitations', 'printable Diwali invitation templates', 'Diwali invitation template free', 'Diwali invitation card maker online'],
     occasionSlugs: ['diwali', 'eid', 'housewarming', 'wedding'],
@@ -666,7 +666,7 @@ export function getPhotoOccasionPaths() {
 }
 
 export function getSeasonalHubIntro(hub: SeasonalHub) {
-  return `${hub.description} This hub groups together high-intent occasion pages that should perform well during seasonal spikes.`;
+  return `${hub.description} This hub groups together related occasion pages so planning help is easier to find during the season.`;
 }
 
 export function getGuideExamples(guide: GuidePage) {
@@ -842,7 +842,7 @@ export function getTemplateUseCases(occasion: Occasion, template: CardTemplate) 
   return [
     styleLine,
     `The layout keeps room for names, dates, venue details, and RSVP notes so you can finish the invitation in one editing session.`,
-    `This template supports ${topTags} search intent while still giving you enough flexibility to adapt the message for family, festive, or business guests.`,
+    `This template works well for ${topTags} while still giving you enough flexibility to adapt the message for family, festive, or business guests.`,
   ];
 }
 
@@ -924,7 +924,7 @@ export function getTemplateRouteSuggestions(occasion: Occasion, template: CardTe
       href: `/templates/${occasion.slug}/`,
       description:
         style === 'for-kids'
-          ? `Browse playful ${lowerName} template options that fit family-friendly events without splitting traffic into thin pages.`
+          ? `Browse playful ${lowerName} template options that fit family-friendly events and keep the choices easy to compare.`
           : `Browse the main ${lowerName} template gallery and choose the ${style}-leaning design that best fits your event.`,
     });
   } else if ((FEATURED_EVENT_MICROSITES as readonly string[]).includes(occasion.slug)) {

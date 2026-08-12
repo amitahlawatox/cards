@@ -23,12 +23,56 @@ export function getStaticPaths() {
 }
 
 const { occasion } = Astro.props;
-const faqs = getOccasionFaqs(occasion);
-const wordingExamples = getOccasionWordingExamples(occasion);
+const defaultFaqs = getOccasionFaqs(occasion);
+const defaultWordingExamples = getOccasionWordingExamples(occasion);
 const checklist = getOccasionChecklist(occasion);
 const related = getOccasionRelated(occasion, 4);
-const title = `${occasion.name} Invitation Wording | ${SITE.name}`;
-const description = `Browse ${occasion.name.toLowerCase()} invitation wording examples, guest-ready message ideas, RSVP prompts, and a clear checklist for what to include.`;
+const wordingPilots = {
+  farewell: {
+    title: `Farewell Party Invitation Wording & Message Examples | ${SITE.name}`,
+    description: 'Use warm, funny and workplace-ready farewell invitation wording, with examples for leaving parties, retirement send-offs, RSVP notes and group messages.',
+    heading: 'Farewell Party Invitation Wording Examples',
+    intro: 'A farewell invitation should say who is leaving, why you are gathering and what guests need to do next. Choose a tone that fits the relationship—warm for friends, polished for colleagues or light-hearted for a casual send-off—then add the date, venue and RSVP deadline.',
+    examples: [
+      { title: 'Office leaving party', body: 'Join us to thank [Name] and wish them well in their new role.\n[Date] · [Time] · [Venue]\nPlease RSVP to [Contact] by [Deadline].' },
+      { title: 'Friend moving away', body: 'Before [Name] starts their next adventure, let’s get together for one last celebration.\n[Date] · [Venue]\nCome ready to share a favourite memory.' },
+      { title: 'Virtual team send-off', body: 'You’re invited to a virtual farewell for [Name].\nJoin us on [Platform] at [Time and time zone].\nThe meeting link will be shared after you reply.' },
+      { title: 'Surprise farewell', body: 'Please keep this a surprise: we’re celebrating [Name] before they leave.\nArrive by [Time] at [Venue].\nRSVP privately to [Contact].' },
+    ],
+    faqs: [
+      { question: 'What do you write in a farewell party invitation?', answer: 'Name the person leaving, explain the occasion, and include the date, time, venue and RSVP method. Add a warm or light-hearted line that suits your relationship.' },
+      { question: 'How do you invite colleagues to a leaving party?', answer: 'Use clear, friendly wording and say whether the event is during work hours, after work or online. Include any contribution or card arrangements separately.' },
+      { question: 'Should a farewell invitation mention gifts?', answer: 'Only when guests genuinely need the information. Keep gifts optional and explain any collection clearly without creating pressure.' },
+      { question: 'How far ahead should a farewell invitation be sent?', answer: 'One to three weeks is usually practical for a local gathering. Allow longer when guests need to travel or the event needs catering numbers.' },
+    ],
+  },
+  'kids-party': {
+    title: `Kids’ Party Invitation Wording & Message Examples | ${SITE.name}`,
+    description: 'Copy and adapt kids’ party invitation wording for birthdays, themed parties and play dates, including RSVP, drop-off, allergy and parent-attendance notes.',
+    heading: 'Kids’ Party Invitation Wording Ideas',
+    intro: 'Good children’s party wording is cheerful for the child and clear for the adult reading it. Include the child’s name and age, the party theme, start and finish times, venue, RSVP deadline and whether parents should stay.',
+    examples: [
+      { title: 'Classic birthday party', body: '[Name] is turning [Age]! Join us for games, cake and birthday fun.\n[Date] · [Start time]–[Finish time] · [Venue]\nRSVP by [Deadline].' },
+      { title: 'Drop-off party', body: 'Children can be dropped off at [Start time] and collected at [Finish time]. Please share an emergency contact and any allergy information when you RSVP.' },
+      { title: 'Parents stay', body: 'A parent or carer is welcome to stay throughout the party. Tea and snacks will be available while the children play.' },
+      { title: 'Allergy-aware note', body: 'Please tell us about allergies or dietary needs by [Deadline] so we can plan food and treats safely.' },
+      { title: 'Siblings note', body: 'Space is limited to invited children only. Thank you for helping us plan the activities and food.' },
+    ],
+    faqs: [
+      { question: 'How do I say parents can drop off?', answer: 'State the drop-off and collection times, ask for an emergency contact and make clear which adult will supervise the party.' },
+      { question: 'How do I ask about allergies?', answer: 'Add a short RSVP note asking parents or carers to share allergies and dietary needs by a specific deadline.' },
+      { question: 'Should I include an end time?', answer: 'Yes. A clear finish time helps families plan collection and avoids uncertainty.' },
+      { question: 'How do I say siblings are or are not invited?', answer: 'Be direct and kind. Say either that siblings are welcome with an RSVP, or that space is limited to the named child.' },
+    ],
+  },
+};
+const pilot = wordingPilots[occasion.slug as keyof typeof wordingPilots];
+const title = pilot?.title ?? `${occasion.name} Invitation Wording | ${SITE.name}`;
+const description = pilot?.description ?? `Browse ${occasion.name.toLowerCase()} invitation wording examples, guest-ready message ideas, RSVP prompts, and a clear checklist for what to include.`;
+const heading = pilot?.heading ?? `${occasion.name} invitation wording ideas`;
+const intro = pilot?.intro ?? description;
+const wordingExamples = pilot?.examples ?? defaultWordingExamples;
+const faqs = pilot?.faqs ?? defaultFaqs;
 const schema = [
   articleSchema({
     title,
@@ -62,10 +106,10 @@ const schema = [
       <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#fff7f0,#eef2ff);border-color:#C4B5FD;">
         <p class="text-sm font-bold uppercase tracking-[0.26em]" style="color:#7C3AED;">Wording page</p>
         <h1 class="mt-3 text-4xl font-black tracking-tight sm:text-5xl" style="color:#1A1340;">
-          {occasion.name} invitation wording ideas
+          {heading}
         </h1>
         <p class="mt-4 max-w-3xl text-lg leading-relaxed" style="color:#6B63A3;">
-          {description}
+          {intro}
         </p>
       </div>
     </section>
