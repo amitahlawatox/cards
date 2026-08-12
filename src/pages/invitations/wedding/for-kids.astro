@@ -1,0 +1,125 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import FaqSection from '../../../components/FaqSection.astro';
+import OccasionTemplateGallery from '../../../components/OccasionTemplateGallery.astro';
+import { OCCASIONS } from '../../../lib/occasions';
+import { SITE, absoluteUrl } from '../../../lib/site';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../../../lib/seo';
+
+const wedding = OCCASIONS.find((occasion) => occasion.slug === 'wedding')!;
+const title = `Wedding Invitations for Children | Free Kids’ Templates | ${SITE.name}`;
+const description = 'Create a child-friendly wedding invitation with clear names, timings, dress notes and parent RSVP details. Choose a playful template and edit it free online.';
+const path = '/invitations/wedding/for-kids/';
+const faqs = [
+  {
+    question: 'Should a child receive their own wedding invitation?',
+    answer: 'A separate invitation can make a flower girl, page boy or young guest feel included. Address the child by name, while giving the parent or carer the practical details and RSVP contact.',
+  },
+  {
+    question: 'What details do parents need?',
+    answer: 'Include the ceremony or party time, finish or collection time when relevant, venue, dress notes, meal information, supervision arrangements and an adult RSVP contact.',
+  },
+  {
+    question: 'How do I word an invitation for a flower girl or page boy?',
+    answer: 'Ask the child directly in warm, simple language, name the role, and follow with a separate note for their parent or carer covering timings, clothing and rehearsal details.',
+  },
+  {
+    question: 'Can I share the finished invitation by WhatsApp?',
+    answer: 'Yes. Download the finished card as a high-resolution image, then share it with the child’s parent or carer by WhatsApp, email or another private channel.',
+  },
+];
+const examples = [
+  {
+    title: 'Flower girl invitation',
+    body: 'Mia, will you be our flower girl? We would love you beside us when we get married. Please join us at [Venue] on [Date] at [Time]. Parent or carer: RSVP to [Contact].',
+  },
+  {
+    title: 'Child and family invitation',
+    body: 'Sam and family, please join us for our wedding celebration on [Date] at [Venue]. Children’s meal provided. Please RSVP to [Contact] by [Deadline] and share any allergy information.',
+  },
+  {
+    title: 'Children’s evening celebration',
+    body: 'You’re invited to the children’s wedding party! Please arrive with a parent or carer at [Time] for games, food and dancing. Collection is at [Finish time].',
+  },
+];
+const schema = [
+  articleSchema({ title, description, path }),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Invitations', path: '/invitations/' },
+    { name: 'Wedding', path: '/invitations/wedding/' },
+    { name: 'For children', path },
+  ]),
+  faqSchema(faqs),
+];
+---
+
+<Layout title={title} description={description} canonical={absoluteUrl(path)} schema={schema}>
+  <Header />
+  <main id="main-content">
+    <section class="mx-auto max-w-6xl px-6 py-12">
+      <nav class="mb-6 text-sm text-[var(--color-text-muted)]" aria-label="Breadcrumb">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="hover:text-indigo-600">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/invitations/" class="hover:text-indigo-600">Invitations</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/invitations/wedding/" class="hover:text-indigo-600">Wedding</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="font-medium text-[var(--color-text)]">For children</li>
+        </ol>
+      </nav>
+
+      <div class="rounded-[2rem] border px-8 py-10" style="background:linear-gradient(135deg,#eff6ff,#fdf2f8);border-color:#C4B5FD;">
+        <p class="text-sm font-bold uppercase tracking-[0.24em]" style="color:#7C3AED;">Child-friendly wedding invitations</p>
+        <h1 class="mt-3 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl" style="color:#1A1340;">Wedding Invitations for Children</h1>
+        <p class="mt-4 max-w-3xl text-lg leading-relaxed" style="color:#6B63A3;">
+          A wedding invitation for a child should feel special to them while giving their parent or carer the practical details. Start with a playful design, name the child directly, then add the ceremony time, venue, dress notes and the adult RSVP contact.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/make/wedding/" class="rounded-full px-5 py-3 text-sm font-bold text-white" style="background:linear-gradient(135deg,#4F46E5,#7C3AED);">Create a wedding invitation</a>
+          <a href="/templates/wedding/" class="rounded-full border bg-white px-5 py-3 text-sm font-bold" style="border-color:#C4B5FD;color:#1A1340;">Browse wedding templates</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 py-10" data-scroll>
+      <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Wording examples for young guests</h2>
+      <div class="mt-6 grid gap-5 lg:grid-cols-3">
+        {examples.map((example) => (
+          <article class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+            <h3 class="text-lg font-bold" style="color:var(--color-text);">{example.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">{example.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mx-auto grid max-w-6xl gap-5 px-6 py-10 lg:grid-cols-2" data-scroll>
+      <article class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-xl font-black" style="color:var(--color-text);">For a flower girl or page boy</h2>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">Address the child directly and make the role sound exciting. Give rehearsal times, clothing details and responsibilities to the parent or carer in a separate note so the invitation stays warm and easy to understand.</p>
+      </article>
+      <article class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
+        <h2 class="text-xl font-black" style="color:var(--color-text);">For children attending as guests</h2>
+        <p class="mt-3 text-sm leading-relaxed" style="color:var(--color-text-muted);">Say whether the invitation covers the whole day or the evening celebration, whether a parent should stay, and whether a children’s meal or supervised activity is available. Always give adults a clear RSVP route.</p>
+      </article>
+    </section>
+
+    <OccasionTemplateGallery occasion={wedding} heading="Wedding templates to adapt for children" limit={6} />
+
+    <section class="mx-auto max-w-6xl px-6 py-10" data-scroll>
+      <h2 class="text-2xl font-black tracking-tight" style="color:var(--color-text);">Continue planning the invitation</h2>
+      <div class="mt-5 grid gap-4 md:grid-cols-3">
+        <a href="/wording/wedding/" class="rounded-3xl border p-5" style="background:var(--color-surface);border-color:var(--color-border);"><strong>Wedding wording ideas</strong><span class="mt-2 block text-sm text-[var(--color-text-muted)]">Adapt the main invitation copy for your ceremony and celebration.</span></a>
+        <a href="/guides/wedding-rsvp-wording/" class="rounded-3xl border p-5" style="background:var(--color-surface);border-color:var(--color-border);"><strong>Wedding RSVP wording</strong><span class="mt-2 block text-sm text-[var(--color-text-muted)]">Make the reply method and deadline clear for parents and carers.</span></a>
+        <a href="/invitations/wedding/" class="rounded-3xl border p-5" style="background:var(--color-surface);border-color:var(--color-border);"><strong>All wedding invitation ideas</strong><span class="mt-2 block text-sm text-[var(--color-text-muted)]">Return to the main wedding planning and design guide.</span></a>
+      </div>
+    </section>
+
+    <FaqSection title="Wedding invitations for children FAQ" faqs={faqs} />
+  </main>
+  <Footer />
+</Layout>

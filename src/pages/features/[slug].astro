@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { PHOTO_FOCUSED_OCCASIONS, getOccasionBySlug, getOccasionsBySlugs, getProductFeatureStaticPaths } from '../../lib/content';
+import type { Occasion } from '../../lib/occasions';
 import { SITE, absoluteUrl } from '../../lib/site';
 import { articleSchema, breadcrumbSchema, faqSchema } from '../../lib/seo';
 
@@ -14,7 +15,7 @@ const { feature } = Astro.props;
 const occasions = getOccasionsBySlugs(feature.occasionSlugs);
 const path = `/features/${feature.slug}/`;
 const isPhotoFeature = feature.slug === 'photo-card-maker';
-const photoOccasions = isPhotoFeature ? PHOTO_FOCUSED_OCCASIONS.map((slug) => getOccasionBySlug(slug)).filter(Boolean) : [];
+const photoOccasions = isPhotoFeature ? PHOTO_FOCUSED_OCCASIONS.map((slug) => getOccasionBySlug(slug)).filter((occasion): occasion is Occasion => Boolean(occasion)) : [];
 const bestFitNames = occasions.map((occasion) => occasion.name).join(', ');
 const featureCapabilities: Record<string, Array<{ title: string; description: string }>> = {
   'online-card-maker': [
@@ -67,7 +68,7 @@ const featureFaqs: Record<string, Array<{ question: string; answer: string }>> =
   'rsvp-invitation-pages': [
     { question: 'What can a hosted RSVP page include?', answer: 'A hosted page can carry event timing, venue details, dress code, schedule notes, guest questions, simple contribution prompts, and RSVP actions.' },
     { question: 'Do guests need an account to reply?', answer: 'No. Guests can use the structured RSVP summary and send their response by email, WhatsApp, or manual copy without signing in.' },
-    { question: 'Why keep hosted invite pages out of search?', answer: 'They are designed for sharing after a card is created. Search traffic should land on stronger occasion, feature, and guide pages instead.' },
+    { question: 'Why are hosted invite pages private by default?', answer: 'They may contain personal event details, so they are designed to be shared directly with guests after a card is created.' },
   ],
 };
 const capabilities = featureCapabilities[feature.slug] ?? [];
@@ -110,7 +111,7 @@ const schema = [
     </section>
 
     <section class="mx-auto py-10" data-scroll>
-      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Common searches behind this feature</h2>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">What this feature helps you do</h2>
       <div class="flex flex-wrap gap-3">
         {feature.queryFocus.map((query) => (
           <span class="rounded-full border px-4 py-2 text-sm font-semibold" style="background:var(--color-surface);border-color:var(--color-border);color:var(--color-text-muted);">

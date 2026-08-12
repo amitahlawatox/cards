@@ -31,6 +31,13 @@ const faqs = getOccasionFaqs(occasion);
 const checklist = getOccasionChecklist(occasion);
 const planningTips = getOccasionPlanningTips(occasion);
 const growthData = getOccasionMakerGrowthData(occasion);
+const pageTitle = occasion.slug === 'diwali' ? `Free Diwali Invitation Card Maker | ${SITE.name}` : growthData.title;
+const pageDescription = occasion.slug === 'diwali'
+  ? 'Create a free Diwali invitation card online. Choose a design, add your party details, preview it instantly and download a high-resolution PNG with no sign-up.'
+  : growthData.metaDescription;
+const pageIntro = occasion.slug === 'diwali'
+  ? 'Choose a Diwali design, replace the sample text with your host name, date, venue and RSVP details, then download the finished card for WhatsApp, email or print.'
+  : growthData.intro;
 
 const schema = [
   {
@@ -43,13 +50,13 @@ const schema = [
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   },
   articleSchema({
-    title: growthData.title,
-    description: growthData.metaDescription,
+    title: pageTitle,
+    description: pageDescription,
     path: `/make/${occasion.slug}/`,
   }),
   howToSchema({
     name: `How to make a ${occasion.name.toLowerCase()} invitation`,
-    description: growthData.metaDescription,
+    description: pageDescription,
     path: `/make/${occasion.slug}/`,
     steps: [
       `Choose a ${occasion.name.toLowerCase()} template that matches the event tone.`,
@@ -67,8 +74,8 @@ const schema = [
 ---
 
 <Layout
-  title={growthData.title}
-  description={growthData.metaDescription}
+  title={pageTitle}
+  description={pageDescription}
   canonical={absoluteUrl(`/make/${occasion.slug}/`)}
   schema={schema}
 >
@@ -92,7 +99,7 @@ const schema = [
           <h1 class="text-3xl font-black sm:text-4xl">Free {occasion.name} Invitation Maker</h1>
         </div>
         <p class="max-w-2xl text-[var(--color-text-muted)]">
-          {growthData.intro}
+          {pageIntro}
         </p>
       </div>
 
@@ -139,7 +146,7 @@ const schema = [
 
     <section class="mt-10" data-scroll>
       <div class="rounded-3xl border p-6" style="background:var(--color-surface);border-color:var(--color-border);">
-        <h2 class="text-xl font-black" style="color:var(--color-text);">Common searches behind this invitation maker</h2>
+        <h2 class="text-xl font-black" style="color:var(--color-text);">What you can create</h2>
         <div class="mt-4 flex flex-wrap gap-2">
           {growthData.searchTerms.map((term) => (
             <span class="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5 text-xs font-semibold text-[var(--color-text-muted)]">
@@ -151,7 +158,7 @@ const schema = [
     </section>
 
     <section class="mt-10" data-scroll>
-      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">Best next pages after you start this invite</h2>
+      <h2 class="mb-5 text-2xl font-black tracking-tight" style="color:var(--color-text);">More ideas for your invitation</h2>
       <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {growthData.routeSuggestions.map((route) => (
           <a href={route.href} class="rounded-3xl border p-6 transition-all hover:-translate-y-1" style="background:var(--color-surface);border-color:var(--color-border);">

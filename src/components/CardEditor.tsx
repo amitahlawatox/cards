@@ -247,7 +247,7 @@ export default function CardEditor({ templates, occasionName }: Props) {
                 type="text"
                 value={date}
                 onChange={e => setDate(e.target.value)}
-                placeholder="e.g. March 15, 2025"
+                placeholder="e.g. 15 March"
                 style={inputStyle}
                 onFocus={focusBorder}
                 onBlur={blurBorder}

@@ -36,11 +36,6 @@ export function websiteSchema() {
     '@type': 'WebSite',
     name: SITE.name,
     url: SITE.domain,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${SITE.domain}/occasions/`,
-      'query-input': 'required name=occasion',
-    },
   };
 }
 
